@@ -1,0 +1,46 @@
+# Gradle
+.gradle/
+build/
+**/build/
+
+# Android Studio / IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Local configuration
+local.properties
+*.local
+
+# Signing and release artifacts
+*.jks
+*.keystore
+*.p12
+*.pem
+*.apk
+*.aab
+*.ap_
+
+# Generated Android files
+captures/
+.cxx/
+externalNativeBuild/
+
+# Kotlin / Java
+*.class
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+tmp/
+temp/
+
+# Operating-system metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Do not ignore Gradle wrapper files.

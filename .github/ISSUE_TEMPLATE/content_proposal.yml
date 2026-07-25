@@ -1,0 +1,62 @@
+name: Educational content proposal
+description: Propose a story, question, or activity.
+title: "[Content]: "
+labels:
+  - content
+body:
+  - type: markdown
+    attributes:
+      value: Content should invite open-ended philosophical inquiry and follow docs/CONTENT_GUIDE.md.
+  - type: input
+    id: target_age
+    attributes:
+      label: Target age
+      placeholder: Example: 8-10
+    validations:
+      required: true
+  - type: input
+    id: theme
+    attributes:
+      label: Philosophical theme
+      placeholder: Example: truth and lying
+    validations:
+      required: true
+  - type: textarea
+    id: premise
+    attributes:
+      label: Story premise
+      description: Summarize the situation in a few sentences.
+    validations:
+      required: true
+  - type: textarea
+    id: central_question
+    attributes:
+      label: Central open question
+      description: What question should the child think about?
+    validations:
+      required: true
+  - type: textarea
+    id: viewpoints
+    attributes:
+      label: Alternative viewpoints
+      description: List two or more reasonable viewpoints the story can surface.
+    validations:
+      required: true
+  - type: textarea
+    id: examples
+    attributes:
+      label: Possible examples or counterexamples
+    validations:
+      required: true
+  - type: textarea
+    id: cultural_safety
+    attributes:
+      label: Cultural or safety concerns
+      description: Note stereotypes, sensitive disclosure risks, ideological concerns, or age-suitability issues.
+    validations:
+      required: true
+  - type: textarea
+    id: persian_sample
+    attributes:
+      label: Persian sample text
+      description: Include sample Persian dialogue or questions if available.

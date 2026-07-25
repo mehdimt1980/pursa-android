@@ -1,0 +1,47 @@
+name: Bug report
+description: Report a problem in Pursa.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for helping improve پرسا | Pursa.
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the problem clearly.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open ...
+        2. Tap ...
+        3. See ...
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device and Android version
+      placeholder: Example: Pixel 7, Android 15
+  - type: textarea
+    id: rtl_accessibility
+    attributes:
+      label: RTL or accessibility impact
+      description: Mention any Persian, RTL, readability, touch target, or accessibility issue.
+  - type: textarea
+    id: privacy
+    attributes:
+      label: Privacy or child-safety concern
+      description: Mention any privacy or child-safety concern related to this bug.

@@ -1,0 +1,46 @@
+name: Feature request
+description: Suggest a product or technical improvement.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: Please keep suggestions aligned with the offline-first, privacy-preserving MVP.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or opportunity
+      description: What need does this address?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What should change?
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Product
+        - Android architecture
+        - UI and design system
+        - Accessibility
+        - RTL and Persian localization
+        - Privacy
+        - Documentation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: textarea
+    id: risks
+    attributes:
+      label: Privacy, safety, accessibility, or RTL considerations
