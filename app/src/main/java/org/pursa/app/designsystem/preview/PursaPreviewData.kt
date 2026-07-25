@@ -1,0 +1,27 @@
+package org.pursa.app.designsystem.preview
+
+object PursaPreviewData {
+    const val appName = "پرسش کوچک"
+    const val earlyStage = "نمونه پیش‌نمایش"
+    const val tagline = "یک فکر تازه"
+    const val body = "اینجا با قصه‌ها فکر می‌کنیم، دلیل می‌آوریم و سؤال‌های تازه می‌سازیم."
+    const val mixedText = "پرسش | Pursa 0.1.0"
+    const val primaryAction = "ادامه دادن"
+    const val secondaryAction = "دیدن راهنما"
+    const val tertiaryAction = "بعدا"
+    const val loadingAction = "در حال آماده‌سازی"
+    const val cardTitle = "راستی یعنی چه؟"
+    const val cardText = "یک موقعیت کوتاه برای فکر کردن درباره حقیقت و اعتماد."
+    const val topicLabel = "دوستی"
+    const val ageLabel = "۸ تا ۱۲ سال"
+    const val choiceLabel = "می‌خواهم دلیل بیاورم"
+    const val progressLabel = "پیشرفت مأموریت"
+    const val messageTitle = "یک فکر آرام"
+    const val messageText = "هر پاسخی می‌تواند با یک دلیل تازه بهتر شود."
+    const val successTitle = "خوب پیش رفتی"
+    const val warningTitle = "کمی مکث کنیم"
+    const val errorTitle = "دوباره امتحان کنیم"
+    const val emptyTitle = "هنوز چیزی اینجا نیست"
+    const val topBarTitle = "نمونه طراحی"
+    const val backDescription = "بازگشت"
+}

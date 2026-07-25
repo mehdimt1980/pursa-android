@@ -8,7 +8,14 @@ import org.pursa.app.ui.welcome.WelcomeScreen
 
 @Composable
 fun PursaRoot() {
-    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+    PursaRtlRoot {
         WelcomeScreen(onPrimaryAction = {})
+    }
+}
+
+@Composable
+fun PursaRtlRoot(content: @Composable () -> Unit) {
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+        content()
     }
 }

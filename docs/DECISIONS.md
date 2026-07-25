@@ -141,3 +141,63 @@ Context: Phase 2 needs repeatable validation for the Android scaffold without re
 Decision: Use GitHub Actions with one Ubuntu job, Java 17 through `actions/setup-java`, and `gradle/actions/setup-gradle` for Gradle cache configuration, wrapper validation, and build summaries. The required checks are Android lint, local unit tests, and debug APK assembly. The workflow uploads temporary debug APK and CI report artifacts.
 
 Consequences: Pull requests get early feedback on lint, unit tests, and compilation. Instrumentation tests, release signing, publishing, dependency review, and emulator-based validation remain deferred.
+
+## ADR-015: Semantic Compose Design Tokens
+
+Status: Accepted
+
+Context: Phase 3 needs a reusable design foundation without introducing feature architecture or third-party UI dependencies.
+
+Decision: Use Material 3 theme roles for color, typography, and shapes, plus Pursa-specific semantic colors for product concepts such as curiosity, discovery, reflection, success, and warning.
+
+Consequences: Components refer to semantic meaning instead of raw palette names. The palette can evolve without rewriting feature screens.
+
+## ADR-016: Platform Font Fallback for Initial Typography
+
+Status: Accepted
+
+Context: Pursa needs readable Persian typography without adding licensing risk or asset complexity.
+
+Decision: Use Android platform-safe font fallback and tune Material typography roles for Persian line height and readable sizes.
+
+Consequences: No custom font is bundled or downloaded in the initial design system. A future font decision must include license review.
+
+## ADR-017: Light Theme Only and Dynamic Color Disabled
+
+Status: Accepted
+
+Context: The MVP needs a deterministic visual identity and a small design surface.
+
+Decision: Implement only the light Pursa theme for now and keep dynamic color disabled.
+
+Consequences: Dark theme and system-derived color are deferred until the product has enough surfaces for proper QA.
+
+## ADR-018: Centralized Spacing Through CompositionLocal
+
+Status: Accepted
+
+Context: Compose components need consistent spacing, touch targets, and content width guidance without scattering dimensions through screens.
+
+Decision: Provide spacing and size tokens through CompositionLocal-backed Pursa theme accessors.
+
+Consequences: Screens and components can share a restrained scale while still allowing local one-off values where truly component-specific.
+
+## ADR-019: Reusable Components Before Feature Screens
+
+Status: Accepted
+
+Context: Pursa will later add stories, worlds, reflection, settings, and progress surfaces.
+
+Decision: Build reusable buttons, cards, chips, progress, message, and top-bar components before expanding feature screens.
+
+Consequences: Phase 4 screens can compose existing components instead of inventing local UI patterns.
+
+## ADR-020: No Third-Party UI Library
+
+Status: Accepted
+
+Context: The design system should stay small, auditable, offline-friendly, and aligned with the existing Compose Material 3 stack.
+
+Decision: Do not add third-party UI libraries for the initial design system.
+
+Consequences: The project avoids extra dependency surface and keeps UI behavior within official Compose and Material 3 APIs.

@@ -78,6 +78,8 @@ Exit criteria:
 - Core UI components are reusable.
 - Accessibility and RTL requirements are documented in code review.
 
+Status: Implemented as a foundational Compose Material 3 design system with semantic tokens, centralized spacing and sizes, reusable buttons, cards, chips, progress indicators, messages, a top bar, RTL previews, a preview-only showcase, and welcome screen migration. Phase 4 navigation and additional screens remain incomplete.
+
 ## Phase 4: Navigation and Foundational Screens
 
 Objective: Build the first navigable app shell.
