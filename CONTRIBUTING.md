@@ -50,7 +50,15 @@ Pull requests should explain:
 
 ## Testing Expectations
 
-When implementation exists, contributors should run relevant tests such as unit tests, lint, and build verification. Do not claim tests passed unless they were actually run.
+For Android code changes, contributors should run:
+
+```bash
+./gradlew :app:lintDebug :app:testDebugUnitTest :app:assembleDebug
+```
+
+Continuous integration verifies these same checks for pushes and pull requests involving `main`. Instrumentation tests should be run when an emulator or device is available, but they are not required by the Phase 2 CI workflow.
+
+Do not claim tests passed unless they were actually run.
 
 ## Accessibility Checks
 

@@ -23,9 +23,7 @@ Use feature-oriented packages with clear UI, domain, and data responsibilities. 
 When the Android project exists, expected verification may include:
 
 ```bash
-./gradlew test
-./gradlew lint
-./gradlew assembleDebug
+./gradlew :app:lintDebug :app:testDebugUnitTest :app:assembleDebug
 ./gradlew connectedDebugAndroidTest
 ```
 

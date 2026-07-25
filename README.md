@@ -8,6 +8,12 @@ Pursa is a free and open-source, offline-first Android app for helping Iranian c
 
 Pursa is in early implementation. The repository now contains an initial Android scaffold, but no production app, signed release build, or public download exists yet.
 
+## Continuous Integration
+
+Pushes to `main` and pull requests targeting `main` run Android lint, local unit tests, and a debug build through GitHub Actions. Successful runs upload a temporary debug APK artifact for development review.
+
+The debug APK artifact is an internal development build, not a stable public release. Instrumentation tests are not executed in CI yet because no emulator is configured in Phase 2.
+
 ## Core Principles
 
 - Completely free for users.
@@ -72,6 +78,15 @@ pursa-android/
 ├── app/
 │   ├── build.gradle.kts
 │   └── src/
+├── .github/
+│   ├── workflows/
+│   │   └── android-ci.yml
+│   ├── pull_request_template.md
+│   └── ISSUE_TEMPLATE/
+│       ├── bug_report.yml
+│       ├── feature_request.yml
+│       ├── content_proposal.yml
+│       └── config.yml
 ├── docs/
 │   ├── PRODUCT.md
 │   ├── ARCHITECTURE.md
@@ -80,13 +95,6 @@ pursa-android/
 │   ├── PRIVACY.md
 │   ├── ROADMAP.md
 │   └── DECISIONS.md
-└── .github/
-    ├── pull_request_template.md
-    └── ISSUE_TEMPLATE/
-        ├── bug_report.yml
-        ├── feature_request.yml
-        ├── content_proposal.yml
-        └── config.yml
 ```
 
 ## Contribution Entry Points

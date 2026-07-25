@@ -131,3 +131,13 @@ Context: Phase 1 needs a stable native Android scaffold using Compose, Gradle Ko
 Decision: Use Android Gradle Plugin 9.2.0, Gradle 9.4.1, Kotlin 2.3.21, the Kotlin Compose compiler plugin, Compose BOM 2026.06.00, compileSdk 36, targetSdk 36, and minSdk 26.
 
 Consequences: The scaffold follows the current stable Android 16 toolchain direction. Local verification requires an installed Android SDK platform 36 and dependency resolution access.
+
+## ADR-014: Initial GitHub Actions CI
+
+Status: Accepted
+
+Context: Phase 2 needs repeatable validation for the Android scaffold without release signing, publishing, or emulator infrastructure.
+
+Decision: Use GitHub Actions with one Ubuntu job, Java 17 through `actions/setup-java`, and `gradle/actions/setup-gradle` for Gradle cache configuration, wrapper validation, and build summaries. The required checks are Android lint, local unit tests, and debug APK assembly. The workflow uploads temporary debug APK and CI report artifacts.
+
+Consequences: Pull requests get early feedback on lint, unit tests, and compilation. Instrumentation tests, release signing, publishing, dependency review, and emulator-based validation remain deferred.

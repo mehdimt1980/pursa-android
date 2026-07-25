@@ -59,6 +59,8 @@ Exit criteria:
 - CI runs on pull requests.
 - Build and test results are visible in GitHub.
 
+Status: Workflow implemented in the repository. It runs lint, local unit tests, and debug assembly on pushes to `main`, pull requests targeting `main`, and manual dispatch. Local parser-backed YAML validation was not available in the current environment; successful execution on GitHub is not yet confirmed until the workflow runs remotely.
+
 ## Phase 3: Design System
 
 Objective: Establish reusable visual and interaction foundations.
