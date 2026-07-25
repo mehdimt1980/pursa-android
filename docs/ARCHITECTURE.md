@@ -1,10 +1,10 @@
 # Architecture
 
-This document describes the planned architecture for `پرسا | Pursa`. It does not define implementation code.
+This document describes the architecture direction for `پرسا | Pursa`. Phase 1 now includes a minimal Android scaffold; later app features remain planned.
 
 ## Initial Module Strategy
 
-The MVP should use a single Android app module. Premature multi-module architecture is not allowed.
+The MVP uses a single Android app module named `app`. Premature multi-module architecture is not allowed.
 
 Future modularization may be considered only after real complexity appears, such as independent content tooling, reusable design-system libraries, or clearly separated feature ownership.
 
@@ -14,6 +14,7 @@ Future modularization may be considered only after real complexity appears, such
 - Jetpack Compose
 - Material 3
 - Gradle Kotlin DSL
+- Gradle version catalog
 - MVVM
 - StateFlow
 - Navigation Compose
@@ -25,6 +26,8 @@ Future modularization may be considered only after real complexity appears, such
 - GitHub Actions
 
 Application ID: `org.pursa.app`
+
+The Phase 1 scaffold includes only a launchable Compose root, a Persian RTL welcome screen, a minimal `Application` class, unit test source, and Compose UI test source. It intentionally does not include navigation, Room, DataStore, Hilt, Media3, backend access, analytics, or story content.
 
 ## Package Direction
 

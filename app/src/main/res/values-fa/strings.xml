@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">پرسا</string>
+    <string name="welcome_tagline">دنیای سؤال‌های بزرگ</string>
+    <string name="welcome_description">اینجا قرار است با قصه‌ها فکر کنیم، دلیل بیاوریم و سؤال‌های تازه بسازیم.</string>
+    <string name="welcome_primary_action">شروع ماجرا</string>
+    <string name="welcome_early_stage_label">نسخه‌ی آزمایشی</string>
+</resources>

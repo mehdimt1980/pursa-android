@@ -121,3 +121,13 @@ Context: The project needs a permissive open-source license suitable for collabo
 Decision: License source code under Apache License 2.0.
 
 Consequences: Contributors should ensure new source files and assets are compatible with Apache-2.0 or have clearly documented licenses.
+
+## ADR-013: Initial Android Build Toolchain
+
+Status: Accepted
+
+Context: Phase 1 needs a stable native Android scaffold using Compose, Gradle Kotlin DSL, and a version catalog.
+
+Decision: Use Android Gradle Plugin 9.2.0, Gradle 9.4.1, Kotlin 2.3.21, the Kotlin Compose compiler plugin, Compose BOM 2026.06.00, compileSdk 36, targetSdk 36, and minSdk 26.
+
+Consequences: The scaffold follows the current stable Android 16 toolchain direction. Local verification requires an installed Android SDK platform 36 and dependency resolution access.

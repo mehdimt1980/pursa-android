@@ -38,8 +38,10 @@ Main deliverables:
 Exit criteria:
 
 - Project opens in Android Studio.
-- Debug build can be assembled.
+- Debug build can be assembled when the Android SDK and Gradle dependencies are available.
 - No prohibited services are added.
+
+Status: Implemented as an initial scaffold with a single Compose activity, Persian RTL welcome screen, local unit test source, and Compose UI test source. Build verification depends on the local Android SDK and dependency resolution environment.
 
 ## Phase 2: CI and Build Verification
 

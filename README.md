@@ -6,7 +6,7 @@ Pursa is a free and open-source, offline-first Android app for helping Iranian c
 
 ## Project Status
 
-Pursa is in early planning. No production app exists yet, and there is currently no APK, release build, or download.
+Pursa is in early implementation. The repository now contains an initial Android scaffold, but no production app, signed release build, or public download exists yet.
 
 ## Core Principles
 
@@ -42,6 +42,7 @@ The planned stack is:
 - Jetpack Compose
 - Material 3
 - Gradle Kotlin DSL
+- Gradle version catalog
 - MVVM
 - StateFlow
 - Navigation Compose
@@ -63,6 +64,14 @@ pursa-android/
 ├── CODE_OF_CONDUCT.md
 ├── LICENSE
 ├── .gitignore
+├── settings.gradle.kts
+├── build.gradle.kts
+├── gradle.properties
+├── gradle/
+│   └── libs.versions.toml
+├── app/
+│   ├── build.gradle.kts
+│   └── src/
 ├── docs/
 │   ├── PRODUCT.md
 │   ├── ARCHITECTURE.md
