@@ -115,7 +115,7 @@ private fun HomeWorldList(
                 title = stringResource(world.titleResId),
                 supportingText = stringResource(world.summaryResId),
                 onClick = { onWorldClick(world.id) },
-                accentColor = world.accentColor(),
+                accentColor = world.accent.accentColor(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .testTag(world.testTag),
