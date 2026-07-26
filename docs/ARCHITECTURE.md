@@ -27,11 +27,13 @@ Future modularization may be considered only after real complexity appears, such
 
 Application ID: `org.pursa.app`
 
-The current app includes a launchable Compose root, a Persian RTL welcome screen, Home, three foundational world entry points, World Detail, a minimal `Application` class, unit test source, and Compose UI test source. It intentionally does not include Room, DataStore, Hilt, Media3, backend access, analytics, settings, profiles, progress, or story content.
+The current app includes a launchable Compose root, a Persian RTL welcome screen, Home, three foundational world entry points, World Detail, one offline JSON-authored Truth mission, a minimal `Application` class, unit test source, and Compose UI test source. It intentionally does not include Room, DataStore, Hilt, Media3, backend access, analytics, settings, profiles, or persistent progress.
 
 ## Package Direction
 
 Use a feature-oriented package structure. The current app keeps navigation in `org.pursa.app.navigation`, reusable UI in `org.pursa.app.designsystem`, and the first feature surfaces in `org.pursa.app.feature.home` and `org.pursa.app.feature.world`.
+
+Phase 5 adds `org.pursa.app.content` for platform-neutral story models, local asset parsing, validation, repository access, and temporary story-session state. Mission list UI lives in `org.pursa.app.feature.missions`; fixed-order story rendering lives in `org.pursa.app.feature.story`.
 
 Each feature should keep responsibilities clear:
 
@@ -47,11 +49,27 @@ Screens should render immutable UI state from ViewModels. User events should flo
 
 Core story content should be bundled with the app and usable without network access. Authored stories should be represented as JSON assets so educational content can be reviewed separately from UI code.
 
+The Phase 5 asset structure is manifest-indexed:
+
+```text
+app/src/main/assets/content/
+├── schema/story.schema.json
+└── fa/
+    ├── manifest.json
+    └── stories/truth/truth_broken_vase.json
+```
+
+The manifest lists story IDs, world IDs, and asset paths. The repository reads the manifest rather than scanning assets, parses JSON with strict `kotlinx.serialization` settings, validates content through `StoryContentValidator`, and exposes structured `StoryContentResult` values: success, not found, invalid content, or read failure.
+
+Story steps are represented as a sealed model with exactly these supported types: `narrative`, `single_choice`, `reason_prompt`, `perspective`, `counterexample`, and `reflection`. Phase 5 stories advance in fixed authored order; branching, scripting, scoring, correct answers, downloads, and remote actions are out of scope.
+
 ## Local Storage
 
 Room should store structured local user progress and journal entries. DataStore should store lightweight preferences such as display options or completed onboarding flags.
 
 The MVP should not sync data to a backend.
+
+Phase 5 does not persist mission completion or answers. `StorySessionReducer` keeps deterministic temporary state for the active story screen: current step, selected option IDs keyed by step ID, continuation eligibility, completion, and progress.
 
 ## Repository Interfaces
 
@@ -68,7 +86,7 @@ Planned test coverage should include:
 - RTL, accessibility, and navigation checks.
 - CI verification through GitHub Actions.
 
-Current Phase 4 coverage includes unit tests for stable world IDs, world lookup, starter-question counts, and route construction, plus Compose UI tests for the initial Welcome destination, Welcome-to-Home navigation, Home world cards, World Detail navigation, back behavior, and an invalid world route fallback.
+Current coverage includes unit tests for stable world IDs, route construction, JSON parsing, content validation, repository behavior, and story-session transitions, plus Compose UI tests for Welcome/Home/World Detail navigation and the first Truth mission flow.
 
 ## Future Modularization
 

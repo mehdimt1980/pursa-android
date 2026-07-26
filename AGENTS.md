@@ -48,6 +48,11 @@ Only report these commands as successful if they were actually run and completed
 - Keep content data separate from UI logic.
 - Do not include copyrighted media unless permission and license details are documented.
 - Never include real children's personal data.
+- Authored story text belongs in reviewed assets, not Kotlin or Android string resources.
+- Reusable runtime UI labels belong in Android string resources.
+- Story IDs, step IDs, and option IDs must be stable lowercase ASCII.
+- New stories must be registered in the local manifest, pass runtime validation, and include tests.
+- Story content must not include correct-answer fields, scores, points, rewards, badges, profiles, or ranking.
 
 ## Reporting Requirements
 

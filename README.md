@@ -6,13 +6,19 @@ Pursa is a free and open-source, offline-first Android app for helping Iranian c
 
 ## Project Status
 
-Pursa is in early implementation. The repository now contains an initial Android scaffold with a Persian RTL welcome flow, home screen, and three foundational content-world entry points. No production app, signed release build, or public download exists yet.
+Pursa is in early implementation. The repository now contains an initial Android scaffold with a Persian RTL welcome flow, home screen, three foundational content-world entry points, and one offline JSON-authored Truth mission. No production app, signed release build, or public download exists yet.
 
 ## Continuous Integration
 
 Pushes to `main` and pull requests targeting `main` run Android lint, local unit tests, and a debug build through GitHub Actions. Successful runs upload a temporary debug APK artifact for development review.
 
 The debug APK artifact is an internal development build, not a stable public release. Instrumentation tests are not executed in CI yet because no emulator is configured in Phase 2.
+
+## Offline Story Content
+
+The development build includes a first local story-content engine. Authored Persian story content is stored as JSON assets under `app/src/main/assets/content/fa/`, indexed by a manifest, parsed with `kotlinx.serialization`, validated before use, and rendered through fixed-order story steps. The first complete sample mission is `truth_broken_vase` in the Truth world.
+
+Mission interaction state is temporary and in memory while the story screen is open. There is no persistent progress, journal, Room, DataStore, account, backend, network content, scoring, or correct-answer system yet. Justice and Friendship worlds do not yet contain authored missions.
 
 ## Core Principles
 
@@ -79,12 +85,16 @@ pursa-android/
 │   ├── build.gradle.kts
 │   └── src/
 │       └── main/java/org/pursa/app/
+│           ├── content/
 │           ├── designsystem/
 │           ├── feature/
 │           │   ├── home/
+│           │   ├── missions/
+│           │   ├── story/
 │           │   └── world/
 │           ├── navigation/
 │           └── ui/
+│       └── main/assets/content/
 ├── .github/
 │   ├── workflows/
 │   │   └── android-ci.yml

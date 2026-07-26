@@ -11,5 +11,7 @@ class PursaSanityTest {
         assertTrue(PursaTestTags.WelcomePrimaryAction.startsWith("pursa:"))
         assertTrue(PursaTestTags.HomeScreenRoot.startsWith("pursa:"))
         assertTrue(PursaTestTags.WorldDetailRoot.startsWith("pursa:"))
+        assertTrue(PursaTestTags.StoryScreenRoot.startsWith("pursa:"))
+        assertTrue(PursaTestTags.storyOption("step", "option").startsWith("pursa:"))
     }
 }

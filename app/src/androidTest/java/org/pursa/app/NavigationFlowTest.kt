@@ -3,6 +3,7 @@ package org.pursa.app
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.assertDoesNotExist
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -11,6 +12,8 @@ import androidx.compose.ui.test.performClick
 import androidx.navigation.compose.rememberNavController
 import org.junit.Rule
 import org.junit.Test
+import org.pursa.app.content.data.AssetStoryDataSource
+import org.pursa.app.content.data.LocalStoryContentRepository
 import org.pursa.app.core.ui.PursaTestTags
 import org.pursa.app.designsystem.theme.PursaTheme
 import org.pursa.app.navigation.PursaDestination
@@ -111,11 +114,18 @@ private fun InvalidWorldRouteContent() {
 
     PursaTheme {
         PursaRtlRoot {
+            val context = LocalContext.current
+            val repository = remember(context.applicationContext) {
+                LocalStoryContentRepository(
+                    dataSource = AssetStoryDataSource(context.applicationContext.assets),
+                )
+            }
             val navController = rememberNavController()
             LaunchedEffect(Unit) {
                 navController.navigate(startDestination)
             }
             PursaNavGraph(
+                storyRepository = repository,
                 navController = navController,
                 startDestination = PursaDestination.Home.route,
             )

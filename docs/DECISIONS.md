@@ -211,3 +211,53 @@ Context: Phase 4 needs a small navigable shell while keeping the MVP single-modu
 Decision: Use official AndroidX Navigation Compose with one root `NavHost` and one root `NavController`. Routes are centralized as `welcome`, `home`, and `world/{worldId}`. The initial world IDs are `truth`, `justice`, and `friendship`.
 
 Consequences: Feature screens receive immutable display data and callbacks instead of owning navigation controllers. Welcome is removed from the back stack when the user enters Home. Settings, progress, profiles, and story navigation remain deferred until their phases.
+
+## ADR-022: Manifest-Indexed JSON Story Assets
+
+Status: Accepted
+
+Context: Phase 5 needs reviewed offline stories without hard-coding authored text in Kotlin.
+
+Decision: Store authored Persian story text as one JSON file per story under `app/src/main/assets/content/fa/`, indexed by a local manifest. Runtime UI labels remain Android string resources.
+
+Consequences: New stories require manifest registration, validation, and tests. The repository reads known entries rather than scanning assets unpredictably.
+
+## ADR-023: kotlinx.serialization for Local JSON Parsing
+
+Status: Accepted
+
+Context: The story engine needs stable local JSON parsing compatible with the Kotlin toolchain.
+
+Decision: Use the official Kotlin serialization plugin and `kotlinx-serialization-json` for local asset parsing with strict unknown-key handling.
+
+Consequences: Malformed or structurally invalid authored content returns structured failures. No Gson, Moshi, Jackson, networking, or remote content layer is introduced.
+
+## ADR-024: Fixed-Order Sealed Story Steps
+
+Status: Accepted
+
+Context: The first mission should support philosophical interaction without branching or scripting complexity.
+
+Decision: Represent story steps as a sealed hierarchy supporting exactly `narrative`, `single_choice`, `reason_prompt`, `perspective`, `counterexample`, and `reflection`, rendered in authored order.
+
+Consequences: The UI can use exhaustive handling and avoid unsafe casts. Branching, conditional jumps, scripts, scoring, and correct-answer feedback are deferred and not part of Phase 5.
+
+## ADR-025: Runtime Validation Before Exposure
+
+Status: Accepted
+
+Context: Content files are authored separately from code and must fail safely.
+
+Decision: Validate parsed stories before exposing them as playable missions. Validation checks IDs, world IDs, age ranges, required text, option counts, uniqueness, and completion reflection.
+
+Consequences: Invalid content is not shown as a normal mission. Direct navigation to invalid or missing story IDs shows calm UI errors rather than stack traces.
+
+## ADR-026: Temporary In-Memory Story Sessions
+
+Status: Accepted
+
+Context: Phase 5 needs interactive story state but must not start persistence, profiles, journals, or child-authored text.
+
+Decision: Keep current step, selected option IDs, continuation eligibility, completion, and progress in deterministic in-memory state while the story screen is open.
+
+Consequences: Completion and answers are not saved after the screen/process is gone. Room, DataStore, persistent progress, and journals remain future work.

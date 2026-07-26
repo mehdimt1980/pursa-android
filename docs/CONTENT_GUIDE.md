@@ -63,6 +63,43 @@ Authored story JSON should:
 - Avoid embedding presentation-only layout decisions.
 - Include review metadata such as theme, target age, and safety notes.
 
+## Phase 5 Story JSON Format
+
+Persian authored content lives under `app/src/main/assets/content/fa/`. Each story uses one lowercase ASCII filename, one stable lowercase ASCII story ID, and one JSON file. Every production story must be registered in `content/fa/manifest.json`; the app does not scan folders for unregistered stories.
+
+The authoring schema is documented at:
+
+```text
+app/src/main/assets/content/schema/story.schema.json
+```
+
+Required top-level fields are `schemaVersion`, `id`, `worldId`, `title`, `summary`, `recommendedMinAge`, `recommendedMaxAge`, `estimatedDurationMinutes`, `themes`, `introduction`, ordered `steps`, and `completion`.
+
+Supported Phase 5 step types are exactly:
+
+- `narrative`: story text with optional title and required body.
+- `single_choice`: one question and two to four options.
+- `reason_prompt`: one question and authored reason categories.
+- `perspective`: a speaker label, viewpoint, follow-up question, and two reflective responses.
+- `counterexample`: a changed situation, question, and three neutral choices.
+- `reflection`: a final comparison question and two to four valid reflection choices.
+
+Do not add correct answers, scores, points, rewards, badges, ranks, psychological profiles, or hidden scoring fields. All choices must be valid. Changing one’s mind must not be treated as better than keeping one’s view.
+
+## Phase 5 Review Checklist
+
+Before registering a story:
+
+- confirm all IDs are stable lowercase ASCII;
+- confirm Persian text is natural, age-appropriate, and RTL-safe;
+- confirm the story has a genuine philosophical tension;
+- confirm it includes reasons, another viewpoint, a counterexample, and reflection;
+- confirm no personal disclosure is requested;
+- confirm no adult is framed as unquestionably correct;
+- confirm no shame, fear, threats, or harsh punishment are used;
+- confirm the manifest entry points to an existing file;
+- run or update parser, validation, repository, state, and UI tests.
+
 ## Sample Persian Question Patterns
 
 ```text

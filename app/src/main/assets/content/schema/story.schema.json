@@ -1,0 +1,439 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pursa.org/schema/story.schema.json",
+  "title": "Pursa Phase 5 Story",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "worldId",
+    "title",
+    "summary",
+    "recommendedMinAge",
+    "recommendedMaxAge",
+    "estimatedDurationMinutes",
+    "themes",
+    "introduction",
+    "steps",
+    "completion"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "id": {
+      "$ref": "#/$defs/stableId"
+    },
+    "worldId": {
+      "enum": [
+        "truth",
+        "justice",
+        "friendship"
+      ]
+    },
+    "title": {
+      "$ref": "#/$defs/nonEmptyText"
+    },
+    "summary": {
+      "$ref": "#/$defs/nonEmptyText"
+    },
+    "recommendedMinAge": {
+      "type": "integer",
+      "minimum": 6,
+      "maximum": 18
+    },
+    "recommendedMaxAge": {
+      "type": "integer",
+      "minimum": 6,
+      "maximum": 18
+    },
+    "estimatedDurationMinutes": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "themes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/stableId"
+      },
+      "uniqueItems": true
+    },
+    "introduction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "body"
+      ],
+      "properties": {
+        "title": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "body": {
+          "$ref": "#/$defs/nonEmptyText"
+        }
+      }
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/step"
+      }
+    },
+    "completion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "reflection"
+      ],
+      "properties": {
+        "title": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "reflection": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "familyPrompt": {
+          "$ref": "#/$defs/nonEmptyText"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "stableId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "nonEmptyText": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "option": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "label"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/stableId"
+        },
+        "label": {
+          "$ref": "#/$defs/nonEmptyText"
+        }
+      },
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "correct"
+            ]
+          },
+          {
+            "required": [
+              "score"
+            ]
+          },
+          {
+            "required": [
+              "points"
+            ]
+          }
+        ]
+      }
+    },
+    "step": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/narrativeStep"
+        },
+        {
+          "$ref": "#/$defs/singleChoiceStep"
+        },
+        {
+          "$ref": "#/$defs/reasonPromptStep"
+        },
+        {
+          "$ref": "#/$defs/perspectiveStep"
+        },
+        {
+          "$ref": "#/$defs/counterexampleStep"
+        },
+        {
+          "$ref": "#/$defs/reflectionStep"
+        }
+      ]
+    },
+    "baseStep": {
+      "type": "object",
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/stableId"
+        }
+      },
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "correctAnswer"
+            ]
+          },
+          {
+            "required": [
+              "score"
+            ]
+          },
+          {
+            "required": [
+              "points"
+            ]
+          },
+          {
+            "required": [
+              "reward"
+            ]
+          },
+          {
+            "required": [
+              "profile"
+            ]
+          }
+        ]
+      }
+    },
+    "narrativeStep": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/baseStep"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "id",
+            "body"
+          ],
+          "properties": {
+            "type": {
+              "const": "narrative"
+            },
+            "id": {
+              "$ref": "#/$defs/stableId"
+            },
+            "title": {
+              "$ref": "#/$defs/nonEmptyText"
+            },
+            "body": {
+              "$ref": "#/$defs/nonEmptyText"
+            }
+          }
+        }
+      ]
+    },
+    "singleChoiceStep": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/baseStep"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "id",
+            "question",
+            "options"
+          ],
+          "properties": {
+            "type": {
+              "const": "single_choice"
+            },
+            "id": {
+              "$ref": "#/$defs/stableId"
+            },
+            "question": {
+              "$ref": "#/$defs/nonEmptyText"
+            },
+            "options": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 4,
+              "items": {
+                "$ref": "#/$defs/option"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "reasonPromptStep": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/baseStep"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "id",
+            "question",
+            "reasons"
+          ],
+          "properties": {
+            "type": {
+              "const": "reason_prompt"
+            },
+            "id": {
+              "$ref": "#/$defs/stableId"
+            },
+            "question": {
+              "$ref": "#/$defs/nonEmptyText"
+            },
+            "reasons": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "$ref": "#/$defs/option"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "perspectiveStep": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/baseStep"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "id",
+            "speakerLabel",
+            "viewpoint",
+            "question",
+            "responses"
+          ],
+          "properties": {
+            "type": {
+              "const": "perspective"
+            },
+            "id": {
+              "$ref": "#/$defs/stableId"
+            },
+            "speakerLabel": {
+              "$ref": "#/$defs/nonEmptyText"
+            },
+            "viewpoint": {
+              "$ref": "#/$defs/nonEmptyText"
+            },
+            "question": {
+              "$ref": "#/$defs/nonEmptyText"
+            },
+            "responses": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "$ref": "#/$defs/option"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "counterexampleStep": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/baseStep"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "id",
+            "scenario",
+            "question",
+            "choices"
+          ],
+          "properties": {
+            "type": {
+              "const": "counterexample"
+            },
+            "id": {
+              "$ref": "#/$defs/stableId"
+            },
+            "title": {
+              "$ref": "#/$defs/nonEmptyText"
+            },
+            "scenario": {
+              "$ref": "#/$defs/nonEmptyText"
+            },
+            "question": {
+              "$ref": "#/$defs/nonEmptyText"
+            },
+            "choices": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 3,
+              "items": {
+                "$ref": "#/$defs/option"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "reflectionStep": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/baseStep"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "id",
+            "question",
+            "choices"
+          ],
+          "properties": {
+            "type": {
+              "const": "reflection"
+            },
+            "id": {
+              "$ref": "#/$defs/stableId"
+            },
+            "question": {
+              "$ref": "#/$defs/nonEmptyText"
+            },
+            "choices": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 4,
+              "items": {
+                "$ref": "#/$defs/option"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

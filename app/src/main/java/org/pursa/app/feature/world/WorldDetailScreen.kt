@@ -32,11 +32,16 @@ import org.pursa.app.designsystem.theme.PursaTheme
 import org.pursa.app.feature.home.PursaWorld
 import org.pursa.app.feature.home.PursaWorldAccent
 import org.pursa.app.feature.home.PursaWorlds
+import org.pursa.app.feature.missions.MissionListScreen
+import org.pursa.app.feature.missions.MissionListUiState
 
 @Composable
 fun WorldDetailScreen(
     world: PursaWorld,
+    missionListState: MissionListUiState,
     onBackClick: () -> Unit,
+    onMissionClick: (String) -> Unit,
+    onRetryMissions: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Surface(
@@ -76,6 +81,12 @@ fun WorldDetailScreen(
                 )
 
                 WorldQuestions(world = world)
+
+                MissionListScreen(
+                    state = missionListState,
+                    onMissionClick = onMissionClick,
+                    onRetry = onRetryMissions,
+                )
 
                 PursaMessage(
                     title = stringResource(R.string.world_detail_info_title),
@@ -155,7 +166,10 @@ private fun WorldDetailScreenPreview() {
     PursaTheme {
         WorldDetailScreen(
             world = PursaWorlds.all.first(),
+            missionListState = MissionListUiState.Success(emptyList()),
             onBackClick = {},
+            onMissionClick = {},
+            onRetryMissions = {},
         )
     }
 }

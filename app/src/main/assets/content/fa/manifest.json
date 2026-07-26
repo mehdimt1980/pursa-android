@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "locale": "fa",
+  "stories": [
+    {
+      "id": "truth_broken_vase",
+      "worldId": "truth",
+      "assetPath": "content/fa/stories/truth/truth_broken_vase.json"
+    }
+  ]
+}

@@ -35,6 +35,24 @@
     <string name="world_detail_questions_heading">سؤال‌هایی برای شروع</string>
     <string name="world_detail_info_title">برای گفت‌وگو</string>
     <string name="world_detail_info_message">این سؤال‌ها تمرین فکر کردن هستند، نه امتحان. می‌توانی چند جواب داشته باشی و بعد دلیل‌ها را مقایسه کنی.</string>
+    <string name="missions_heading">قصه‌ها و مأموریت‌ها</string>
+    <string name="missions_loading">در حال آماده کردن قصه…</string>
+    <string name="missions_empty_title">قصه‌ها بعداً اضافه می‌شوند</string>
+    <string name="missions_empty_message">قصه‌های این جهان در مراحل بعدی اضافه می‌شوند.</string>
+    <string name="mission_age_duration">%1$d تا %2$d سال · حدود %3$d دقیقه</string>
+    <string name="story_loading">در حال آماده کردن قصه…</string>
+    <string name="story_not_found_title">این قصه پیدا نشد</string>
+    <string name="story_not_found_message">این مسیر به یک قصه‌ی شناخته‌شده وصل نیست.</string>
+    <string name="story_invalid_title">محتوای این قصه کامل نیست</string>
+    <string name="story_invalid_message">این قصه فعلاً آماده‌ی اجرا نیست. می‌توانی به جهان قصه برگردی.</string>
+    <string name="story_read_failure_title">قصه آماده نشد</string>
+    <string name="story_read_failure_message">خواندن قصه از حافظه‌ی برنامه ممکن نشد.</string>
+    <string name="story_retry">دوباره تلاش کن</string>
+    <string name="story_continue">ادامه</string>
+    <string name="story_previous">مرحله‌ی قبل</string>
+    <string name="story_return_to_world">بازگشت به جهان راستی</string>
+    <string name="story_progress_label">مرحله‌ی %1$d از %2$d</string>
+    <string name="story_selected_option">انتخاب شده</string>
     <string name="world_not_found_title">جهان پیدا نشد</string>
     <string name="world_not_found_message">این مسیر هنوز به یک جهان شناخته‌شده وصل نیست. به خانه برگرد و یکی از جهان‌های پرسا را انتخاب کن.</string>
 </resources>
