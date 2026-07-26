@@ -201,3 +201,13 @@ Context: The design system should stay small, auditable, offline-friendly, and a
 Decision: Do not add third-party UI libraries for the initial design system.
 
 Consequences: The project avoids extra dependency surface and keeps UI behavior within official Compose and Material 3 APIs.
+
+## ADR-021: Navigation Compose for the App Shell
+
+Status: Accepted
+
+Context: Phase 4 needs a small navigable shell while keeping the MVP single-module and offline-first.
+
+Decision: Use official AndroidX Navigation Compose with one root `NavHost` and one root `NavController`. Routes are centralized as `welcome`, `home`, and `world/{worldId}`. The initial world IDs are `truth`, `justice`, and `friendship`.
+
+Consequences: Feature screens receive immutable display data and callbacks instead of owning navigation controllers. Welcome is removed from the back stack when the user enters Home. Settings, progress, profiles, and story navigation remain deferred until their phases.

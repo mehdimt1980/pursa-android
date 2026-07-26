@@ -6,7 +6,7 @@ Pursa is a free and open-source, offline-first Android app for helping Iranian c
 
 ## Project Status
 
-Pursa is in early implementation. The repository now contains an initial Android scaffold, but no production app, signed release build, or public download exists yet.
+Pursa is in early implementation. The repository now contains an initial Android scaffold with a Persian RTL welcome flow, home screen, and three foundational content-world entry points. No production app, signed release build, or public download exists yet.
 
 ## Continuous Integration
 
@@ -40,7 +40,7 @@ The app must not teach philosophy as memorization of philosophers, schools, date
 
 ## Technology Direction
 
-The planned Android application ID is `org.pursa.app`.
+The Android application ID is `org.pursa.app`.
 
 The planned stack is:
 
@@ -78,6 +78,13 @@ pursa-android/
 ├── app/
 │   ├── build.gradle.kts
 │   └── src/
+│       └── main/java/org/pursa/app/
+│           ├── designsystem/
+│           ├── feature/
+│           │   ├── home/
+│           │   └── world/
+│           ├── navigation/
+│           └── ui/
 ├── .github/
 │   ├── workflows/
 │   │   └── android-ci.yml

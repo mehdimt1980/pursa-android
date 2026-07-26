@@ -73,11 +73,11 @@ Shapes are soft and approachable without turning every element into a pill.
 Implemented reusable components:
 
 - `PursaButton`: primary, secondary, tertiary, enabled, disabled, loading, optional leading icon, full-width option.
-- `PursaCard`: clickable and non-clickable content cards with leading/trailing slots.
+- `PursaCard`: clickable and non-clickable content cards with leading/trailing slots and an optional semantic accent strip.
 - `PursaLabelChip` and `PursaSelectableChip`: label and selectable chips with accessible touch targets.
 - `PursaLinearProgress` and `PursaStepIndicator`: non-competitive progress displays with safe value coercion.
 - `PursaMessage`: inline info, success, warning, error, and empty-state messages.
-- `PursaTopBar`: simple top bar with optional navigation action and action slot.
+- `PursaTopBar`: simple top bar with optional navigation action, testable navigation affordance, and action slot.
 
 ## Accessibility Rules
 
@@ -100,4 +100,4 @@ Do not use color as the only indicator of selection, warning, error, success, or
 
 ## Intentionally Out of Scope
 
-This phase does not include Navigation Compose, story models, JSON content, Room, DataStore, Hilt, Media3, audio, networking, AI, Firebase, custom fonts, dark theme, dynamic color, screenshot tests, release signing, or production illustration assets.
+The current foundation does not include story models, JSON content, Room, DataStore, Hilt, Media3, audio, networking, AI, Firebase, custom fonts, dark theme, dynamic color, screenshot tests, release signing, or production illustration assets.

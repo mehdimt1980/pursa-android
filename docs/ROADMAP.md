@@ -78,7 +78,7 @@ Exit criteria:
 - Core UI components are reusable.
 - Accessibility and RTL requirements are documented in code review.
 
-Status: Implemented as a foundational Compose Material 3 design system with semantic tokens, centralized spacing and sizes, reusable buttons, cards, chips, progress indicators, messages, a top bar, RTL previews, a preview-only showcase, and welcome screen migration. Phase 4 navigation and additional screens remain incomplete.
+Status: Implemented as a foundational Compose Material 3 design system with semantic tokens, centralized spacing and sizes, reusable buttons, cards, chips, progress indicators, messages, a top bar, RTL previews, a preview-only showcase, and welcome screen migration.
 
 ## Phase 4: Navigation and Foundational Screens
 
@@ -88,14 +88,15 @@ Main deliverables:
 
 - Home screen.
 - World selection.
-- Settings.
-- About/privacy screen.
 - Navigation Compose setup.
+- World detail foundation.
 
 Exit criteria:
 
 - Users can navigate core screens.
 - Screens work in RTL.
+
+Status: Implemented as the first navigable app shell: Welcome starts the app, Continue opens Home and removes Welcome from the back stack, Home lists the three MVP worlds, and each world can open a foundational detail screen with starter questions. Settings, profile, progress, story playback, and about/privacy screens remain deferred.
 
 ## Phase 5: Story Engine
 

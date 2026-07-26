@@ -1,6 +1,6 @@
 # Architecture
 
-This document describes the architecture direction for `پرسا | Pursa`. Phase 1 now includes a minimal Android scaffold; later app features remain planned.
+This document describes the architecture direction for `پرسا | Pursa`. The current scaffold includes a minimal Android app, a reusable Compose design system, and the first Navigation Compose shell.
 
 ## Initial Module Strategy
 
@@ -27,11 +27,11 @@ Future modularization may be considered only after real complexity appears, such
 
 Application ID: `org.pursa.app`
 
-The Phase 1 scaffold includes only a launchable Compose root, a Persian RTL welcome screen, a minimal `Application` class, unit test source, and Compose UI test source. It intentionally does not include navigation, Room, DataStore, Hilt, Media3, backend access, analytics, or story content.
+The current app includes a launchable Compose root, a Persian RTL welcome screen, Home, three foundational world entry points, World Detail, a minimal `Application` class, unit test source, and Compose UI test source. It intentionally does not include Room, DataStore, Hilt, Media3, backend access, analytics, settings, profiles, progress, or story content.
 
 ## Package Direction
 
-Use a feature-oriented package structure. A future project might group code by product areas such as stories, reflection, progress, settings, and design system.
+Use a feature-oriented package structure. The current app keeps navigation in `org.pursa.app.navigation`, reusable UI in `org.pursa.app.designsystem`, and the first feature surfaces in `org.pursa.app.feature.home` and `org.pursa.app.feature.world`.
 
 Each feature should keep responsibilities clear:
 
@@ -67,6 +67,8 @@ Planned test coverage should include:
 - Compose UI tests for critical screens.
 - RTL, accessibility, and navigation checks.
 - CI verification through GitHub Actions.
+
+Current Phase 4 coverage includes unit tests for stable world IDs, world lookup, starter-question counts, and route construction, plus Compose UI tests for the initial Welcome destination, Welcome-to-Home navigation, Home world cards, World Detail navigation, back behavior, and an invalid world route fallback.
 
 ## Future Modularization
 

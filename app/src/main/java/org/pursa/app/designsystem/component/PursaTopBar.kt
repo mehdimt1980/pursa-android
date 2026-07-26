@@ -26,6 +26,7 @@ fun PursaTopBar(
     title: String,
     modifier: Modifier = Modifier,
     navigationContentDescription: String? = null,
+    navigationModifier: Modifier = Modifier,
     onNavigationClick: (() -> Unit)? = null,
     actions: (@Composable () -> Unit)? = null,
 ) {
@@ -44,7 +45,7 @@ fun PursaTopBar(
             if (onNavigationClick != null && navigationContentDescription != null) {
                 TextButton(
                     onClick = onNavigationClick,
-                    modifier = Modifier
+                    modifier = navigationModifier
                         .sizeIn(
                             minWidth = PursaTheme.sizes.minimumTouchTarget,
                             minHeight = PursaTheme.sizes.minimumTouchTarget,

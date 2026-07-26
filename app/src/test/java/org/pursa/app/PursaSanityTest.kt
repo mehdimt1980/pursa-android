@@ -9,5 +9,7 @@ class PursaSanityTest {
     fun welcomeTestTagsUseStableProjectNamespace() {
         assertTrue(PursaTestTags.WelcomeScreenRoot.startsWith("pursa:"))
         assertTrue(PursaTestTags.WelcomePrimaryAction.startsWith("pursa:"))
+        assertTrue(PursaTestTags.HomeScreenRoot.startsWith("pursa:"))
+        assertTrue(PursaTestTags.WorldDetailRoot.startsWith("pursa:"))
     }
 }
