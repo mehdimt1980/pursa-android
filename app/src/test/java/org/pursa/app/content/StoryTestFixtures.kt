@@ -26,7 +26,7 @@ fun readProjectFile(
         userDir.parent?.resolve(rootRelativePath),
     ).filterNotNull()
     val path = candidates.first { Files.exists(it) }
-    return Files.readString(path)
+    return String(Files.readAllBytes(path), Charsets.UTF_8)
 }
 
 class FakeStoryDataSource(

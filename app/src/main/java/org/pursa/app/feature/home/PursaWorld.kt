@@ -5,9 +5,9 @@ import org.pursa.app.R
 
 data class PursaWorld(
     val id: String,
-    @StringRes val titleResId: Int,
-    @StringRes val summaryResId: Int,
-    @StringRes val detailResId: Int,
+    @param:StringRes val titleResId: Int,
+    @param:StringRes val summaryResId: Int,
+    @param:StringRes val detailResId: Int,
     val accent: PursaWorldAccent,
     val sampleQuestionResIds: List<Int>,
 )
