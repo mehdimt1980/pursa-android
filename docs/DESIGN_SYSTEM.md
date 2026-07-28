@@ -112,7 +112,7 @@ Implemented palette:
 - Canvas warm `#FAF1E4`, canvas secondary `#FFF8EE`, reading surface `#FFFDF8`.
 - Ink strong `#302D38`, ink default `#4B4654`, ink muted `#726C79`.
 - Truth teal `#168C8C`, container `#CDEFEA`, soft `#EAF8F6`.
-- Justice amber `#D9951F`, container `#FFF0C7`, soft `#FFF8E7`.
+- Justice ochre `#9A6618`, container `#FFF0C7`, soft `#FFF8E7`.
 - Friendship coral `#D86D66`, container `#FFE0DB`, soft `#FFF1EE`.
 - Success `#378A58`, warning `#9A6618`, info `#3E73A8`, error `#B94B4B`.
 
