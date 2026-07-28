@@ -6,7 +6,7 @@ Pursa is a free and open-source, offline-first Android app for helping Iranian c
 
 ## Project Status
 
-Pursa is in early implementation. The repository now contains an initial Android scaffold with a Persian RTL welcome flow, home screen, three foundational content-world entry points, four offline JSON-authored Truth missions, and four offline JSON-authored Justice missions. No production app, signed release build, or public download exists yet.
+Pursa is in early implementation. The repository now contains an initial Android scaffold with a Persian RTL welcome flow, home screen, three populated content-world entry points, four offline JSON-authored Truth missions, four offline JSON-authored Justice missions, and four offline JSON-authored Friendship missions. No production app, signed release build, or public download exists yet.
 
 ## Continuous Integration
 
@@ -16,9 +16,9 @@ The debug APK artifact is an internal development build, not a stable public rel
 
 ## Offline Story Content
 
-The development build includes a local story-content engine. Authored Persian story content is stored as JSON assets under `app/src/main/assets/content/fa/`, indexed by a manifest, parsed with `kotlinx.serialization`, validated before use, and rendered through fixed-order story steps. The Truth world currently contains four offline missions: `truth_broken_vase`, `truth_group_photo`, `truth_strange_news`, and `truth_friend_secret`. The Justice world currently contains four offline missions: `justice_last_cake`, `justice_class_representative`, `justice_playground_rule`, and `justice_team_prize`.
+The development build includes a local story-content engine. Authored Persian story content is stored as JSON assets under `app/src/main/assets/content/fa/`, indexed by a manifest, parsed with `kotlinx.serialization`, validated before use, and rendered through fixed-order story steps. The development build currently includes twelve offline Persian missions: four Truth missions (`truth_broken_vase`, `truth_group_photo`, `truth_strange_news`, `truth_friend_secret`), four Justice missions (`justice_last_cake`, `justice_class_representative`, `justice_playground_rule`, `justice_team_prize`), and four Friendship missions (`friendship_new_friend`, `friendship_difficult_promise`, `friendship_whose_side`, `friendship_game_without_them`).
 
-Mission progress is stored locally with Room so in-progress sessions can resume, selected option IDs can be restored, completed missions can be replayed, and all local progress can be cleared from the Data & Privacy screen. The database stores stable story, step, and option IDs only; it does not store child names, profiles, free-text answers, authored Persian story text, scores, analytics, or cloud-sync identifiers. DataStore is not used yet because Phase 7 introduced no genuine small preference. Friendship does not yet contain authored missions.
+Mission progress is stored locally with Room so in-progress sessions can resume, selected option IDs can be restored, completed missions can be replayed, and all local progress can be cleared from the Data & Privacy screen. The database stores stable story, step, and option IDs only; it does not store child names, profiles, free-text answers, authored Persian story text, scores, analytics, or cloud-sync identifiers. DataStore is not used yet because Phase 7 introduced no genuine small preference. The app remains account-free, backend-free, cloud-sync-free, and analytics-free.
 
 ## Core Principles
 

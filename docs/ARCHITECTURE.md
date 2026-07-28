@@ -27,7 +27,7 @@ Future modularization may be considered only after real complexity appears, such
 
 Application ID: `org.pursa.app`
 
-The current app includes a launchable Compose root, a Persian RTL welcome screen, Home, three foundational world entry points, World Detail, four offline JSON-authored Truth missions, local mission-progress persistence, a Settings/Data & Privacy screen, a minimal `Application` class, unit test source, and Compose UI test source. It intentionally does not include DataStore, Hilt, Media3, backend access, analytics, profiles, journal storage, or free-text progress.
+The current app includes a launchable Compose root, a Persian RTL welcome screen, Home, three populated world entry points, World Detail, twelve offline JSON-authored missions across Truth, Justice, and Friendship, local mission-progress persistence, a Settings/Data & Privacy screen, a minimal `Application` class, unit test source, and Compose UI test source. It intentionally does not include DataStore, Hilt, Media3, backend access, analytics, profiles, journal storage, or free-text progress.
 
 ## Package Direction
 
@@ -56,12 +56,15 @@ app/src/main/assets/content/
 ├── schema/story.schema.json
 └── fa/
     ├── manifest.json
-    └── stories/truth/truth_broken_vase.json
+    └── stories/
+        ├── truth/
+        ├── justice/
+        └── friendship/
 ```
 
 The manifest lists story IDs, world IDs, and asset paths. The repository reads the manifest rather than scanning assets, parses JSON with strict `kotlinx.serialization` settings, validates content through `StoryContentValidator`, and exposes structured `StoryContentResult` values: success, not found, invalid content, or read failure.
 
-Phase 6 expands the Truth directory to four registered missions: `truth_broken_vase.json`, `truth_group_photo.json`, `truth_strange_news.json`, and `truth_friend_secret.json`. Manifest order is the display order for mission lists, so content authors can define a pedagogical sequence. The repository also validates duplicate story IDs and duplicate asset paths before exposing mission summaries.
+The production manifest currently registers four Truth missions, four Justice missions, and four Friendship missions. Manifest order is the display order for mission lists, so content authors can define a pedagogical sequence. The repository also validates duplicate story IDs and duplicate asset paths before exposing mission summaries.
 
 Story steps are represented as a sealed model with exactly these supported types: `narrative`, `single_choice`, `reason_prompt`, `perspective`, `counterexample`, and `reflection`. Phase 5 stories advance in fixed authored order; branching, scripting, scoring, correct answers, downloads, and remote actions are out of scope.
 

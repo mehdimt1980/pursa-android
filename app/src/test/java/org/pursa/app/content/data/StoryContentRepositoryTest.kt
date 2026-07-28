@@ -5,6 +5,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.pursa.app.content.FakeStoryDataSource
+import org.pursa.app.content.productionFriendshipStoryIds
 import org.pursa.app.content.productionJusticeStoryIds
 import org.pursa.app.content.productionStoryIds
 import org.pursa.app.content.productionStoryAssets
@@ -38,11 +39,11 @@ class StoryContentRepositoryTest {
     }
 
     @Test
-    fun filteringByFriendshipReturnsNoMissions() = runBlocking {
+    fun filteringByFriendshipReturnsProductionMissions() = runBlocking {
         val result = repository().loadStoriesByWorld("friendship")
 
         assertTrue(result is StoryContentResult.Success)
-        assertTrue((result as StoryContentResult.Success).value.isEmpty())
+        assertEquals(productionFriendshipStoryIds, (result as StoryContentResult.Success).value.map { it.id })
     }
 
     @Test

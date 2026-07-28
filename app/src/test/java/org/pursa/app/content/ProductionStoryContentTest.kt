@@ -20,10 +20,11 @@ class ProductionStoryContentTest {
     private val manifest = productionManifest()
 
     @Test
-    fun manifestContainsExactlyEightStoriesInPedagogicalOrder() {
+    fun manifestContainsExactlyTwelveStoriesInPedagogicalOrder() {
         assertEquals(productionStoryIds, manifest.stories.map { it.id })
         assertEquals(productionTruthStoryIds, manifest.stories.filter { it.worldId == "truth" }.map { it.id })
         assertEquals(productionJusticeStoryIds, manifest.stories.filter { it.worldId == "justice" }.map { it.id })
+        assertEquals(productionFriendshipStoryIds, manifest.stories.filter { it.worldId == "friendship" }.map { it.id })
         assertEquals(manifest.stories.size, manifest.stories.map { it.id }.toSet().size)
         assertEquals(manifest.stories.size, manifest.stories.map { it.assetPath }.toSet().size)
     }
@@ -50,7 +51,7 @@ class ProductionStoryContentTest {
 
         assertEquals(4, grouped["truth"]?.size)
         assertEquals(4, grouped["justice"]?.size)
-        assertTrue(grouped["friendship"].orEmpty().isEmpty())
+        assertEquals(4, grouped["friendship"]?.size)
     }
 
     @Test
@@ -74,7 +75,7 @@ class ProductionStoryContentTest {
             assertTrue(story.estimatedDurationMinutes > 0)
             assertTrue(story.recommendedMinAge in 6..18)
             assertTrue(story.recommendedMaxAge in story.recommendedMinAge..18)
-            assertTrue(story.worldId in setOf("truth", "justice"))
+            assertTrue(story.worldId in setOf("truth", "justice", "friendship"))
             assertEquals(story.steps.size, story.steps.map { it.id }.toSet().size)
 
             story.steps.forEach { step ->
@@ -87,7 +88,17 @@ class ProductionStoryContentTest {
 
     @Test
     fun productionStoryJsonDoesNotContainScoringOrProfilingFields() {
-        val forbiddenFieldNames = listOf("correct", "correctAnswer", "score", "points", "reward", "rank", "profile")
+        val forbiddenFieldNames = listOf(
+            "correct",
+            "correctAnswer",
+            "score",
+            "points",
+            "reward",
+            "rank",
+            "streak",
+            "profile",
+            "personalityResult",
+        )
 
         manifest.stories.forEach { entry ->
             val rawJson = productionStoryJson(entry.assetPath)
@@ -95,6 +106,23 @@ class ProductionStoryContentTest {
                 assertTrue("${entry.id} must not contain field $field", "\"$field\"" !in rawJson)
             }
         }
+    }
+
+    @Test
+    fun everyFriendshipMissionSatisfiesRequiredStructure() {
+        parsedStories()
+            .filter { (_, story) -> story.worldId == "friendship" }
+            .forEach { (entry, story) ->
+                assertTrue(entry.id in productionFriendshipStoryIds)
+                assertTrue(story.steps.any { it is PursaStoryStep.Narrative })
+                assertTrue(story.steps.any { it is PursaStoryStep.ReasonPrompt })
+                assertTrue(story.steps.any { it is PursaStoryStep.Perspective })
+                assertTrue(story.steps.any { it is PursaStoryStep.Counterexample })
+                assertTrue(story.steps.any { it is PursaStoryStep.Reflection })
+                assertTrue(story.steps.any { it.selectableOptions().isNotEmpty() })
+                assertTrue(story.completion.reflection.isNotBlank())
+                assertEquals("friendship", story.worldId)
+            }
     }
 
     private fun parsedStories(): List<Pair<ContentManifestStory, PursaStory>> =

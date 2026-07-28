@@ -22,7 +22,14 @@ val productionJusticeStoryIds = listOf(
     "justice_team_prize",
 )
 
-val productionStoryIds = productionTruthStoryIds + productionJusticeStoryIds
+val productionFriendshipStoryIds = listOf(
+    "friendship_new_friend",
+    "friendship_difficult_promise",
+    "friendship_whose_side",
+    "friendship_game_without_them",
+)
+
+val productionStoryIds = productionTruthStoryIds + productionJusticeStoryIds + productionFriendshipStoryIds
 
 fun sampleStoryJson(): String = readProjectFile(
     "app/src/main/assets/content/fa/stories/truth/truth_broken_vase.json",

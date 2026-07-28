@@ -451,3 +451,63 @@ Context: The existing fixed-order story engine already supports the needed Justi
 Decision: Author all Phase 8 Justice missions with the existing six step types.
 
 Consequences: No branching, scoring, free text, custom rule-debate type, or Justice-specific production rendering is introduced.
+
+## ADR-046: Four-Mission Friendship World Scope
+
+Status: Accepted
+
+Context: Phase 9 completes the third initial philosophical content world.
+
+Decision: Ship exactly four Friendship missions for this phase: new friend, difficult promise, whose side, and game without them.
+
+Consequences: The initial content set now contains twelve manifest-registered stories across Truth, Justice, and Friendship without adding journal, media, account, backend, or release features.
+
+## ADR-047: Friendship Pedagogical Order
+
+Status: Accepted
+
+Context: Friendship questions move from first belonging to more complex group responsibility.
+
+Decision: Preserve manifest order from beginning friendship, to promises, to conflict, to group inclusion.
+
+Consequences: The app uses one manifest-defined learning sequence instead of alphabetical ordering or story-specific navigation.
+
+## ADR-048: No Friendship-Specific Rendering
+
+Status: Accepted
+
+Context: The existing story engine, repository, mission list, and Room progress model are world-generic.
+
+Decision: Serve Friendship stories through the same manifest, parser, validator, repository, mission cards, story renderer, and progress tables as Truth and Justice.
+
+Consequences: No Friendship-specific UI component, repository branch, persistence table, or step type is introduced.
+
+## ADR-049: Low-Risk Fictional Friendship Scenarios
+
+Status: Accepted
+
+Context: Friendship content can feel personal for children.
+
+Decision: Keep Friendship missions fictional, third-person, emotionally low-risk, and free of personal disclosure prompts.
+
+Consequences: The content avoids bullying, humiliation, dangerous secrecy, personal names entered by children, and requests for private friendship history.
+
+## ADR-050: Support Is Not Blind Agreement
+
+Status: Accepted
+
+Context: Loyalty is philosophically important but can become unsafe or unfair if treated as automatic agreement.
+
+Decision: Friendship stories distinguish support from agreement and inclusion from forced closeness.
+
+Consequences: Missions may explore loyalty, correction, boundaries, repeated exclusion, compromise, and respectful distance without presenting a single rule for all friendships.
+
+## ADR-051: Content Completion Before Journal and Media
+
+Status: Accepted
+
+Context: The initial three-world content set should be stable before expanding interaction modes.
+
+Decision: Complete the twelve-story content inventory before adding journal storage, free-text reflection, audio, illustrations, or release automation.
+
+Consequences: The app remains offline, low-risk, ID-only for progress persistence, and focused on fixed-order authored inquiry.

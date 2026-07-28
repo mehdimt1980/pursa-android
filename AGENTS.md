@@ -58,6 +58,11 @@ Only report these commands as successful if they were actually run and completed
 - Do not add serious-harm secret scenarios without a dedicated safety review.
 - New production stories require parsing and validation tests.
 - Story content must not include correct-answer fields, scores, points, rewards, badges, profiles, or ranking.
+- Populated worlds must use the generic manifest, repository, mission list, story renderer, and progress system rather than world-specific rendering.
+- Friendship content must not request personal friendship disclosures.
+- Loyalty must not be presented as blind agreement.
+- Inclusion must not be presented as forced friendship.
+- Social exclusion scenarios must remain fictional, low-risk, and age-appropriate.
 - Database schema changes require explicit migrations and tests.
 - Never use destructive Room migrations in production configuration.
 - Room schemas must be exported and committed.

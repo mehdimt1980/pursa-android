@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.test.assertDoesNotExist
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertIsSelected
@@ -85,18 +84,31 @@ class StoryFlowTest {
     }
 
     @Test
-    fun friendshipDoesNotDisplayFakeMissionCards() {
+    fun friendshipWorldDisplaysFourRealMissionCards() {
         openWorld(PursaTestTags.HomeWorldFriendship)
 
         composeRule
-            .onNodeWithTag(PursaTestTags.MissionTruthBrokenVase)
-            .assertDoesNotExist()
+            .onNodeWithTag(PursaTestTags.mission("friendship_new_friend"))
+            .assertIsDisplayed()
         composeRule
-            .onNodeWithTag(PursaTestTags.mission("justice_last_cake"))
-            .assertDoesNotExist()
+            .onNodeWithTag(PursaTestTags.mission("friendship_difficult_promise"))
+            .assertIsDisplayed()
         composeRule
-            .onNodeWithTag(PursaTestTags.mission("justice_team_prize"))
-            .assertDoesNotExist()
+            .onNodeWithTag(PursaTestTags.mission("friendship_whose_side"))
+            .assertIsDisplayed()
+        composeRule
+            .onNodeWithTag(PursaTestTags.mission("friendship_game_without_them"))
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun friendshipWorldDisplaysMissionTitles() {
+        openWorld(PursaTestTags.HomeWorldFriendship)
+
+        composeRule.onAllNodesWithText("دوست تازه").onFirst().assertIsDisplayed()
+        composeRule.onAllNodesWithText("قولی که سخت شد").onFirst().assertIsDisplayed()
+        composeRule.onAllNodesWithText("طرفِ چه کسی را بگیریم؟").onFirst().assertIsDisplayed()
+        composeRule.onAllNodesWithText("بازی بدون او").onFirst().assertIsDisplayed()
     }
 
     @Test
@@ -225,6 +237,74 @@ class StoryFlowTest {
         chooseAndContinue("lottery_question", "only_impartial")
         chooseAndContinue("unequal_pieces", "depends_reason")
         chooseAndContinue("final_reflection", "more_complicated")
+        assertSummaryReturnsToWorld()
+    }
+
+    @Test
+    fun newFriendMissionOpensRequiresSelectionAndCompletes() {
+        openMissionFromWorld(PursaTestTags.HomeWorldFriendship, "friendship_new_friend")
+        composeRule.onAllNodesWithText("دوست تازه").onFirst().assertIsDisplayed()
+        continueNarrative()
+        assertCurrentStepRequiresSelection()
+
+        chooseAndContinue("first_choice", "ask_interest")
+        chooseAndContinue("reason_focus", "safe_belonging")
+        chooseAndContinue("similarity_view", "similarity_helpful")
+        chooseAndContinue("difference_view", "difference_can_start")
+        chooseAndContinue("pretend_like", "less_honest")
+        chooseAndContinue("polite_or_friend", "friendship_needs_time")
+        chooseAndContinue("final_reflection", "both_matter")
+        assertSummaryReturnsToWorld()
+    }
+
+    @Test
+    fun difficultPromiseMissionOpensRequiresSelectionAndCompletes() {
+        openMissionFromWorld(PursaTestTags.HomeWorldFriendship, "friendship_difficult_promise")
+        composeRule.onAllNodesWithText("قولی که سخت شد").onFirst().assertIsDisplayed()
+        continueNarrative()
+        assertCurrentStepRequiresSelection()
+
+        chooseAndContinue("promise_choice", "explain_repair")
+        chooseAndContinue("reason_focus", "trust_between")
+        chooseAndContinue("ava_view", "difficulty_not_all")
+        chooseAndContinue("yeganeh_view", "circumstances_matter")
+        chooseAndContinue("unreasonable_promise", "limits_exist")
+        chooseAndContinue("repair_view", "repair_helps")
+        chooseAndContinue("final_reflection", "explain_repair_best")
+        assertSummaryReturnsToWorld()
+    }
+
+    @Test
+    fun whoseSideMissionOpensRequiresSelectionAndCompletes() {
+        openMissionFromWorld(PursaTestTags.HomeWorldFriendship, "friendship_whose_side")
+        composeRule.onAllNodesWithText("طرفِ چه کسی را بگیریم؟").onFirst().assertIsDisplayed()
+        continueNarrative()
+        assertCurrentStepRequiresSelection()
+
+        chooseAndContinue("side_choice", "listen_both")
+        chooseAndContinue("reason_focus", "hear_both")
+        chooseAndContinue("loyalty_view", "duty_with_limits")
+        chooseAndContinue("fairness_view", "listen_first")
+        chooseAndContinue("friend_mistaken", "tell_private")
+        chooseAndContinue("support_agreement_view", "disagreement_can_support")
+        chooseAndContinue("final_reflection", "support_not_agreement")
+        assertSummaryReturnsToWorld()
+    }
+
+    @Test
+    fun gameWithoutThemMissionOpensRequiresSelectionAndCompletes() {
+        openMissionFromWorld(PursaTestTags.HomeWorldFriendship, "friendship_game_without_them")
+        composeRule.onAllNodesWithText("بازی بدون او").onFirst().assertIsDisplayed()
+        continueNarrative()
+        assertCurrentStepRequiresSelection()
+
+        chooseAndContinue("inclusion_choice", "rotate_turns")
+        chooseAndContinue("reason_focus", "possible_way")
+        chooseAndContinue("group_autonomy_view", "boundaries_need_care")
+        chooseAndContinue("repeated_exclusion_view", "repetition_changes")
+        chooseAndContinue("limited_capacity", "rotation")
+        chooseAndContinue("compromise_view", "fair_compromise")
+        chooseAndContinue("final_reflection", "compromise_best")
         assertSummaryReturnsToWorld()
     }
 

@@ -140,6 +140,21 @@ Justice stories should keep more than one reasonable value alive at the same tim
 
 School and group scenarios should stay low-risk and non-political. Authority figures may have good safety reasons, but children should still be invited to question rules respectfully. Representation scenarios should stay in classroom terms and avoid governmental or partisan language. Reward scenarios should avoid money, expensive prizes, ranking, scores, or shame.
 
+## Phase 9 Friendship Mission Guidance
+
+The third complete content world uses four Friendship and loyalty missions in this manifest-defined order:
+
+1. `friendship_new_friend`
+2. `friendship_difficult_promise`
+3. `friendship_whose_side`
+4. `friendship_game_without_them`
+
+The sequence moves from beginning friendship and belonging toward promises, conflict, support without blind agreement, and group responsibility. Friendship content should avoid formulas such as "a real friend always..." unless a character says them as a view to examine.
+
+Friendship scenarios can feel personal, so keep them fictional, third-person, and low-risk. Do not ask children to reveal personal friendship histories, secrets, names, exclusions, or private experiences. Avoid bullying, humiliation, threats, dangerous secrecy, public shaming, and permanent isolation.
+
+Loyalty should not mean blind agreement. Support can include listening, private correction, truthfulness, repair, and staying respectfully present. Inclusion should not mean forced intimacy: groups may have boundaries, one-time exclusion differs from repeated exclusion, and not every difference must be resolved through closeness. The goal is philosophical inquiry, not etiquette instruction.
+
 ## Production Content Review Checklist
 
 Before registering a story:
@@ -169,6 +184,10 @@ Before registering a story:
 - confirm no adult is framed as unquestionably correct;
 - confirm no shame, fear, threats, or harsh punishment are used;
 - confirm no serious-harm secret scenario is used without dedicated safety review;
+- confirm friendship stories do not request personal disclosure;
+- confirm loyalty is not framed as blind agreement;
+- confirm inclusion is not framed as forced closeness;
+- confirm repeated exclusion is examined separately from one-time limits;
 - confirm no stereotyping, propaganda, or current political controversy is included;
 
 ### Verification

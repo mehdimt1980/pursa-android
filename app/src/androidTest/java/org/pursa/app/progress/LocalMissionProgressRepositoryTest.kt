@@ -102,6 +102,53 @@ class LocalMissionProgressRepositoryTest {
     }
 
     @Test
+    fun friendshipSessionDoesNotModifyOtherWorldProgress() = runBlocking {
+        val friendshipStory = loadStory("content/fa/stories/friendship/friendship_new_friend.json")
+        val justiceStory = loadStory("content/fa/stories/justice/justice_last_cake.json")
+
+        repository.saveSessionSnapshot(friendshipStory, StorySessionReducer.initialState(friendshipStory))
+        repository.saveSessionSnapshot(justiceStory, StorySessionReducer.initialState(justiceStory))
+        repository.markCompleted(story)
+
+        val progress = repository.observeProgress(
+            listOf(story.id, justiceStory.id, friendshipStory.id),
+        ).first()
+
+        assertEquals(MissionProgressStatus.Completed, progress[story.id]?.status)
+        assertEquals(MissionProgressStatus.InProgress, progress[justiceStory.id]?.status)
+        assertEquals(MissionProgressStatus.InProgress, progress[friendshipStory.id]?.status)
+    }
+
+    @Test
+    fun completingFriendshipMissionMarksOnlyThatStoryCompleted() = runBlocking {
+        val friendshipStory = loadStory("content/fa/stories/friendship/friendship_new_friend.json")
+        repository.saveSessionSnapshot(story, StorySessionReducer.initialState(story))
+        repository.saveSessionSnapshot(friendshipStory, StorySessionReducer.initialState(friendshipStory))
+
+        repository.markCompleted(friendshipStory)
+
+        assertEquals(MissionProgressStatus.InProgress, repository.observeProgress(story.id).first().status)
+        assertEquals(MissionProgressStatus.Completed, repository.observeProgress(friendshipStory.id).first().status)
+        assertNull((repository.loadSavedSession(friendshipStory) as MissionProgressResult.Success).value)
+    }
+
+    @Test
+    fun clearAllRemovesProgressAcrossAllThreeWorlds() = runBlocking {
+        val justiceStory = loadStory("content/fa/stories/justice/justice_last_cake.json")
+        val friendshipStory = loadStory("content/fa/stories/friendship/friendship_new_friend.json")
+        repository.saveSessionSnapshot(story, StorySessionReducer.initialState(story))
+        repository.saveSessionSnapshot(justiceStory, StorySessionReducer.initialState(justiceStory))
+        repository.saveSessionSnapshot(friendshipStory, StorySessionReducer.initialState(friendshipStory))
+
+        repository.clearAllLocalProgress()
+
+        val progress = repository.observeProgress(
+            listOf(story.id, justiceStory.id, friendshipStory.id),
+        ).first()
+        assertTrue(progress.values.all { it.status == MissionProgressStatus.NotStarted })
+    }
+
+    @Test
     fun contentRevisionMismatchClearsActiveSessionSafely() = runBlocking {
         repository.saveSessionSnapshot(story, StorySessionReducer.initialState(story))
 
@@ -128,6 +175,15 @@ class LocalMissionProgressRepositoryTest {
         val saved = (repository.loadSavedSession(story) as MissionProgressResult.Success).value
 
         assertEquals(mapOf("first_choice" to "tell_truth"), saved?.selectedAnswers)
+    }
+
+    private fun loadStory(assetPath: String): PursaStory {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        return (JsonStoryParser().parseStory(
+            context.assets.open(assetPath)
+                .bufferedReader(Charsets.UTF_8)
+                .use { it.readText() },
+        ) as StoryParseResult.Success).value
     }
 
     private class FakeClock : PursaClock {

@@ -41,6 +41,26 @@
       "id": "justice_team_prize",
       "worldId": "justice",
       "assetPath": "content/fa/stories/justice/justice_team_prize.json"
+    },
+    {
+      "id": "friendship_new_friend",
+      "worldId": "friendship",
+      "assetPath": "content/fa/stories/friendship/friendship_new_friend.json"
+    },
+    {
+      "id": "friendship_difficult_promise",
+      "worldId": "friendship",
+      "assetPath": "content/fa/stories/friendship/friendship_difficult_promise.json"
+    },
+    {
+      "id": "friendship_whose_side",
+      "worldId": "friendship",
+      "assetPath": "content/fa/stories/friendship/friendship_whose_side.json"
+    },
+    {
+      "id": "friendship_game_without_them",
+      "worldId": "friendship",
+      "assetPath": "content/fa/stories/friendship/friendship_game_without_them.json"
     }
   ]
 }

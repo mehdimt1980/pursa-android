@@ -179,7 +179,28 @@ Exit criteria:
 
 Status: Implemented with four manifest-registered offline Justice missions: `justice_last_cake`, `justice_class_representative`, `justice_playground_rule`, and `justice_team_prize`. Each mission uses JSON-authored Persian content, fixed-order interactive reflection, reasons, perspective-taking, counterexamples, and completion reflection. Parser, validation, repository, production inventory, and Justice UI-flow tests exist. Friendship content, journal, free-text reflection, audio, illustrations, parent mode, school mode, accounts, cloud sync, and full release-candidate QA remain incomplete.
 
-## Phase 9: Accessibility and Quality Assurance
+## Phase 9: Third Complete Friendship World
+
+Objective: Deliver the third complete reviewed content world for Friendship and loyalty.
+
+Main deliverables:
+
+- Four Friendship missions.
+- Open questions.
+- Reasoning activity.
+- Perspective-taking.
+- Counterexample or changed-condition prompt.
+- Reflection prompt.
+
+Exit criteria:
+
+- Content passes review checklist.
+- Story works offline.
+- Basic parser, repository, inventory, persistence, RTL, safety, and UI behavior checks are covered.
+
+Status: Implemented with four manifest-registered offline Friendship missions: `friendship_new_friend`, `friendship_difficult_promise`, `friendship_whose_side`, and `friendship_game_without_them`. Each mission uses JSON-authored Persian content, fixed-order interactive reflection, reasons, perspective-taking, counterexamples, and completion reflection. Parser, validation, repository, production inventory, persistence, and Friendship UI-flow tests exist. Journal, free-text reflection, audio, illustrations, accessibility audit, parent mode, teacher mode, accounts, cloud sync, release hardening, signed release, and public distribution remain incomplete.
+
+## Phase 10: Accessibility and Quality Assurance
 
 Objective: Prepare for a trustworthy MVP release candidate.
 
@@ -195,7 +216,7 @@ Exit criteria:
 
 - Major accessibility, RTL, privacy, and content issues are addressed or documented.
 
-## Phase 10: Signed GitHub Release
+## Phase 11: Signed GitHub Release
 
 Objective: Publish a signed open-source release through GitHub.
 
