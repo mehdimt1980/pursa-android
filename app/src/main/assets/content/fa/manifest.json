@@ -6,6 +6,21 @@
       "id": "truth_broken_vase",
       "worldId": "truth",
       "assetPath": "content/fa/stories/truth/truth_broken_vase.json"
+    },
+    {
+      "id": "truth_group_photo",
+      "worldId": "truth",
+      "assetPath": "content/fa/stories/truth/truth_group_photo.json"
+    },
+    {
+      "id": "truth_strange_news",
+      "worldId": "truth",
+      "assetPath": "content/fa/stories/truth/truth_strange_news.json"
+    },
+    {
+      "id": "truth_friend_secret",
+      "worldId": "truth",
+      "assetPath": "content/fa/stories/truth/truth_friend_secret.json"
     }
   ]
 }

@@ -80,8 +80,28 @@ class LocalStoryContentRepository(
                 listOf(parseError("manifest", StoryValidationErrorCode.InvalidManifest, "Manifest schema version or locale is unsupported.")),
             )
         }
+        val manifestErrors = validateManifest(manifest)
+        if (manifestErrors.isNotEmpty()) return StoryContentResult.InvalidContent(manifestErrors)
+
         manifestCache = manifest
         return StoryContentResult.Success(manifest)
+    }
+
+    private fun validateManifest(manifest: ContentManifest): List<StoryValidationError> = buildList {
+        manifest.stories
+            .groupBy { it.id }
+            .filterValues { it.size > 1 }
+            .keys
+            .forEach { storyId ->
+                add(parseError(storyId, StoryValidationErrorCode.InvalidManifest, "Manifest story ID must be unique."))
+            }
+        manifest.stories
+            .groupBy { it.assetPath }
+            .filterValues { it.size > 1 }
+            .keys
+            .forEach { assetPath ->
+                add(parseError("manifest", StoryValidationErrorCode.InvalidManifest, "Manifest asset path must be unique: $assetPath"))
+            }
     }
 
     private fun loadStoryInternal(entry: ContentManifestStory): StoryContentResult<PursaStory> {

@@ -9,6 +9,8 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
@@ -28,12 +30,30 @@ class StoryFlowTest {
     val composeRule = createAndroidComposeRule<MainActivity>()
 
     @Test
-    fun truthWorldDisplaysRealMissionCard() {
+    fun truthWorldDisplaysFourRealMissionCards() {
         openTruthWorld()
 
         composeRule
             .onNodeWithTag(PursaTestTags.MissionTruthBrokenVase)
             .assertIsDisplayed()
+        composeRule
+            .onNodeWithTag(PursaTestTags.mission("truth_group_photo"))
+            .assertIsDisplayed()
+        composeRule
+            .onNodeWithTag(PursaTestTags.mission("truth_strange_news"))
+            .assertIsDisplayed()
+        composeRule
+            .onNodeWithTag(PursaTestTags.mission("truth_friend_secret"))
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun truthWorldDisplaysNewMissionTitles() {
+        openTruthWorld()
+
+        composeRule.onAllNodesWithText("عکس گروهی").onFirst().assertIsDisplayed()
+        composeRule.onAllNodesWithText("خبر عجیب").onFirst().assertIsDisplayed()
+        composeRule.onAllNodesWithText("راز دوست").onFirst().assertIsDisplayed()
     }
 
     @Test
@@ -116,6 +136,55 @@ class StoryFlowTest {
     }
 
     @Test
+    fun groupPhotoMissionOpensRequiresSelectionAndCompletes() {
+        openMission("truth_group_photo")
+        composeRule.onAllNodesWithText("عکس گروهی").onFirst().assertIsDisplayed()
+        continueNarrative()
+        assertCurrentStepRequiresSelection()
+
+        chooseAndContinue("share_choice", "find_agreement")
+        chooseAndContinue("reason_focus", "people_consent")
+        chooseAndContinue("memory_view", "not_whole_truth")
+        chooseAndContinue("caption_changes_meaning", "partly_mislead")
+        chooseAndContinue("nika_consent_view", "person_has_say")
+        chooseAndContinue("final_reflection", "more_careful")
+        assertSummaryReturnsToTruthWorld()
+    }
+
+    @Test
+    fun strangeNewsMissionOpensRequiresSelectionAndCompletes() {
+        openMission("truth_strange_news")
+        composeRule.onAllNodesWithText("خبر عجیب").onFirst().assertIsDisplayed()
+        continueNarrative()
+        assertCurrentStepRequiresSelection()
+
+        chooseAndContinue("forward_choice", "check_source")
+        chooseAndContinue("trust_reason", "trusted_source")
+        chooseAndContinue("friend_repetition_view", "not_enough")
+        chooseAndContinue("same_original_mistake", "repetition_some_clue")
+        chooseAndContinue("evidence_compare", "find_origin")
+        chooseAndContinue("urgency_view", "checking_matters")
+        chooseAndContinue("final_reflection", "clearer_difference")
+        assertSummaryReturnsToTruthWorld()
+    }
+
+    @Test
+    fun friendSecretMissionOpensRequiresSelectionAndCompletes() {
+        openMission("truth_friend_secret")
+        composeRule.onAllNodesWithText("راز دوست").onFirst().assertIsDisplayed()
+        continueNarrative()
+        assertCurrentStepRequiresSelection()
+
+        chooseAndContinue("secret_choice", "talk_first")
+        chooseAndContinue("reason_focus", "chance_to_fix")
+        chooseAndContinue("loyalty_view", "loyalty_can_question")
+        chooseAndContinue("unfair_harm", "partly_changes")
+        chooseAndContinue("private_talk_view", "fair_chance")
+        chooseAndContinue("final_reflection", "method_matters")
+        assertSummaryReturnsToTruthWorld()
+    }
+
+    @Test
     fun invalidStoryIdShowsSafeError() {
         composeRule.setContent {
             InvalidStoryRouteContent()
@@ -127,9 +196,13 @@ class StoryFlowTest {
     }
 
     private fun openStory() {
+        openMission("truth_broken_vase")
+    }
+
+    private fun openMission(storyId: String) {
         openTruthWorld()
         composeRule
-            .onNodeWithTag(PursaTestTags.MissionTruthBrokenVase)
+            .onNodeWithTag(missionTag(storyId))
             .performScrollTo()
             .performClick()
     }
@@ -158,6 +231,13 @@ class StoryFlowTest {
             .performClick()
     }
 
+    private fun assertCurrentStepRequiresSelection() {
+        composeRule
+            .onNodeWithTag(PursaTestTags.StoryContinue)
+            .performScrollTo()
+            .assertIsNotEnabled()
+    }
+
     private fun chooseAndContinue(
         stepId: String,
         optionId: String,
@@ -170,6 +250,26 @@ class StoryFlowTest {
             .onNodeWithTag(PursaTestTags.StoryContinue)
             .performScrollTo()
             .performClick()
+    }
+
+    private fun assertSummaryReturnsToTruthWorld() {
+        composeRule
+            .onNodeWithTag(PursaTestTags.StorySummaryRoot)
+            .assertIsDisplayed()
+
+        composeRule
+            .onNodeWithTag(PursaTestTags.StoryReturnToWorld)
+            .performScrollTo()
+            .performClick()
+
+        composeRule
+            .onNodeWithTag(PursaTestTags.WorldDetailRoot)
+            .assertIsDisplayed()
+    }
+
+    private fun missionTag(storyId: String): String = when (storyId) {
+        "truth_broken_vase" -> PursaTestTags.MissionTruthBrokenVase
+        else -> PursaTestTags.mission(storyId)
     }
 }
 

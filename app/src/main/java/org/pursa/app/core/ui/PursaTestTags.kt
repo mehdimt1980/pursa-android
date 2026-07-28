@@ -26,5 +26,7 @@ object PursaTestTags {
     const val DesignSystemProgress = "pursa:design-system:progress"
     const val DesignSystemMessage = "pursa:design-system:message"
 
+    fun mission(storyId: String): String = "pursa:mission:$storyId"
+
     fun storyOption(stepId: String, optionId: String): String = "pursa:story:option:$stepId:$optionId"
 }

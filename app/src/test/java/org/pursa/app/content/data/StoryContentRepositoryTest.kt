@@ -5,29 +5,39 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.pursa.app.content.FakeStoryDataSource
+import org.pursa.app.content.productionStoryAssets
+import org.pursa.app.content.productionTruthStoryIds
 import org.pursa.app.content.sampleManifestJson
 import org.pursa.app.content.sampleStoryJson
 
 class StoryContentRepositoryTest {
     @Test
-    fun manifestReturnsTruthStorySummary() = runBlocking {
+    fun manifestReturnsTruthStorySummariesInOrder() = runBlocking {
         val result = repository().loadAllStorySummaries()
 
         assertTrue(result is StoryContentResult.Success)
-        assertEquals("truth_broken_vase", (result as StoryContentResult.Success).value.single().id)
+        assertEquals(productionTruthStoryIds, (result as StoryContentResult.Success).value.map { it.id })
     }
 
     @Test
-    fun filteringByTruthReturnsSampleMission() = runBlocking {
+    fun filteringByTruthReturnsProductionMissions() = runBlocking {
         val result = repository().loadStoriesByWorld("truth")
 
         assertTrue(result is StoryContentResult.Success)
-        assertEquals(1, (result as StoryContentResult.Success).value.size)
+        assertEquals(productionTruthStoryIds, (result as StoryContentResult.Success).value.map { it.id })
     }
 
     @Test
     fun filteringByJusticeReturnsNoMissions() = runBlocking {
         val result = repository().loadStoriesByWorld("justice")
+
+        assertTrue(result is StoryContentResult.Success)
+        assertTrue((result as StoryContentResult.Success).value.isEmpty())
+    }
+
+    @Test
+    fun filteringByFriendshipReturnsNoMissions() = runBlocking {
+        val result = repository().loadStoriesByWorld("friendship")
 
         assertTrue(result is StoryContentResult.Success)
         assertTrue((result as StoryContentResult.Success).value.isEmpty())
@@ -48,8 +58,33 @@ class StoryContentRepositoryTest {
 
     @Test
     fun invalidStoryContentReturnsInvalidContent() = runBlocking {
-        val result = repository(storyJson = sampleStoryJson().replace("\"id\": \"truth_broken_vase\"", "\"id\": \"bad id\""))
+        val result = repository(
+            assets = productionStoryAssets() +
+                ("content/fa/stories/truth/truth_broken_vase.json" to
+                    sampleStoryJson().replace("\"id\": \"truth_broken_vase\"", "\"id\": \"bad id\"")),
+        )
             .loadStory("truth_broken_vase")
+
+        assertTrue(result is StoryContentResult.InvalidContent)
+    }
+
+    @Test
+    fun duplicateManifestStoryIdsReturnInvalidContent() = runBlocking {
+        val manifest = sampleManifestJson().replace("\"id\": \"truth_group_photo\"", "\"id\": \"truth_broken_vase\"")
+
+        val result = repository(manifestJson = manifest).loadAllStorySummaries()
+
+        assertTrue(result is StoryContentResult.InvalidContent)
+    }
+
+    @Test
+    fun duplicateManifestAssetPathsReturnInvalidContent() = runBlocking {
+        val manifest = sampleManifestJson().replace(
+            "content/fa/stories/truth/truth_group_photo.json",
+            "content/fa/stories/truth/truth_broken_vase.json",
+        )
+
+        val result = repository(manifestJson = manifest).loadAllStorySummaries()
 
         assertTrue(result is StoryContentResult.InvalidContent)
     }
@@ -63,13 +98,11 @@ class StoryContentRepositoryTest {
     }
 
     private fun repository(
-        storyJson: String = sampleStoryJson(),
+        manifestJson: String = sampleManifestJson(),
+        assets: Map<String, String> = productionStoryAssets(),
     ): StoryContentRepository = LocalStoryContentRepository(
         dataSource = FakeStoryDataSource(
-            mapOf(
-                LocalStoryContentRepository.ManifestPath to sampleManifestJson(),
-                "content/fa/stories/truth/truth_broken_vase.json" to storyJson,
-            ),
+            assets + (LocalStoryContentRepository.ManifestPath to manifestJson),
         ),
     )
 }

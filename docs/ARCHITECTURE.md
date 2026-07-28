@@ -27,7 +27,7 @@ Future modularization may be considered only after real complexity appears, such
 
 Application ID: `org.pursa.app`
 
-The current app includes a launchable Compose root, a Persian RTL welcome screen, Home, three foundational world entry points, World Detail, one offline JSON-authored Truth mission, a minimal `Application` class, unit test source, and Compose UI test source. It intentionally does not include Room, DataStore, Hilt, Media3, backend access, analytics, settings, profiles, or persistent progress.
+The current app includes a launchable Compose root, a Persian RTL welcome screen, Home, three foundational world entry points, World Detail, four offline JSON-authored Truth missions, a minimal `Application` class, unit test source, and Compose UI test source. It intentionally does not include Room, DataStore, Hilt, Media3, backend access, analytics, settings, profiles, or persistent progress.
 
 ## Package Direction
 
@@ -49,7 +49,7 @@ Screens should render immutable UI state from ViewModels. User events should flo
 
 Core story content should be bundled with the app and usable without network access. Authored stories should be represented as JSON assets so educational content can be reviewed separately from UI code.
 
-The Phase 5 asset structure is manifest-indexed:
+The story asset structure is manifest-indexed:
 
 ```text
 app/src/main/assets/content/
@@ -60,6 +60,8 @@ app/src/main/assets/content/
 ```
 
 The manifest lists story IDs, world IDs, and asset paths. The repository reads the manifest rather than scanning assets, parses JSON with strict `kotlinx.serialization` settings, validates content through `StoryContentValidator`, and exposes structured `StoryContentResult` values: success, not found, invalid content, or read failure.
+
+Phase 6 expands the Truth directory to four registered missions: `truth_broken_vase.json`, `truth_group_photo.json`, `truth_strange_news.json`, and `truth_friend_secret.json`. Manifest order is the display order for mission lists, so content authors can define a pedagogical sequence. The repository also validates duplicate story IDs and duplicate asset paths before exposing mission summaries.
 
 Story steps are represented as a sealed model with exactly these supported types: `narrative`, `single_choice`, `reason_prompt`, `perspective`, `counterexample`, and `reflection`. Phase 5 stories advance in fixed authored order; branching, scripting, scoring, correct answers, downloads, and remote actions are out of scope.
 

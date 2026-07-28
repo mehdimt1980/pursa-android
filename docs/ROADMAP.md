@@ -115,15 +115,15 @@ Exit criteria:
 - Story steps render correctly.
 - Story logic has tests.
 
-Status: Implemented as a first offline story-content engine with JSON Schema, manifest-indexed Persian assets, strict kotlinx.serialization parsing, runtime validation, a local repository, one complete Truth mission, fixed-order story UI, temporary in-memory interaction state, and unit/UI test coverage. Full Truth content, Justice missions, Friendship missions, persistence, journal, Room, DataStore, audio, and illustrations remain incomplete.
+Status: Implemented as a first offline story-content engine with JSON Schema, manifest-indexed Persian assets, strict kotlinx.serialization parsing, runtime validation, a local repository, fixed-order story UI, temporary in-memory interaction state, and unit/UI test coverage. Full Justice missions, Friendship missions, persistence, journal, Room, DataStore, audio, and illustrations remain incomplete.
 
-## Phase 6: First Complete Story
+## Phase 6: First Complete Truth World
 
-Objective: Deliver one complete reviewed story experience.
+Objective: Deliver the first complete reviewed content world for Truth and lying.
 
 Main deliverables:
 
-- One story in an initial world.
+- Four Truth missions.
 - Open questions.
 - Reasoning activity.
 - Counterexample or alternative viewpoint prompt.
@@ -134,6 +134,8 @@ Exit criteria:
 - Content passes review checklist.
 - Story works offline.
 - Basic accessibility and RTL checks pass.
+
+Status: Implemented with four manifest-registered offline Truth missions: `truth_broken_vase`, `truth_group_photo`, `truth_strange_news`, and `truth_friend_secret`. Each mission uses JSON-authored Persian content, fixed-order interactive reflection, reasons, perspective-taking, counterexamples, and completion reflection. Parser, validation, repository, production inventory, and UI tests exist. Justice content, Friendship content, persistent progress, journal, Room, DataStore, audio, illustrations, parent mode, and school mode remain incomplete.
 
 ## Phase 7: Three MVP Worlds
 

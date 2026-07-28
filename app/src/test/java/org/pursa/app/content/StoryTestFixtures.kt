@@ -2,8 +2,18 @@ package org.pursa.app.content
 
 import java.nio.file.Files
 import java.nio.file.Path
+import org.pursa.app.content.data.ContentManifest
+import org.pursa.app.content.data.JsonStoryParser
+import org.pursa.app.content.data.StoryParseResult
 import org.pursa.app.content.data.StoryDataReadResult
 import org.pursa.app.content.data.StoryDataSource
+
+val productionTruthStoryIds = listOf(
+    "truth_broken_vase",
+    "truth_group_photo",
+    "truth_strange_news",
+    "truth_friend_secret",
+)
 
 fun sampleStoryJson(): String = readProjectFile(
     "app/src/main/assets/content/fa/stories/truth/truth_broken_vase.json",
@@ -14,6 +24,19 @@ fun sampleManifestJson(): String = readProjectFile(
     "app/src/main/assets/content/fa/manifest.json",
     "src/main/assets/content/fa/manifest.json",
 )
+
+fun productionManifest(): ContentManifest =
+    (JsonStoryParser().parseManifest(sampleManifestJson()) as StoryParseResult.Success).value
+
+fun productionStoryJson(assetPath: String): String = readProjectFile(
+    "app/src/main/assets/$assetPath",
+    "src/main/assets/$assetPath",
+)
+
+fun productionStoryAssets(): Map<String, String> =
+    productionManifest().stories.associate { entry ->
+        entry.assetPath to productionStoryJson(entry.assetPath)
+    }
 
 fun readProjectFile(
     rootRelativePath: String,

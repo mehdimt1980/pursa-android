@@ -127,5 +127,5 @@ private fun MissionListError(
 private val PursaStorySummary.testTag: String
     get() = when (id) {
         "truth_broken_vase" -> PursaTestTags.MissionTruthBrokenVase
-        else -> "pursa:mission:$id"
+        else -> PursaTestTags.mission(id)
     }

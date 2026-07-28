@@ -261,3 +261,63 @@ Context: Phase 5 needs interactive story state but must not start persistence, p
 Decision: Keep current step, selected option IDs, continuation eligibility, completion, and progress in deterministic in-memory state while the story screen is open.
 
 Consequences: Completion and answers are not saved after the screen/process is gone. Room, DataStore, persistent progress, and journals remain future work.
+
+## ADR-027: Four-Mission First Truth World
+
+Status: Accepted
+
+Context: Phase 6 expands Truth and lying from one sample mission into the first coherent production content world.
+
+Decision: Ship exactly four Truth missions for this phase: broken vase, group photo, strange news, and friend's secret.
+
+Consequences: The first content world now covers personal responsibility, digital representation, source reliability, and low-risk secrecy without starting Justice or Friendship content.
+
+## ADR-028: Manifest Order Defines Learning Order
+
+Status: Accepted
+
+Context: The Truth missions are intended to move from familiar personal situations toward more socially complex questions.
+
+Decision: Use the manifest story order as the child-facing mission order.
+
+Consequences: Contributors must preserve pedagogical order intentionally instead of sorting production missions alphabetically.
+
+## ADR-029: Content-First Validation Before Persistence
+
+Status: Accepted
+
+Context: Multiple authored missions should prove the content engine before local progress or journals are introduced.
+
+Decision: Keep validation, parsing, inventory tests, and in-memory completion as the Phase 6 focus.
+
+Consequences: Room, DataStore, persistent completion, and journal storage remain deferred until the content engine is exercised by a broader mission set.
+
+## ADR-030: Low-Risk Digital Ethics and Secret Scenarios
+
+Status: Accepted
+
+Context: Truth content should explore privacy, consent, uncertainty, loyalty, and fairness without exposing children to severe harm scenarios.
+
+Decision: Use familiar low-risk school, class group, photo, news, and competition premises.
+
+Consequences: Serious-harm secrets, real current events, political references, brand names, and sensitive disclosure prompts remain out of production story content unless a future dedicated safety review approves them.
+
+## ADR-031: No New Story Step Types in Phase 6
+
+Status: Accepted
+
+Context: The existing fixed-order story engine already supports narrative, choice, reasons, perspective, counterexample, and reflection.
+
+Decision: Author all Phase 6 missions with the existing six step types.
+
+Consequences: No branching, scripting, free text, custom evidence-comparison type, or story-ID-specific rendering is introduced.
+
+## ADR-032: Manifest-Level Inventory Validation
+
+Status: Accepted
+
+Context: Once multiple stories are registered, duplicate story IDs or duplicate asset paths can make repository behavior ambiguous.
+
+Decision: Validate manifest story ID and asset path uniqueness before exposing story summaries.
+
+Consequences: Invalid production inventory fails safely through structured invalid-content results, and tests cover duplicate manifest entries.

@@ -52,6 +52,11 @@ Only report these commands as successful if they were actually run and completed
 - Reusable runtime UI labels belong in Android string resources.
 - Story IDs, step IDs, and option IDs must be stable lowercase ASCII.
 - New stories must be registered in the local manifest, pass runtime validation, and include tests.
+- Production story IDs and asset paths must be unique.
+- Manifest story IDs and world IDs must match parsed story content.
+- Each production mission needs genuine philosophical tension, reasons, perspective-taking, a counterexample, and reflection.
+- Do not add serious-harm secret scenarios without a dedicated safety review.
+- New production stories require parsing and validation tests.
 - Story content must not include correct-answer fields, scores, points, rewards, badges, profiles, or ranking.
 
 ## Reporting Requirements
