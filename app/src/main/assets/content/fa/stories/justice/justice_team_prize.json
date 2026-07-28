@@ -3,6 +3,7 @@
   "contentRevision": 1,
   "id": "justice_team_prize",
   "worldId": "justice",
+  "artworkKey": "story_justice_team_prize",
   "title": "جایزه‌ی کار گروهی",
   "summary": "یک گروه در مسابقه برنده شده است، اما اعضای آن به یک اندازه کار نکرده‌اند و حالا باید درباره‌ی تقسیم جایزه تصمیم بگیرند.",
   "recommendedMinAge": 9,

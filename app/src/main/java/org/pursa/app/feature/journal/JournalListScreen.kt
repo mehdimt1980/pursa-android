@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
@@ -22,6 +23,8 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import org.pursa.app.R
 import org.pursa.app.core.ui.PursaTestTags
+import org.pursa.app.designsystem.artwork.PursaArtwork
+import org.pursa.app.designsystem.artwork.PursaArtworkRegistry
 import org.pursa.app.designsystem.component.PursaButton
 import org.pursa.app.designsystem.component.PursaButtonVariant
 import org.pursa.app.designsystem.component.PursaCard
@@ -110,19 +113,29 @@ private fun JournalListContent(
 
         is JournalListUiState.Success -> {
             if (state.entries.isEmpty()) {
-                PursaMessage(
-                    title = stringResource(R.string.journal_empty_title),
-                    message = stringResource(R.string.journal_empty_message),
+                Column(
                     modifier = Modifier.testTag(PursaTestTags.JournalEmptyState),
-                    variant = PursaMessageVariant.Empty,
-                    action = {
-                        PursaButton(
-                            text = stringResource(R.string.journal_empty_action),
-                            onClick = onHomeClick,
-                            variant = PursaButtonVariant.Secondary,
-                        )
-                    },
-                )
+                    verticalArrangement = Arrangement.spacedBy(PursaTheme.spacing.medium),
+                ) {
+                    PursaArtwork(
+                        descriptor = PursaArtworkRegistry.descriptorFor("state_journal_empty"),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .testTag(PursaTestTags.JournalEmptyArtwork),
+                    )
+                    PursaMessage(
+                        title = stringResource(R.string.journal_empty_title),
+                        message = stringResource(R.string.journal_empty_message),
+                        variant = PursaMessageVariant.Empty,
+                        action = {
+                            PursaButton(
+                                text = stringResource(R.string.journal_empty_action),
+                                onClick = onHomeClick,
+                                variant = PursaButtonVariant.Secondary,
+                            )
+                        },
+                    )
+                }
             } else {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(PursaTheme.spacing.medium),
@@ -139,6 +152,14 @@ private fun JournalListContent(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .testTag(PursaTestTags.journalEntry(entry.record.storyId)),
+                            leadingContent = {
+                                PursaArtwork(
+                                    descriptor = PursaArtworkRegistry.descriptorFor(entry.artworkKey),
+                                    modifier = Modifier
+                                        .size(PursaTheme.sizes.welcomeMark)
+                                        .testTag(PursaTestTags.journalArtwork(entry.record.storyId)),
+                                )
+                            },
                         )
                     }
                 }
@@ -171,3 +192,10 @@ private fun entrySupportingText(entry: ResolvedJournalEntry): String {
 private fun formatJournalDate(epochMillis: Long): String =
     DateFormat.getDateInstance(DateFormat.MEDIUM, Locale("fa"))
         .format(Date(epochMillis))
+
+private val ResolvedJournalEntry.artworkKey: String
+    get() = when (this) {
+        is ResolvedJournalEntry.Available -> "story_${record.storyId}"
+        is ResolvedJournalEntry.Incompatible -> "state_content_unavailable"
+        is ResolvedJournalEntry.StoryUnavailable -> "state_content_unavailable"
+    }

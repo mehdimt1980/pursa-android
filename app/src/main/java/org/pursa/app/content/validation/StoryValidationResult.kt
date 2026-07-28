@@ -12,6 +12,7 @@ enum class StoryValidationErrorCode {
     InvalidContentRevision,
     BlankStoryId,
     InvalidStoryIdFormat,
+    InvalidArtworkKey,
     InvalidWorldId,
     BlankText,
     InvalidAgeRange,

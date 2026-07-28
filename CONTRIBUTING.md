@@ -104,6 +104,12 @@ Story and activity content must be reviewed for:
 - No requests for sensitive personal disclosure.
 - No single predetermined correct answer.
 
+## New Production Story Requirements
+
+Before a new production story is merged, follow [docs/NEW_STORY_CHECKLIST.md](docs/NEW_STORY_CHECKLIST.md). Each story must declare a stable `artworkKey`, and that key must resolve through `PursaArtworkRegistry`.
+
+Artwork contributions must follow [docs/ARTWORK_GUIDE.md](docs/ARTWORK_GUIDE.md). Do not add external images, remote URLs, image-loading dependencies, or Android resource IDs inside story JSON without explicit review.
+
 ## Assets and Personal Data
 
 - Do not include copyrighted media without permission.

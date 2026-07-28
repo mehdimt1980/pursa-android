@@ -42,6 +42,11 @@ class StoryContentValidatorTest {
     }
 
     @Test
+    fun invalidArtworkKeyFails() {
+        assertInvalid(sampleStory().copy(artworkKey = "truth_broken_vase"), StoryValidationErrorCode.InvalidArtworkKey)
+    }
+
+    @Test
     fun invalidAgeRangeFails() {
         assertInvalid(sampleStory().copy(recommendedMinAge = 12, recommendedMaxAge = 8), StoryValidationErrorCode.InvalidAgeRange)
     }

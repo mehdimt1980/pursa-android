@@ -20,6 +20,8 @@ The development build includes a local story-content engine. Authored Persian st
 
 Mission progress is stored locally with Room so in-progress sessions can resume, selected option IDs can be restored, completed missions can be replayed, and all local progress can be cleared from the Data & Privacy screen. The database stores stable story, step, and option IDs only; it does not store child names, profiles, free-text answers, authored Persian story text, scores, analytics, or cloud-sync identifiers. DataStore is not used yet because Phase 7 introduced no genuine small preference. The app remains account-free, backend-free, cloud-sync-free, and analytics-free.
 
+Offline illustrations are generated with local Compose geometry through a central artwork registry. Story JSON stores stable `artworkKey` values only; the UI resolves those keys without external assets, downloads, Android resource IDs in content, or image-loading libraries. See [docs/ARTWORK_GUIDE.md](docs/ARTWORK_GUIDE.md) and [docs/NEW_STORY_CHECKLIST.md](docs/NEW_STORY_CHECKLIST.md).
+
 ## Core Principles
 
 - Completely free for users.
@@ -118,6 +120,7 @@ pursa-android/
 
 - Read [CONTRIBUTING.md](CONTRIBUTING.md) before proposing changes.
 - Read [docs/CONTENT_GUIDE.md](docs/CONTENT_GUIDE.md) before proposing stories, questions, or activities.
+- Read [docs/ARTWORK_GUIDE.md](docs/ARTWORK_GUIDE.md) before proposing story or world artwork.
 - Read [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) before proposing Android implementation work.
 - Coding agents must follow [AGENTS.md](AGENTS.md).
 

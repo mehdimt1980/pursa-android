@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
@@ -23,8 +24,9 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import org.pursa.app.R
 import org.pursa.app.core.ui.PursaTestTags
+import org.pursa.app.designsystem.artwork.PursaArtwork
+import org.pursa.app.designsystem.artwork.PursaArtworkRegistry
 import org.pursa.app.designsystem.component.PursaCard
-import org.pursa.app.designsystem.component.PursaWorldArtwork
 import org.pursa.app.designsystem.component.PursaMessage
 import org.pursa.app.designsystem.component.PursaMessageVariant
 import org.pursa.app.designsystem.component.PursaTopBar
@@ -83,7 +85,12 @@ fun WorldDetailScreen(
                     borderColor = worldStyle.accent.copy(alpha = 0.36f),
                     modifier = Modifier.fillMaxWidth(),
                     trailingContent = {
-                        PursaWorldArtwork(style = worldStyle)
+                        PursaArtwork(
+                            descriptor = PursaArtworkRegistry.descriptorFor(PursaArtworkRegistry.worldKey(world.id)),
+                            modifier = Modifier
+                                .size(PursaTheme.sizes.welcomeMark)
+                                .testTag(PursaTestTags.WorldArtwork),
+                        )
                     },
                 )
 

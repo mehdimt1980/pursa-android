@@ -525,3 +525,23 @@ Context: The initial three-world content set should be stable before expanding i
 Decision: Complete the twelve-story content inventory before adding journal storage, free-text reflection, audio, illustrations, or release automation.
 
 Consequences: The app remains offline, low-risk, ID-only for progress persistence, and focused on fixed-order authored inquiry.
+
+## ADR-052: Compose-Drawn Offline Artwork
+
+Status: Accepted
+
+Context: Pursa needs original story and world artwork without adding external assets, licensing risk, downloads, or a runtime image pipeline.
+
+Decision: Implement Phase 12 artwork as local Compose-drawn vector geometry in the design system.
+
+Consequences: The app remains fully offline, artwork is deterministic and theme-aware, and no image-loading dependency, remote URL, storage permission, or media permission is required.
+
+## ADR-053: Stable Artwork Keys in Story Content
+
+Status: Accepted
+
+Context: Story content should remain platform-neutral and reviewable.
+
+Decision: Store a stable `artworkKey` in story JSON and resolve it through `PursaArtworkRegistry`.
+
+Consequences: Content does not include Android resource IDs, and UI code avoids reflection, `Resources.getIdentifier`, and story-specific drawable lookup.

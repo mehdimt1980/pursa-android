@@ -123,3 +123,17 @@ Decorative geometry is implemented with Compose primitives in `PursaDecorativeGe
 Screens use layered backgrounds: warm or world-soft canvas, calm reading surfaces for story text, semantic containers for selected/reflection states, and bordered low-elevation cards. World identity is never color-only; titles, descriptions, accents, and motifs work together.
 
 Critical semantic color pairs are covered by deterministic contrast tests in `PursaColorContrastTest`.
+
+## Phase 12 Offline Illustration System
+
+Pursa artwork now lives in `app/src/main/java/org/pursa/app/designsystem/artwork/` as local Compose-drawn geometry. `PursaArtworkRegistry` owns the complete key inventory for world, story, and supporting state artwork, and `PursaArtwork` renders descriptors with semantic theme colors.
+
+The runtime does not depend on bitmap downloads, remote URLs, image-loading libraries, or Android resource IDs inside story content. Story JSON uses stable `artworkKey` strings and screens resolve those keys through the registry.
+
+Current artwork inventory:
+
+- world scenes: Truth, Justice, Friendship;
+- story scenes: twelve production missions;
+- state scenes: story complete, journal empty, content unavailable fallback.
+
+Artwork is decorative by default and hidden from accessibility semantics. Add informative artwork only when the image communicates information not already available in text, and source the content description from localized string resources.

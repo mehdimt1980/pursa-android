@@ -13,6 +13,9 @@ import org.pursa.app.content.model.PursaStoryOption
 import org.pursa.app.content.model.PursaStoryStep
 import org.pursa.app.content.validation.StoryContentValidator
 import org.pursa.app.content.validation.StoryValidationResult
+import org.pursa.app.designsystem.artwork.PursaArtworkLookup
+import org.pursa.app.designsystem.artwork.PursaArtworkPlacement
+import org.pursa.app.designsystem.artwork.PursaArtworkRegistry
 import org.pursa.app.journal.data.finalReflectionStep
 import org.pursa.app.journal.data.journalQuestionCandidates
 
@@ -54,6 +57,21 @@ class ProductionStoryContentTest {
         assertEquals(4, grouped["truth"]?.size)
         assertEquals(4, grouped["justice"]?.size)
         assertEquals(4, grouped["friendship"]?.size)
+    }
+
+    @Test
+    fun everyProductionStoryHasResolvableStoryArtwork() {
+        val stories = parsedStories().map { (_, story) -> story }
+        assertEquals(stories.size, stories.map { it.artworkKey }.toSet().size)
+
+        stories.forEach { story ->
+            assertTrue("${story.id} artwork must use story_ prefix", story.artworkKey.startsWith("story_"))
+            val lookup = PursaArtworkRegistry.require(story.artworkKey)
+            assertTrue("${story.id} artwork key must resolve", lookup is PursaArtworkLookup.Found)
+            val descriptor = (lookup as PursaArtworkLookup.Found).descriptor
+            assertEquals(story.worldId, descriptor.worldId)
+            assertEquals(PursaArtworkPlacement.Story, descriptor.placement)
+        }
     }
 
     @Test

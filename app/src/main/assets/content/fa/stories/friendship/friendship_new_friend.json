@@ -3,6 +3,7 @@
   "contentRevision": 1,
   "id": "friendship_new_friend",
   "worldId": "friendship",
+  "artworkKey": "story_friendship_new_friend",
   "title": "دوست تازه",
   "summary": "دانش‌آموزی تازه به کلاس می‌آید و بچه‌ها فکر می‌کنند دوستی بیشتر به شباهت نیاز دارد یا به شناختن تفاوت‌ها.",
   "recommendedMinAge": 8,

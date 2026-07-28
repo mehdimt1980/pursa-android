@@ -8,6 +8,7 @@ data class PursaStory(
     val contentRevision: Int,
     val id: String,
     val worldId: String,
+    val artworkKey: String,
     val title: String,
     val summary: String,
     val recommendedMinAge: Int,

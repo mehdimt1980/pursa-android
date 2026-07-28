@@ -80,6 +80,8 @@ Story steps are represented as a sealed model with exactly these supported types
 
 Each production story has a positive `contentRevision`. Saved active sessions store that revision and are restored only when it matches the current story. If the revision, current step, or selected option IDs are stale, the active session is cleared safely while completed history is preserved when present.
 
+Each production story also has a stable `artworkKey`. Content models do not contain Android resource IDs. The UI resolves keys through `PursaArtworkRegistry` in the design-system artwork package, which returns a local fallback descriptor for missing keys. Do not introduce story-specific drawable lookup, runtime reflection, `Resources.getIdentifier`, remote image URLs, or image-loading dependencies.
+
 ## Local Storage
 
 Room stores structured local mission progress and resumable sessions. The version-1 schema has three normalized tables:

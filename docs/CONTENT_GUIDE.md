@@ -164,6 +164,7 @@ Before registering a story:
 - confirm all IDs are stable lowercase ASCII;
 - confirm the story is registered in the manifest;
 - confirm story IDs and asset paths are unique;
+- confirm `artworkKey` uses `story_<story_id>` format and resolves in `PursaArtworkRegistry`;
 - confirm manifest ID and world ID match parsed story content;
 - confirm only supported step types are used;
 - confirm valid option counts;
@@ -194,6 +195,9 @@ Before registering a story:
 
 - confirm the manifest entry points to an existing file;
 - run or update parser, validation, repository, state, and UI tests.
+- run or update artwork registry and production-content artwork tests.
+
+See [ARTWORK_GUIDE.md](ARTWORK_GUIDE.md) and [NEW_STORY_CHECKLIST.md](NEW_STORY_CHECKLIST.md) before adding a production story.
 
 ## Sample Persian Question Patterns
 

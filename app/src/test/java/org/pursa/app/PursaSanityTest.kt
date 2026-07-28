@@ -12,6 +12,10 @@ class PursaSanityTest {
         assertTrue(PursaTestTags.HomeScreenRoot.startsWith("pursa:"))
         assertTrue(PursaTestTags.WorldDetailRoot.startsWith("pursa:"))
         assertTrue(PursaTestTags.StoryScreenRoot.startsWith("pursa:"))
+        assertTrue(PursaTestTags.WorldArtwork.startsWith("pursa:"))
+        assertTrue(PursaTestTags.storyArtwork("story").startsWith("pursa:"))
+        assertTrue(PursaTestTags.missionArtwork("mission").startsWith("pursa:"))
+        assertTrue(PursaTestTags.journalArtwork("story").startsWith("pursa:"))
         assertTrue(PursaTestTags.storyOption("step", "option").startsWith("pursa:"))
     }
 }

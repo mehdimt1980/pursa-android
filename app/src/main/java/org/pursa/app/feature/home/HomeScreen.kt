@@ -28,11 +28,12 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import org.pursa.app.R
 import org.pursa.app.core.ui.PursaTestTags
+import org.pursa.app.designsystem.artwork.PursaArtwork
+import org.pursa.app.designsystem.artwork.PursaArtworkRegistry
 import org.pursa.app.designsystem.component.PursaButton
 import org.pursa.app.designsystem.component.PursaButtonVariant
 import org.pursa.app.designsystem.component.PursaBackgroundPattern
 import org.pursa.app.designsystem.component.PursaCard
-import org.pursa.app.designsystem.component.PursaWorldArtwork
 import org.pursa.app.designsystem.theme.PursaTheme
 import org.pursa.app.designsystem.theme.pursaWorldStyle
 
@@ -145,7 +146,12 @@ private fun HomeWorldList(
                     .fillMaxWidth()
                     .testTag(world.testTag),
                 trailingContent = {
-                    PursaWorldArtwork(style = style)
+                    PursaArtwork(
+                        descriptor = PursaArtworkRegistry.descriptorFor(PursaArtworkRegistry.worldKey(world.id)),
+                        modifier = Modifier
+                            .size(PursaTheme.sizes.welcomeMark)
+                            .testTag(PursaTestTags.WorldArtwork),
+                    )
                 },
             )
         }

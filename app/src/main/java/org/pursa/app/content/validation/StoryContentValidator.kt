@@ -35,6 +35,9 @@ class StoryContentValidator {
         if (story.worldId !in validWorldIds) {
             errors += error(story.id, null, StoryValidationErrorCode.InvalidWorldId, "Story world ID is not supported.")
         }
+        if (!story.artworkKey.matches(artworkKeyRegex)) {
+            errors += error(story.id, null, StoryValidationErrorCode.InvalidArtworkKey, "Story artwork key is invalid.")
+        }
         requireNonBlank(story.title, story.id, null, "title", errors)
         requireNonBlank(story.summary, story.id, null, "summary", errors)
         if (story.recommendedMinAge !in 6..18 || story.recommendedMaxAge < story.recommendedMinAge) {
@@ -156,6 +159,7 @@ class StoryContentValidator {
         const val SupportedSchemaVersion = 1
 
         private val stableIdRegex = Regex("^[a-z][a-z0-9_]*$")
+        private val artworkKeyRegex = Regex("^story_[a-z][a-z0-9_]*$")
         private val validWorldIds = setOf(
             PursaWorlds.TruthId,
             PursaWorlds.JusticeId,

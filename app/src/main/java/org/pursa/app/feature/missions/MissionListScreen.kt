@@ -3,6 +3,7 @@ package org.pursa.app.feature.missions
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,6 +15,8 @@ import androidx.compose.ui.semantics.semantics
 import org.pursa.app.R
 import org.pursa.app.content.model.PursaStorySummary
 import org.pursa.app.core.ui.PursaTestTags
+import org.pursa.app.designsystem.artwork.PursaArtwork
+import org.pursa.app.designsystem.artwork.PursaArtworkRegistry
 import org.pursa.app.designsystem.component.PursaButton
 import org.pursa.app.designsystem.component.PursaButtonVariant
 import org.pursa.app.designsystem.component.PursaCard
@@ -93,6 +96,14 @@ private fun MissionListSuccess(
                 modifier = Modifier
                     .fillMaxWidth()
                     .testTag(mission.testTag),
+                leadingContent = {
+                    PursaArtwork(
+                        descriptor = PursaArtworkRegistry.descriptorFor(mission.artworkKey),
+                        modifier = Modifier
+                            .size(PursaTheme.sizes.welcomeMark)
+                            .testTag(PursaTestTags.missionArtwork(mission.id)),
+                    )
+                },
                 trailingContent = {
                     MissionProgressLabel(
                         status = item.status,

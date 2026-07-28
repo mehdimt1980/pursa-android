@@ -3,6 +3,7 @@
   "contentRevision": 1,
   "id": "justice_playground_rule",
   "worldId": "justice",
+  "artworkKey": "story_justice_playground_rule",
   "title": "قانون تازه‌ی حیاط",
   "summary": "مدرسه برای جلوگیری از بی‌نظمی قانونی تازه می‌گذارد، اما این قانون برای همه به یک اندازه منصفانه به نظر نمی‌رسد.",
   "recommendedMinAge": 9,

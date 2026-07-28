@@ -32,6 +32,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import org.pursa.app.R
 import org.pursa.app.core.ui.PursaTestTags
+import org.pursa.app.designsystem.artwork.PursaArtwork
+import org.pursa.app.designsystem.artwork.PursaArtworkRegistry
 import org.pursa.app.designsystem.component.PursaBackgroundPattern
 import org.pursa.app.designsystem.component.PursaButton
 import org.pursa.app.designsystem.component.PursaCard
@@ -93,6 +95,15 @@ fun WelcomeScreen(
                         textAlign = TextAlign.Center,
                     )
                 }
+
+                Spacer(modifier = Modifier.height(PursaTheme.spacing.extraLarge))
+
+                PursaArtwork(
+                    descriptor = PursaArtworkRegistry.descriptorFor("state_story_complete"),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag(PursaTestTags.WelcomeArtwork),
+                )
 
                 Spacer(modifier = Modifier.height(PursaTheme.spacing.extraLarge))
 

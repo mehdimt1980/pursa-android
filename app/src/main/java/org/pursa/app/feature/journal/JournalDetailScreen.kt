@@ -23,6 +23,8 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import org.pursa.app.R
 import org.pursa.app.core.ui.PursaTestTags
+import org.pursa.app.designsystem.artwork.PursaArtwork
+import org.pursa.app.designsystem.artwork.PursaArtworkRegistry
 import org.pursa.app.designsystem.component.PursaButton
 import org.pursa.app.designsystem.component.PursaButtonVariant
 import org.pursa.app.designsystem.component.PursaCard
@@ -183,6 +185,12 @@ private fun JournalDetailContent(
 
 @Composable
 private fun AvailableJournalDetail(entry: ResolvedJournalEntry.Available) {
+    PursaArtwork(
+        descriptor = PursaArtworkRegistry.descriptorFor("story_${entry.record.storyId}"),
+        modifier = Modifier
+            .fillMaxWidth()
+            .testTag(PursaTestTags.journalArtwork(entry.record.storyId)),
+    )
     if (entry.contentChanged) {
         PursaMessage(
             title = stringResource(R.string.journal_entry_unavailable_title),

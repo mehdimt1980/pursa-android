@@ -3,6 +3,7 @@
   "contentRevision": 1,
   "id": "justice_class_representative",
   "worldId": "justice",
+  "artworkKey": "story_justice_class_representative",
   "title": "نماینده‌ی کلاس",
   "summary": "دانش‌آموزان باید نماینده‌ی کلاس را انتخاب کنند، اما محبوبیت، توانایی و خواسته‌های گروه‌های مختلف همیشه یکسان نیست.",
   "recommendedMinAge": 9,

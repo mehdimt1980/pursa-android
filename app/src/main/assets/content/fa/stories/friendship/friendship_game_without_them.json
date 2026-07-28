@@ -3,6 +3,7 @@
   "contentRevision": 1,
   "id": "friendship_game_without_them",
   "worldId": "friendship",
+  "artworkKey": "story_friendship_game_without_them",
   "title": "بازی بدون او",
   "summary": "یک گروه دوستان می‌خواهند بازی خودشان را ادامه دهند، اما یکی از بچه‌ها مرتب کنار گذاشته می‌شود.",
   "recommendedMinAge": 9,

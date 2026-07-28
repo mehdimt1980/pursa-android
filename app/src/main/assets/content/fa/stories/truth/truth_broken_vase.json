@@ -3,6 +3,7 @@
   "contentRevision": 1,
   "id": "truth_broken_vase",
   "worldId": "truth",
+  "artworkKey": "story_truth_broken_vase",
   "title": "گلدان شکسته",
   "summary": "آرین هنگام بازی گلدانی را می‌شکند و باید تصمیم بگیرد چه کار کند.",
   "recommendedMinAge": 8,

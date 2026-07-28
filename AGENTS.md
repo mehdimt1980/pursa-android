@@ -67,6 +67,11 @@ Only report these commands as successful if they were actually run and completed
 - Each production mission needs genuine philosophical tension, reasons, perspective-taking, a counterexample, and reflection.
 - Do not add serious-harm secret scenarios without a dedicated safety review.
 - New production stories require parsing and validation tests.
+- New production stories require a stable `artworkKey` in `story_<story_id>` form.
+- Story artwork keys must resolve through the centralized `PursaArtworkRegistry`.
+- Do not put Android resource IDs, drawable names, remote URLs, or image-loader configuration in story content.
+- Do not use runtime reflection, `Resources.getIdentifier`, or story-specific drawable lookup for artwork.
+- Artwork should remain offline, original, semantic-color-based, and decorative by default unless a localized content description is genuinely required.
 - Story content must not include correct-answer fields, scores, points, rewards, badges, profiles, or ranking.
 - Populated worlds must use the generic manifest, repository, mission list, story renderer, and progress system rather than world-specific rendering.
 - Friendship content must not request personal friendship disclosures.

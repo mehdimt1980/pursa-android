@@ -3,6 +3,7 @@
   "contentRevision": 1,
   "id": "truth_group_photo",
   "worldId": "truth",
+  "artworkKey": "story_truth_group_photo",
   "title": "عکس گروهی",
   "summary": "چند دوست می‌خواهند یک عکس گروهی را منتشر کنند، اما یکی از بچه‌ها با انتشار آن موافق نیست.",
   "recommendedMinAge": 9,

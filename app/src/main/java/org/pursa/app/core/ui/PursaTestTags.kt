@@ -4,7 +4,9 @@ object PursaTestTags {
     const val WelcomeScreenRoot = "pursa:welcome:root"
     const val WelcomeAppName = "pursa:welcome:app-name"
     const val WelcomePrimaryAction = "pursa:welcome:primary-action"
+    const val WelcomeArtwork = "pursa:artwork:welcome"
     const val HomeScreenRoot = "pursa:home:root"
+    const val WorldArtwork = "pursa:artwork:world"
     const val HomeWorldTruth = "pursa:home:world:truth"
     const val HomeWorldJustice = "pursa:home:world:justice"
     const val HomeWorldFriendship = "pursa:home:world:friendship"
@@ -14,11 +16,14 @@ object PursaTestTags {
     const val WorldDetailQuestions = "pursa:world:detail:questions"
     const val MissionListRoot = "pursa:mission-list:root"
     const val MissionTruthBrokenVase = "pursa:mission:truth-broken-vase"
+    const val MissionArtwork = "pursa:artwork:mission"
     const val StoryScreenRoot = "pursa:story:root"
+    const val StoryArtwork = "pursa:artwork:story"
     const val StoryContinue = "pursa:story:continue"
     const val StoryPrevious = "pursa:story:previous"
     const val StoryProgress = "pursa:story:progress"
     const val StorySummaryRoot = "pursa:story:summary:root"
+    const val CompletionArtwork = "pursa:artwork:completion"
     const val StoryReturnToWorld = "pursa:story:return-to-world"
     const val SummaryJournalSection = "pursa:summary:journal:section"
     const val SummaryJournalSave = "pursa:summary:journal:save"
@@ -26,6 +31,7 @@ object PursaTestTags {
     const val StoryErrorMessage = "pursa:story:error"
     const val JournalListRoot = "pursa:journal:list:root"
     const val JournalEmptyState = "pursa:journal:empty"
+    const val JournalEmptyArtwork = "pursa:artwork:journal-empty"
     const val JournalDetailRoot = "pursa:journal:detail:root"
     const val JournalSavedQuestion = "pursa:journal:saved-question"
     const val JournalReflectionSelection = "pursa:journal:reflection-selection"
@@ -46,6 +52,12 @@ object PursaTestTags {
     const val DesignSystemMessage = "pursa:design-system:message"
 
     fun mission(storyId: String): String = "pursa:mission:$storyId"
+
+    fun missionArtwork(storyId: String): String = "pursa:artwork:mission:$storyId"
+
+    fun storyArtwork(storyId: String): String = "pursa:artwork:story:$storyId"
+
+    fun journalArtwork(storyId: String): String = "pursa:artwork:journal:$storyId"
 
     fun missionStatus(storyId: String): String = "pursa:mission:status:$storyId"
 

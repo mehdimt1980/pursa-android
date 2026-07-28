@@ -9,6 +9,7 @@
     "contentRevision",
     "id",
     "worldId",
+    "artworkKey",
     "title",
     "summary",
     "recommendedMinAge",
@@ -36,6 +37,9 @@
         "justice",
         "friendship"
       ]
+    },
+    "artworkKey": {
+      "$ref": "#/$defs/storyArtworkKey"
     },
     "title": {
       "$ref": "#/$defs/nonEmptyText"
@@ -112,6 +116,10 @@
     "stableId": {
       "type": "string",
       "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "storyArtworkKey": {
+      "type": "string",
+      "pattern": "^story_[a-z][a-z0-9_]*$"
     },
     "nonEmptyText": {
       "type": "string",

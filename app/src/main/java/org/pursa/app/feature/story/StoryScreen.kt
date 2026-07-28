@@ -26,6 +26,8 @@ import org.pursa.app.content.model.PursaStory
 import org.pursa.app.content.state.StorySessionReducer
 import org.pursa.app.content.state.StorySessionState
 import org.pursa.app.core.ui.PursaTestTags
+import org.pursa.app.designsystem.artwork.PursaArtwork
+import org.pursa.app.designsystem.artwork.PursaArtworkRegistry
 import org.pursa.app.designsystem.component.PursaButton
 import org.pursa.app.designsystem.component.PursaButtonVariant
 import org.pursa.app.designsystem.component.PursaLinearProgress
@@ -181,6 +183,14 @@ private fun StoryStepScaffold(
                     .sizeIn(maxWidth = PursaTheme.sizes.contentMaxWidth),
                 verticalArrangement = Arrangement.spacedBy(PursaTheme.spacing.large),
             ) {
+                if (sessionState.currentStepIndex == 0) {
+                    PursaArtwork(
+                        descriptor = PursaArtworkRegistry.descriptorFor(story.artworkKey),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .testTag(PursaTestTags.storyArtwork(story.id)),
+                    )
+                }
                 Text(
                     text = story.title,
                     modifier = Modifier.semantics { heading() },

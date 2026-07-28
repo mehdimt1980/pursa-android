@@ -3,6 +3,7 @@
   "contentRevision": 1,
   "id": "truth_strange_news",
   "worldId": "truth",
+  "artworkKey": "story_truth_strange_news",
   "title": "خبر عجیب",
   "summary": "سام خبری عجیب در یک گروه می‌بیند و می‌خواهد پیش از بررسی آن را برای دیگران بفرستد.",
   "recommendedMinAge": 9,

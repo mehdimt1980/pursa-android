@@ -23,6 +23,8 @@ import androidx.compose.ui.semantics.semantics
 import org.pursa.app.R
 import org.pursa.app.content.model.PursaStory
 import org.pursa.app.core.ui.PursaTestTags
+import org.pursa.app.designsystem.artwork.PursaArtwork
+import org.pursa.app.designsystem.artwork.PursaArtworkRegistry
 import org.pursa.app.designsystem.component.PursaButton
 import org.pursa.app.designsystem.component.PursaButtonVariant
 import org.pursa.app.designsystem.component.PursaCard
@@ -74,6 +76,12 @@ fun StorySummaryScreen(
                 text = story.title,
                 color = MaterialTheme.colorScheme.onBackground,
                 style = MaterialTheme.typography.labelLarge,
+            )
+            PursaArtwork(
+                descriptor = PursaArtworkRegistry.descriptorFor("state_story_complete"),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag(PursaTestTags.CompletionArtwork),
             )
             Text(
                 text = story.completion.title,

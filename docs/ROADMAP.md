@@ -238,3 +238,23 @@ Exit criteria:
 - Release artifacts are signed.
 - License and privacy documentation are included.
 - Release does not claim more than has been verified.
+
+## Phase 12: Offline Illustration System
+
+Objective: Add a local, repeatable illustration system for worlds, stories, and supporting states.
+
+Main deliverables:
+
+- Central artwork registry with stable keys.
+- Compose-drawn original offline artwork for three worlds, twelve stories, completion, empty journal, and fallback states.
+- Story JSON `artworkKey` fields.
+- Contributor workflow for future story artwork.
+- Registry and production-content artwork tests.
+
+Exit criteria:
+
+- No external assets, image-loading dependency, or network permission is introduced.
+- All production story artwork keys resolve through the registry.
+- Artwork is decorative by default and accessible screen text remains the source of meaning.
+
+Status: Implemented in source; final Gradle verification depends on a local Android SDK or CI environment.
