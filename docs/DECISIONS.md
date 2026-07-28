@@ -431,3 +431,23 @@ Context: Families need a simple way to remove stored progress from the device.
 Decision: Add a Settings/Data & Privacy screen with confirmed clear-all local progress.
 
 Consequences: The app can delete progress, active sessions, and selected answer rows without deleting packaged story assets.
+
+## ADR-044: Four-Mission First Justice World
+
+Status: Accepted
+
+Context: Phase 8 expands Justice and fairness from a placeholder world into the second coherent production content world.
+
+Decision: Ship exactly four Justice missions for this phase: last cake, class representative, playground rule, and team prize.
+
+Consequences: The second content world now covers sharing, need, effort, representation, majority and minority concerns, school rules, safety, authority, contribution, and circumstances without starting Friendship content.
+
+## ADR-045: No New Story Step Types in Phase 8
+
+Status: Accepted
+
+Context: The existing fixed-order story engine already supports the needed Justice interactions.
+
+Decision: Author all Phase 8 Justice missions with the existing six step types.
+
+Consequences: No branching, scoring, free text, custom rule-debate type, or Justice-specific production rendering is introduced.

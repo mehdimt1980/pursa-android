@@ -158,7 +158,28 @@ Exit criteria:
 
 Status: Implemented with Room-backed local mission progress, resumable active sessions, selected option ID persistence, completion recording, replay support, content revision compatibility, explicit app-container construction, Settings/Data & Privacy clear-all controls, backup exclusion, exported Room schema, and DAO/repository test coverage. Journal, free-text reflection, Justice content, Friendship content, audio, illustrations, parent mode, school mode, accounts, and cloud sync remain incomplete.
 
-## Phase 8: Accessibility and Quality Assurance
+## Phase 8: Second Complete Justice World
+
+Objective: Deliver the second complete reviewed content world for Justice and fairness.
+
+Main deliverables:
+
+- Four Justice missions.
+- Open questions.
+- Reasoning activity.
+- Perspective-taking.
+- Counterexample or changed-condition prompt.
+- Reflection prompt.
+
+Exit criteria:
+
+- Content passes review checklist.
+- Story works offline.
+- Basic parser, repository, inventory, RTL, safety, and UI behavior checks are covered.
+
+Status: Implemented with four manifest-registered offline Justice missions: `justice_last_cake`, `justice_class_representative`, `justice_playground_rule`, and `justice_team_prize`. Each mission uses JSON-authored Persian content, fixed-order interactive reflection, reasons, perspective-taking, counterexamples, and completion reflection. Parser, validation, repository, production inventory, and Justice UI-flow tests exist. Friendship content, journal, free-text reflection, audio, illustrations, parent mode, school mode, accounts, cloud sync, and full release-candidate QA remain incomplete.
+
+## Phase 9: Accessibility and Quality Assurance
 
 Objective: Prepare for a trustworthy MVP release candidate.
 
@@ -174,7 +195,7 @@ Exit criteria:
 
 - Major accessibility, RTL, privacy, and content issues are addressed or documented.
 
-## Phase 9: Signed GitHub Release
+## Phase 10: Signed GitHub Release
 
 Objective: Publish a signed open-source release through GitHub.
 

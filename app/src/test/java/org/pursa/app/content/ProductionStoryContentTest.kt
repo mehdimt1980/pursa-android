@@ -20,9 +20,10 @@ class ProductionStoryContentTest {
     private val manifest = productionManifest()
 
     @Test
-    fun manifestContainsExactlyFourTruthStoriesInPedagogicalOrder() {
-        assertEquals(productionTruthStoryIds, manifest.stories.map { it.id })
-        assertTrue(manifest.stories.all { it.worldId == "truth" })
+    fun manifestContainsExactlyEightStoriesInPedagogicalOrder() {
+        assertEquals(productionStoryIds, manifest.stories.map { it.id })
+        assertEquals(productionTruthStoryIds, manifest.stories.filter { it.worldId == "truth" }.map { it.id })
+        assertEquals(productionJusticeStoryIds, manifest.stories.filter { it.worldId == "justice" }.map { it.id })
         assertEquals(manifest.stories.size, manifest.stories.map { it.id }.toSet().size)
         assertEquals(manifest.stories.size, manifest.stories.map { it.assetPath }.toSet().size)
     }
@@ -35,7 +36,7 @@ class ProductionStoryContentTest {
     }
 
     @Test
-    fun everyRegisteredTruthStoryParsesAndValidates() {
+    fun everyRegisteredProductionStoryParsesAndValidates() {
         parsedStories().forEach { (entry, story) ->
             assertEquals(entry.id, story.id)
             assertEquals(entry.worldId, story.worldId)
@@ -44,11 +45,11 @@ class ProductionStoryContentTest {
     }
 
     @Test
-    fun filteringWorldInventoryContainsOnlyTruthMissions() {
+    fun filteringWorldInventoryContainsExpectedMissions() {
         val grouped = manifest.stories.groupBy { it.worldId }
 
         assertEquals(4, grouped["truth"]?.size)
-        assertTrue(grouped["justice"].orEmpty().isEmpty())
+        assertEquals(4, grouped["justice"]?.size)
         assertTrue(grouped["friendship"].orEmpty().isEmpty())
     }
 
@@ -73,7 +74,7 @@ class ProductionStoryContentTest {
             assertTrue(story.estimatedDurationMinutes > 0)
             assertTrue(story.recommendedMinAge in 6..18)
             assertTrue(story.recommendedMaxAge in story.recommendedMinAge..18)
-            assertEquals("truth", story.worldId)
+            assertTrue(story.worldId in setOf("truth", "justice"))
             assertEquals(story.steps.size, story.steps.map { it.id }.toSet().size)
 
             story.steps.forEach { step ->

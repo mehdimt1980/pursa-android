@@ -21,6 +21,26 @@
       "id": "truth_friend_secret",
       "worldId": "truth",
       "assetPath": "content/fa/stories/truth/truth_friend_secret.json"
+    },
+    {
+      "id": "justice_last_cake",
+      "worldId": "justice",
+      "assetPath": "content/fa/stories/justice/justice_last_cake.json"
+    },
+    {
+      "id": "justice_class_representative",
+      "worldId": "justice",
+      "assetPath": "content/fa/stories/justice/justice_class_representative.json"
+    },
+    {
+      "id": "justice_playground_rule",
+      "worldId": "justice",
+      "assetPath": "content/fa/stories/justice/justice_playground_rule.json"
+    },
+    {
+      "id": "justice_team_prize",
+      "worldId": "justice",
+      "assetPath": "content/fa/stories/justice/justice_team_prize.json"
     }
   ]
 }

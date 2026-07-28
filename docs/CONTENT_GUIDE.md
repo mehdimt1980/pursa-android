@@ -125,6 +125,21 @@ Persian editorial quality:
 - Avoid adult academic vocabulary unless explained naturally.
 - Avoid baby talk and patronizing wording.
 
+## Phase 8 Justice Mission Guidance
+
+The second complete content world uses four Justice and fairness missions in this manifest-defined order:
+
+1. `justice_last_cake`
+2. `justice_class_representative`
+3. `justice_playground_rule`
+4. `justice_team_prize`
+
+The sequence moves from familiar sharing decisions toward class representation, school rules, and group contribution. Friendship remains unauthored until a later phase.
+
+Justice stories should keep more than one reasonable value alive at the same time: equality, need, effort, representation, majority choice, minority concern, safety, authority, contribution, circumstances, and visible or less-visible work. Avoid presenting adults, rules, votes, or equal shares as automatically correct. Children may conclude that equal treatment is fair, that differences matter, or that the answer depends on the reason and context.
+
+School and group scenarios should stay low-risk and non-political. Authority figures may have good safety reasons, but children should still be invited to question rules respectfully. Representation scenarios should stay in classroom terms and avoid governmental or partisan language. Reward scenarios should avoid money, expensive prizes, ranking, scores, or shame.
+
 ## Production Content Review Checklist
 
 Before registering a story:

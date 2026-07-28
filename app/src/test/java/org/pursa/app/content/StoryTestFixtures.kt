@@ -15,6 +15,15 @@ val productionTruthStoryIds = listOf(
     "truth_friend_secret",
 )
 
+val productionJusticeStoryIds = listOf(
+    "justice_last_cake",
+    "justice_class_representative",
+    "justice_playground_rule",
+    "justice_team_prize",
+)
+
+val productionStoryIds = productionTruthStoryIds + productionJusticeStoryIds
+
 fun sampleStoryJson(): String = readProjectFile(
     "app/src/main/assets/content/fa/stories/truth/truth_broken_vase.json",
     "src/main/assets/content/fa/stories/truth/truth_broken_vase.json",

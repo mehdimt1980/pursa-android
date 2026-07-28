@@ -5,6 +5,8 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.pursa.app.content.FakeStoryDataSource
+import org.pursa.app.content.productionJusticeStoryIds
+import org.pursa.app.content.productionStoryIds
 import org.pursa.app.content.productionStoryAssets
 import org.pursa.app.content.productionTruthStoryIds
 import org.pursa.app.content.sampleManifestJson
@@ -12,11 +14,11 @@ import org.pursa.app.content.sampleStoryJson
 
 class StoryContentRepositoryTest {
     @Test
-    fun manifestReturnsTruthStorySummariesInOrder() = runBlocking {
+    fun manifestReturnsProductionStorySummariesInOrder() = runBlocking {
         val result = repository().loadAllStorySummaries()
 
         assertTrue(result is StoryContentResult.Success)
-        assertEquals(productionTruthStoryIds, (result as StoryContentResult.Success).value.map { it.id })
+        assertEquals(productionStoryIds, (result as StoryContentResult.Success).value.map { it.id })
     }
 
     @Test
@@ -28,11 +30,11 @@ class StoryContentRepositoryTest {
     }
 
     @Test
-    fun filteringByJusticeReturnsNoMissions() = runBlocking {
+    fun filteringByJusticeReturnsProductionMissions() = runBlocking {
         val result = repository().loadStoriesByWorld("justice")
 
         assertTrue(result is StoryContentResult.Success)
-        assertTrue((result as StoryContentResult.Success).value.isEmpty())
+        assertEquals(productionJusticeStoryIds, (result as StoryContentResult.Success).value.map { it.id })
     }
 
     @Test

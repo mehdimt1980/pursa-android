@@ -57,18 +57,45 @@ class StoryFlowTest {
     }
 
     @Test
-    fun justiceAndFriendshipDoNotDisplayFakeMissionCards() {
+    fun justiceWorldDisplaysFourRealMissionCards() {
         openWorld(PursaTestTags.HomeWorldJustice)
+
+        composeRule
+            .onNodeWithTag(PursaTestTags.mission("justice_last_cake"))
+            .assertIsDisplayed()
+        composeRule
+            .onNodeWithTag(PursaTestTags.mission("justice_class_representative"))
+            .assertIsDisplayed()
+        composeRule
+            .onNodeWithTag(PursaTestTags.mission("justice_playground_rule"))
+            .assertIsDisplayed()
+        composeRule
+            .onNodeWithTag(PursaTestTags.mission("justice_team_prize"))
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun justiceWorldDisplaysMissionTitles() {
+        openWorld(PursaTestTags.HomeWorldJustice)
+
+        composeRule.onAllNodesWithText("آخرین تکه‌ی کیک").onFirst().assertIsDisplayed()
+        composeRule.onAllNodesWithText("نماینده‌ی کلاس").onFirst().assertIsDisplayed()
+        composeRule.onAllNodesWithText("قانون تازه‌ی حیاط").onFirst().assertIsDisplayed()
+        composeRule.onAllNodesWithText("جایزه‌ی کار گروهی").onFirst().assertIsDisplayed()
+    }
+
+    @Test
+    fun friendshipDoesNotDisplayFakeMissionCards() {
+        openWorld(PursaTestTags.HomeWorldFriendship)
+
         composeRule
             .onNodeWithTag(PursaTestTags.MissionTruthBrokenVase)
             .assertDoesNotExist()
-
         composeRule
-            .onNodeWithTag(PursaTestTags.WorldDetailBack)
-            .performClick()
-        openWorldFromHome(PursaTestTags.HomeWorldFriendship)
+            .onNodeWithTag(PursaTestTags.mission("justice_last_cake"))
+            .assertDoesNotExist()
         composeRule
-            .onNodeWithTag(PursaTestTags.MissionTruthBrokenVase)
+            .onNodeWithTag(PursaTestTags.mission("justice_team_prize"))
             .assertDoesNotExist()
     }
 
@@ -185,6 +212,23 @@ class StoryFlowTest {
     }
 
     @Test
+    fun lastCakeMissionOpensRequiresSelectionAndCompletes() {
+        openMissionFromWorld(PursaTestTags.HomeWorldJustice, "justice_last_cake")
+        composeRule.onAllNodesWithText("آخرین تکه‌ی کیک").onFirst().assertIsDisplayed()
+        continueNarrative()
+        assertCurrentStepRequiresSelection()
+
+        chooseAndContinue("cake_choice", "sara_none")
+        chooseAndContinue("reason_focus", "need_matters")
+        chooseAndContinue("sara_view", "need_changes")
+        chooseAndContinue("arad_view", "effort_limited")
+        chooseAndContinue("lottery_question", "only_impartial")
+        chooseAndContinue("unequal_pieces", "depends_reason")
+        chooseAndContinue("final_reflection", "more_complicated")
+        assertSummaryReturnsToWorld()
+    }
+
+    @Test
     fun invalidStoryIdShowsSafeError() {
         composeRule.setContent {
             InvalidStoryRouteContent()
@@ -200,7 +244,14 @@ class StoryFlowTest {
     }
 
     private fun openMission(storyId: String) {
-        openTruthWorld()
+        openMissionFromWorld(PursaTestTags.HomeWorldTruth, storyId)
+    }
+
+    private fun openMissionFromWorld(
+        worldTag: String,
+        storyId: String,
+    ) {
+        openWorld(worldTag)
         composeRule
             .onNodeWithTag(missionTag(storyId))
             .performScrollTo()
@@ -253,6 +304,10 @@ class StoryFlowTest {
     }
 
     private fun assertSummaryReturnsToTruthWorld() {
+        assertSummaryReturnsToWorld()
+    }
+
+    private fun assertSummaryReturnsToWorld() {
         composeRule
             .onNodeWithTag(PursaTestTags.StorySummaryRoot)
             .assertIsDisplayed()
