@@ -56,7 +56,7 @@ fun StorySummaryScreen(
         modifier = modifier
             .fillMaxSize()
             .testTag(PursaTestTags.StorySummaryRoot),
-        color = MaterialTheme.colorScheme.background,
+        color = PursaTheme.semanticColors.canvasWarm,
     ) {
         Column(
             modifier = Modifier
@@ -84,11 +84,14 @@ fun StorySummaryScreen(
             PursaMessage(
                 title = story.completion.title,
                 message = story.completion.reflection,
+                variant = PursaMessageVariant.Info,
             )
             if (selectedAnswers.isNotEmpty()) {
                 PursaCard(
                     title = stringResource(R.string.story_progress_label, selectedAnswers.size, story.steps.size),
                     supportingText = story.completion.familyPrompt,
+                    containerColor = PursaTheme.semanticColors.readingSurface,
+                    borderColor = PursaTheme.semanticColors.outlineSoft,
                     modifier = Modifier.fillMaxWidth(),
                 )
             }
@@ -114,6 +117,9 @@ fun StorySummaryScreen(
                         PursaCard(
                             title = stringResource(R.string.summary_journal_final_reflection),
                             supportingText = it,
+                            containerColor = PursaTheme.semanticColors.reflectionContainer,
+                            contentColor = PursaTheme.semanticColors.onReflectionContainer,
+                            borderColor = PursaTheme.semanticColors.brand.copy(alpha = 0.34f),
                             modifier = Modifier.fillMaxWidth(),
                         )
                     }
@@ -132,6 +138,22 @@ fun StorySummaryScreen(
                                 null
                             },
                             onClick = { onSelectJournalQuestion(candidate.stepId) },
+                            accentColor = if (selected) PursaTheme.semanticColors.brand else null,
+                            containerColor = if (selected) {
+                                PursaTheme.semanticColors.brandContainer
+                            } else {
+                                PursaTheme.semanticColors.readingSurface
+                            },
+                            contentColor = if (selected) {
+                                PursaTheme.semanticColors.onBrandContainer
+                            } else {
+                                MaterialTheme.colorScheme.onSurface
+                            },
+                            borderColor = if (selected) {
+                                PursaTheme.semanticColors.brand
+                            } else {
+                                PursaTheme.semanticColors.outlineSoft
+                            },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .testTag(PursaTestTags.summaryJournalQuestion(candidate.stepId)),

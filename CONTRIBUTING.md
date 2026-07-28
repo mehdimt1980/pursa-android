@@ -10,6 +10,20 @@ Thank you for helping build `پرسا | Pursa`. This project is early-stage, chi
 4. Add tests for new logic.
 5. Update documentation when behavior, architecture, privacy, or content rules change.
 
+## Visual and Accessibility Checks
+
+Before opening a UI change, run:
+
+```bash
+./gradlew :app:lintDebug :app:testDebugUnitTest :app:assembleDebug --stacktrace
+./gradlew :app:assembleRelease --stacktrace
+./gradlew :app:assembleDebugAndroidTest --stacktrace
+```
+
+Use [docs/QUALITY.md](docs/QUALITY.md) for manual visual, large-font, RTL, landscape, TalkBack, and Accessibility Scanner review.
+
+Feature screens should use `PursaTheme.semanticColors`, Material semantic roles, and `pursaWorldStyle(worldId)` for world identity. Do not add raw hexadecimal colors in feature code. Decorative geometry must be non-interactive and hidden from accessibility.
+
 ## Proposing Educational Content
 
 Content proposals should follow [docs/CONTENT_GUIDE.md](docs/CONTENT_GUIDE.md). A proposal should include:

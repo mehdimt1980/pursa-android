@@ -66,6 +66,9 @@ class NavigationFlowTest {
         composeRule
             .onNodeWithTag(PursaTestTags.HomeWorldFriendship)
             .assertIsDisplayed()
+        composeRule
+            .onNodeWithTag(PursaTestTags.HomeJournalAction)
+            .assertIsDisplayed()
     }
 
     @Test

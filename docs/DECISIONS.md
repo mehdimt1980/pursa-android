@@ -1,5 +1,19 @@
 # Decisions
 
+## Phase 11 Visual Identity Decisions
+
+- Use a warm non-white canvas as the default app background; reserve pure white for intentionally elevated reading surfaces.
+- Keep Pursa violet as the global brand and Reflection Journal identity.
+- Give Truth teal, Justice amber, and Friendship coral distinct semantic palettes.
+- Keep colors semantic; feature code should not introduce raw hexadecimal palette values.
+- Use original Compose-drawn abstract motifs rather than external illustrations, downloaded SVGs, mascots, or bitmap textures.
+- Do not add a custom font in Phase 11; preserve platform font fallback and tune Material typography for Persian readability.
+- Keep story-reading surfaces calm, high-contrast, and width-constrained.
+- Selected states must combine semantics, text, border, surface, and accent, not color alone.
+- Keep the app light-theme-only and leave dynamic color disabled.
+- Compile instrumentation-test APKs and release APKs in CI; emulator execution remains a separate device-backed step.
+- Do not add screenshot-testing dependencies or external visual assets in this phase.
+
 This is a lightweight architecture decision log for `پرسا | Pursa`.
 
 ## ADR-001: Kotlin Instead of Flutter

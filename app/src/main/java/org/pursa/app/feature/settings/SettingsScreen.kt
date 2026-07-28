@@ -43,7 +43,7 @@ fun SettingsScreen(
         modifier = modifier
             .fillMaxSize()
             .testTag(PursaTestTags.SettingsScreenRoot),
-        color = MaterialTheme.colorScheme.background,
+        color = PursaTheme.semanticColors.canvasWarm,
     ) {
         Column(
             modifier = Modifier
@@ -69,7 +69,7 @@ fun SettingsScreen(
                 Text(
                     text = stringResource(R.string.settings_data_privacy_title),
                     modifier = Modifier.semantics { heading() },
-                    color = MaterialTheme.colorScheme.onBackground,
+                    color = PursaTheme.semanticColors.inkStrong,
                     style = MaterialTheme.typography.headlineMedium,
                 )
                 PursaMessage(

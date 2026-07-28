@@ -32,7 +32,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import org.pursa.app.R
 import org.pursa.app.core.ui.PursaTestTags
+import org.pursa.app.designsystem.component.PursaBackgroundPattern
 import org.pursa.app.designsystem.component.PursaButton
+import org.pursa.app.designsystem.component.PursaCard
 import org.pursa.app.designsystem.theme.PursaTheme
 
 @Composable
@@ -44,7 +46,7 @@ fun WelcomeScreen(
         modifier = modifier
             .fillMaxSize()
             .testTag(PursaTestTags.WelcomeScreenRoot),
-        color = MaterialTheme.colorScheme.background,
+        color = PursaTheme.semanticColors.canvasWarm,
     ) {
         Box(
             modifier = Modifier
@@ -57,6 +59,7 @@ fun WelcomeScreen(
                 ),
             contentAlignment = Alignment.Center,
         ) {
+            PursaBackgroundPattern(modifier = Modifier.fillMaxSize())
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -76,7 +79,7 @@ fun WelcomeScreen(
                 Box(
                     modifier = Modifier
                         .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.primaryContainer)
+                        .background(PursaTheme.semanticColors.brandContainer)
                         .sizeIn(
                             minWidth = PursaTheme.sizes.welcomeMark,
                             minHeight = PursaTheme.sizes.welcomeMark,
@@ -85,7 +88,7 @@ fun WelcomeScreen(
                 ) {
                     Text(
                         text = stringResource(R.string.app_name),
-                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        color = PursaTheme.semanticColors.onBrandContainer,
                         style = MaterialTheme.typography.titleLarge,
                         textAlign = TextAlign.Center,
                     )
@@ -114,9 +117,19 @@ fun WelcomeScreen(
 
                 Text(
                     text = stringResource(R.string.welcome_description),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = PursaTheme.semanticColors.inkDefault,
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Start,
+                )
+
+                Spacer(modifier = Modifier.height(PursaTheme.spacing.large))
+
+                PursaCard(
+                    title = stringResource(R.string.home_inquiry_title),
+                    supportingText = stringResource(R.string.home_inquiry_message),
+                    containerColor = PursaTheme.semanticColors.readingSurface,
+                    borderColor = PursaTheme.semanticColors.outlineSoft,
+                    modifier = Modifier.fillMaxWidth(),
                 )
 
                 Spacer(modifier = Modifier.height(PursaTheme.spacing.extraLarge))

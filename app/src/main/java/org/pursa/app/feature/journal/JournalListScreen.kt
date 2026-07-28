@@ -46,7 +46,7 @@ fun JournalListScreen(
         modifier = modifier
             .fillMaxSize()
             .testTag(PursaTestTags.JournalListRoot),
-        color = MaterialTheme.colorScheme.background,
+        color = PursaTheme.semanticColors.canvasWarm,
     ) {
         Column(
             modifier = Modifier
@@ -132,6 +132,10 @@ private fun JournalListContent(
                             title = entryTitle(entry),
                             supportingText = entrySupportingText(entry),
                             onClick = { onEntryClick(entry.record.storyId) },
+                            accentColor = PursaTheme.semanticColors.brand,
+                            containerColor = PursaTheme.semanticColors.reflectionContainer,
+                            contentColor = PursaTheme.semanticColors.onReflectionContainer,
+                            borderColor = PursaTheme.semanticColors.brand.copy(alpha = 0.32f),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .testTag(PursaTestTags.journalEntry(entry.record.storyId)),

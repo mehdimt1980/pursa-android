@@ -82,10 +82,14 @@ private fun MissionListSuccess(
     ) {
         missions.forEach { item ->
             val mission = item.summary
+            val statusColor = item.status.statusColor()
             PursaCard(
                 title = mission.title,
                 supportingText = mission.summary,
                 onClick = { onMissionClick(mission.id) },
+                accentColor = statusColor,
+                containerColor = MaterialTheme.colorScheme.surface,
+                borderColor = statusColor.copy(alpha = 0.42f),
                 modifier = Modifier
                     .fillMaxWidth()
                     .testTag(mission.testTag),
@@ -137,6 +141,13 @@ private fun MissionProgressLabel(
             style = MaterialTheme.typography.labelMedium,
         )
     }
+}
+
+@Composable
+private fun MissionProgressStatus.statusColor() = when (this) {
+    MissionProgressStatus.NotStarted -> PursaTheme.semanticColors.outlineStrong
+    MissionProgressStatus.InProgress -> PursaTheme.semanticColors.info
+    MissionProgressStatus.Completed -> PursaTheme.semanticColors.success
 }
 
 @Composable

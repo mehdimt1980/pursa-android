@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   android:
-    name: Lint, test, and debug build
+    name: Lint, tests, and app builds
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -46,11 +46,25 @@ jobs:
       - name: Run lint, unit tests, and debug build
         run: ./gradlew :app:lintDebug :app:testDebugUnitTest :app:assembleDebug --stacktrace
 
+      - name: Assemble release build
+        run: ./gradlew :app:assembleRelease --stacktrace
+
+      - name: Assemble instrumentation test APK
+        run: ./gradlew :app:assembleDebugAndroidTest --stacktrace
+
       - name: Upload debug APK
         uses: actions/upload-artifact@v7
         with:
           name: pursa-debug-apk-${{ github.sha }}
           path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload release APK
+        uses: actions/upload-artifact@v7
+        with:
+          name: pursa-release-apk-${{ github.sha }}
+          path: app/build/outputs/apk/release/app-release-unsigned.apk
           if-no-files-found: error
           retention-days: 14
 
@@ -64,5 +78,6 @@ jobs:
             app/build/reports/lint-results-debug.xml
             app/build/reports/tests/testDebugUnitTest/**
             app/build/test-results/testDebugUnitTest/**
+            app/build/reports/androidTests/**
           if-no-files-found: ignore
           retention-days: 14

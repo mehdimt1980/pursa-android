@@ -46,7 +46,7 @@ fun JournalDetailScreen(
         modifier = modifier
             .fillMaxSize()
             .testTag(PursaTestTags.JournalDetailRoot),
-        color = MaterialTheme.colorScheme.background,
+        color = PursaTheme.semanticColors.canvasWarm,
     ) {
         Column(
             modifier = Modifier
@@ -193,6 +193,10 @@ private fun AvailableJournalDetail(entry: ResolvedJournalEntry.Available) {
     PursaCard(
         title = stringResource(R.string.journal_detail_question_heading),
         supportingText = entry.revisitQuestion,
+        accentColor = PursaTheme.semanticColors.brand,
+        containerColor = PursaTheme.semanticColors.reflectionContainer,
+        contentColor = PursaTheme.semanticColors.onReflectionContainer,
+        borderColor = PursaTheme.semanticColors.brand.copy(alpha = 0.34f),
         modifier = Modifier
             .fillMaxWidth()
             .testTag(PursaTestTags.JournalSavedQuestion),
@@ -201,6 +205,8 @@ private fun AvailableJournalDetail(entry: ResolvedJournalEntry.Available) {
         PursaCard(
             title = stringResource(R.string.journal_detail_reflection_heading),
             supportingText = it,
+            containerColor = PursaTheme.semanticColors.readingSurface,
+            borderColor = PursaTheme.semanticColors.outlineSoft,
             modifier = Modifier
                 .fillMaxWidth()
                 .testTag(PursaTestTags.JournalReflectionSelection),

@@ -1,5 +1,15 @@
 # Architecture
 
+## Phase 11 Design-System Structure
+
+The visual identity is implemented through the existing single-app Compose design system. Material 3 `ColorScheme` provides standard roles, while `PursaSemanticColors` exposes Pursa-specific brand, canvas, reading-surface, ink, world, reflection, message, and decorative geometry roles through CompositionLocal-backed theme access.
+
+World visual identity is centralized in `pursaWorldStyle(worldId)`, which maps stable ASCII world IDs to semantic colors and abstract motifs. Feature screens should consume this mapping instead of reimplementing world palettes.
+
+Decorative geometry is drawn with Compose Canvas primitives only. It is deterministic, non-interactive, and hidden from accessibility semantics.
+
+Responsive layouts continue to use constrained content width via `PursaTheme.sizes.contentMaxWidth`, safe drawing insets, scrollable columns, RTL composition from `PursaRoot`, and 48dp minimum touch targets from shared size tokens.
+
 This document describes the architecture direction for `پرسا | Pursa`. The current scaffold includes a minimal Android app, a reusable Compose design system, and the first Navigation Compose shell.
 
 ## Initial Module Strategy

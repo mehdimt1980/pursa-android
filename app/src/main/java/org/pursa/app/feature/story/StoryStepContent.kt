@@ -75,6 +75,8 @@ private fun NarrativeStepContent(
     PursaCard(
         title = step.title.orEmpty(),
         supportingText = step.body,
+        containerColor = PursaTheme.semanticColors.readingSurface,
+        borderColor = PursaTheme.semanticColors.outlineSoft,
         modifier = modifier.fillMaxWidth(),
     )
 }
@@ -93,6 +95,8 @@ private fun PerspectiveStepContent(
         PursaCard(
             title = step.speakerLabel,
             supportingText = step.viewpoint,
+            containerColor = PursaTheme.semanticColors.readingSurface,
+            borderColor = PursaTheme.semanticColors.outlineSoft,
             modifier = Modifier.fillMaxWidth(),
         )
         OptionStepContent(
@@ -119,6 +123,8 @@ private fun CounterexampleStepContent(
         PursaCard(
             title = step.title.orEmpty(),
             supportingText = step.scenario,
+            containerColor = PursaTheme.semanticColors.readingSurface,
+            borderColor = PursaTheme.semanticColors.outlineSoft,
             modifier = Modifier.fillMaxWidth(),
         )
         OptionStepContent(
@@ -146,6 +152,8 @@ private fun OptionStepContent(
     ) {
         PursaCard(
             title = title,
+            containerColor = PursaTheme.semanticColors.readingSurface,
+            borderColor = PursaTheme.semanticColors.outlineSoft,
             modifier = Modifier.fillMaxWidth(),
         )
         options.forEach { option ->
@@ -155,6 +163,21 @@ private fun OptionStepContent(
                 supportingText = if (isSelected) stringResource(R.string.story_selected_option) else null,
                 onClick = { onSelectOption(option.id) },
                 accentColor = if (isSelected) MaterialTheme.colorScheme.primary else null,
+                containerColor = if (isSelected) {
+                    PursaTheme.semanticColors.brandContainer
+                } else {
+                    PursaTheme.semanticColors.readingSurface
+                },
+                contentColor = if (isSelected) {
+                    PursaTheme.semanticColors.onBrandContainer
+                } else {
+                    MaterialTheme.colorScheme.onSurface
+                },
+                borderColor = if (isSelected) {
+                    PursaTheme.semanticColors.brand
+                } else {
+                    PursaTheme.semanticColors.outlineSoft
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .testTag(PursaTestTags.storyOption(stepId, option.id))

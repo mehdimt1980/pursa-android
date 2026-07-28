@@ -1,5 +1,11 @@
 # Roadmap
 
+## Phase 11 Status
+
+Phase 11 is implemented in the development build when local verification passes: refreshed semantic palette, warm screen canvases, distinct world identities, Compose-drawn decorative motifs, Home/Welcome/World/Story/Summary/Journal/Settings visual refreshes, contrast tests, CI release assembly, instrumentation-test APK assembly, and quality documentation.
+
+Still out of scope: external illustrations, audio, formal educational evaluation, formal accessibility certification, release signing, public distribution, store listing, dark theme, dynamic color, accounts, cloud features, analytics, and Phase 12 features.
+
 This roadmap describes planned phases. It does not claim that any app feature has already been implemented.
 
 ## Phase 0: Repository and Product Documentation

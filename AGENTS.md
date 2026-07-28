@@ -42,6 +42,16 @@ Only report these commands as successful if they were actually run and completed
 ## Implementation Standards
 
 - Preserve RTL and Persian support in UI, content, naming, and layout decisions.
+- Do not add raw hexadecimal colors outside design-system theme files; feature screens must use semantic Pursa or Material color roles.
+- World identity must not depend on color alone; combine title, text, semantic color, and motif or structural cues.
+- Every interactive control must preserve at least a 48dp touch target.
+- Critical text/background combinations must meet accessible contrast targets and be backed by tests where practical.
+- New screens should include compact and large-font-friendly previews when practical.
+- Decorative geometry must be hidden from accessibility semantics and must not intercept touch.
+- Long-form reading content must stay width-constrained and readable at large font scales.
+- Do not add external visual assets without explicit license review and documentation.
+- Do not claim accessibility certification without evidence; report manual and automated checks accurately.
+- Release builds must compile before a visual-quality phase is called complete, unless the local environment limitation is reported honestly.
 - Avoid hard-coded user-facing strings; plan for localization resources.
 - Use semantic names that describe product meaning, not temporary implementation details.
 - Add tests for new logic.

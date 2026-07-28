@@ -16,7 +16,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
@@ -25,12 +24,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import org.pursa.app.R
 import org.pursa.app.core.ui.PursaTestTags
 import org.pursa.app.designsystem.component.PursaCard
+import org.pursa.app.designsystem.component.PursaWorldArtwork
 import org.pursa.app.designsystem.component.PursaMessage
 import org.pursa.app.designsystem.component.PursaMessageVariant
 import org.pursa.app.designsystem.component.PursaTopBar
 import org.pursa.app.designsystem.theme.PursaTheme
+import org.pursa.app.designsystem.theme.pursaWorldStyle
 import org.pursa.app.feature.home.PursaWorld
-import org.pursa.app.feature.home.PursaWorldAccent
 import org.pursa.app.feature.home.PursaWorlds
 import org.pursa.app.feature.missions.MissionListScreen
 import org.pursa.app.feature.missions.MissionListUiState
@@ -44,11 +44,12 @@ fun WorldDetailScreen(
     onRetryMissions: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val worldStyle = pursaWorldStyle(world.id)
     Surface(
         modifier = modifier
             .fillMaxSize()
             .testTag(PursaTestTags.WorldDetailRoot),
-        color = MaterialTheme.colorScheme.background,
+        color = worldStyle.soft,
     ) {
         Column(
             modifier = Modifier
@@ -76,8 +77,14 @@ fun WorldDetailScreen(
                 PursaCard(
                     title = stringResource(world.titleResId),
                     supportingText = stringResource(world.detailResId),
-                    accentColor = world.accent.accentColor(),
+                    accentColor = worldStyle.accent,
+                    containerColor = worldStyle.container,
+                    contentColor = worldStyle.onContainer,
+                    borderColor = worldStyle.accent.copy(alpha = 0.36f),
                     modifier = Modifier.fillMaxWidth(),
+                    trailingContent = {
+                        PursaWorldArtwork(style = worldStyle)
+                    },
                 )
 
                 WorldQuestions(world = world)
@@ -107,7 +114,7 @@ fun InvalidWorldScreen(
         modifier = modifier
             .fillMaxSize()
             .testTag(PursaTestTags.WorldDetailRoot),
-        color = MaterialTheme.colorScheme.background,
+        color = PursaTheme.semanticColors.canvasWarm,
     ) {
         Column(
             modifier = Modifier
@@ -147,17 +154,12 @@ private fun WorldQuestions(world: PursaWorld) {
         world.sampleQuestionResIds.forEach { questionResId ->
             PursaCard(
                 title = stringResource(questionResId),
+                containerColor = PursaTheme.semanticColors.readingSurface,
+                borderColor = PursaTheme.semanticColors.outlineSoft,
                 modifier = Modifier.fillMaxWidth(),
             )
         }
     }
-}
-
-@Composable
-private fun PursaWorldAccent.accentColor(): Color = when (this) {
-    PursaWorldAccent.Curiosity -> PursaTheme.semanticColors.curiosity
-    PursaWorldAccent.Discovery -> PursaTheme.semanticColors.discovery
-    PursaWorldAccent.Reflection -> PursaTheme.semanticColors.reflection
 }
 
 @Preview(name = "World detail", locale = "fa")

@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import org.pursa.app.core.ui.PursaTestTags
 import org.pursa.app.designsystem.preview.PursaPreviewData
 import org.pursa.app.designsystem.theme.PursaTheme
@@ -36,11 +37,11 @@ fun PursaMessage(
 ) {
     val semanticColors = PursaTheme.semanticColors
     val (containerColor, contentColor) = when (variant) {
-        PursaMessageVariant.Info -> MaterialTheme.colorScheme.primaryContainer to MaterialTheme.colorScheme.onPrimaryContainer
+        PursaMessageVariant.Info -> semanticColors.infoContainer to semanticColors.onInfoContainer
         PursaMessageVariant.Success -> semanticColors.successContainer to semanticColors.onSuccessContainer
         PursaMessageVariant.Warning -> semanticColors.warningContainer to semanticColors.onWarningContainer
         PursaMessageVariant.Error -> MaterialTheme.colorScheme.errorContainer to MaterialTheme.colorScheme.onErrorContainer
-        PursaMessageVariant.Empty -> MaterialTheme.colorScheme.surfaceVariant to MaterialTheme.colorScheme.onSurfaceVariant
+        PursaMessageVariant.Empty -> semanticColors.canvasSecondary to semanticColors.inkDefault
     }
 
     Surface(
@@ -48,6 +49,7 @@ fun PursaMessage(
         color = containerColor,
         contentColor = contentColor,
         shape = MaterialTheme.shapes.large,
+        tonalElevation = 1.dp,
     ) {
         Row(
             modifier = Modifier.padding(PursaTheme.spacing.medium),

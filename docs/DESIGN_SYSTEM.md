@@ -101,3 +101,25 @@ Do not use color as the only indicator of selection, warning, error, success, or
 ## Intentionally Out of Scope
 
 The current foundation does not include story models, JSON content, Room, DataStore, Hilt, Media3, audio, networking, AI, Firebase, custom fonts, dark theme, dynamic color, screenshot tests, release signing, or production illustration assets.
+
+## Phase 11 Visual Identity Refresh
+
+The current app uses a warm, light-only visual identity. Dynamic color remains disabled so Pursa keeps a stable identity across devices.
+
+Implemented palette:
+
+- Brand violet `#6250A4`, brand container `#E8E0FF`, reflection soft `#F3EEFF`.
+- Canvas warm `#FAF1E4`, canvas secondary `#FFF8EE`, reading surface `#FFFDF8`.
+- Ink strong `#302D38`, ink default `#4B4654`, ink muted `#726C79`.
+- Truth teal `#168C8C`, container `#CDEFEA`, soft `#EAF8F6`.
+- Justice amber `#D9951F`, container `#FFF0C7`, soft `#FFF8E7`.
+- Friendship coral `#D86D66`, container `#FFE0DB`, soft `#FFF1EE`.
+- Success `#378A58`, warning `#9A6618`, info `#3E73A8`, error `#B94B4B`.
+
+Feature screens should use semantic tokens from `PursaTheme.semanticColors` and Material color roles. Raw hexadecimal colors belong in theme files only.
+
+Decorative geometry is implemented with Compose primitives in `PursaDecorativeGeometry.kt`. It is static, subtle, non-interactive, hidden from accessibility semantics, and uses semantic colors. Truth uses observation rings and connected points; Justice uses balanced blocks; Friendship uses linked forms; Reflection Journal uses quiet violet circular forms.
+
+Screens use layered backgrounds: warm or world-soft canvas, calm reading surfaces for story text, semantic containers for selected/reflection states, and bordered low-elevation cards. World identity is never color-only; titles, descriptions, accents, and motifs work together.
+
+Critical semantic color pairs are covered by deterministic contrast tests in `PursaColorContrastTest`.

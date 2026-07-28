@@ -1,6 +1,7 @@
 package org.pursa.app.designsystem.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,6 +24,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import org.pursa.app.designsystem.preview.PursaPreviewData
 import org.pursa.app.designsystem.theme.PursaTheme
 
@@ -33,6 +35,9 @@ fun PursaCard(
     supportingText: String? = null,
     onClick: (() -> Unit)? = null,
     accentColor: Color? = null,
+    containerColor: Color? = null,
+    contentColor: Color? = null,
+    borderColor: Color? = null,
     leadingContent: (@Composable () -> Unit)? = null,
     trailingContent: (@Composable () -> Unit)? = null,
 ) {
@@ -45,13 +50,18 @@ fun PursaCard(
         Modifier
     }
 
+    val resolvedContainerColor = containerColor ?: MaterialTheme.colorScheme.surface
+    val resolvedContentColor = contentColor ?: MaterialTheme.colorScheme.onSurface
+    val resolvedBorderColor = borderColor ?: PursaTheme.semanticColors.outlineSoft
+
     Card(
         modifier = modifier.then(interactiveModifier),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface,
-            contentColor = MaterialTheme.colorScheme.onSurface,
+            containerColor = resolvedContainerColor,
+            contentColor = resolvedContentColor,
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = PursaTheme.spacing.extraSmall),
+        border = BorderStroke(1.dp, resolvedBorderColor),
+        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
         shape = MaterialTheme.shapes.large,
     ) {
         Row(
@@ -81,7 +91,7 @@ fun PursaCard(
                 supportingText?.let {
                     Text(
                         text = it,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        color = resolvedContentColor.copy(alpha = 0.82f),
                         style = MaterialTheme.typography.bodyMedium,
                     )
                 }

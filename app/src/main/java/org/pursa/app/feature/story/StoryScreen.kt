@@ -33,6 +33,7 @@ import org.pursa.app.designsystem.component.PursaMessage
 import org.pursa.app.designsystem.component.PursaMessageVariant
 import org.pursa.app.designsystem.component.PursaTopBar
 import org.pursa.app.designsystem.theme.PursaTheme
+import org.pursa.app.designsystem.theme.pursaWorldStyle
 
 @Composable
 fun StoryRouteScreen(
@@ -152,11 +153,12 @@ private fun StoryStepScaffold(
     modifier: Modifier = Modifier,
 ) {
     val step = story.steps[sessionState.currentStepIndex]
+    val worldStyle = pursaWorldStyle(story.worldId)
     Surface(
         modifier = modifier
             .fillMaxSize()
             .testTag(PursaTestTags.StoryScreenRoot),
-        color = MaterialTheme.colorScheme.background,
+        color = worldStyle.soft,
     ) {
         Column(
             modifier = Modifier
@@ -182,7 +184,7 @@ private fun StoryStepScaffold(
                 Text(
                     text = story.title,
                     modifier = Modifier.semantics { heading() },
-                    color = MaterialTheme.colorScheme.onBackground,
+                    color = PursaTheme.semanticColors.inkStrong,
                     style = MaterialTheme.typography.headlineMedium,
                 )
                 StoryProgress(

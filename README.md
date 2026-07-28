@@ -6,13 +6,13 @@ Pursa is a free and open-source, offline-first Android app for helping Iranian c
 
 ## Project Status
 
-Pursa is in early implementation. The repository now contains an initial Android scaffold with a Persian RTL welcome flow, home screen, three populated content-world entry points, four offline JSON-authored Truth missions, four offline JSON-authored Justice missions, and four offline JSON-authored Friendship missions. No production app, signed release build, or public download exists yet.
+Pursa is in early implementation. The repository now contains a Persian RTL Android development build with a refreshed warm visual identity, a semantic color system, Welcome, Home, three populated content-world entry points, four offline JSON-authored Truth missions, four offline JSON-authored Justice missions, four offline JSON-authored Friendship missions, local progress, replay, Settings/Data & Privacy, and a private local Reflection Journal. No production app, signed release build, or public download exists yet.
 
 ## Continuous Integration
 
-Pushes to `main` and pull requests targeting `main` run Android lint, local unit tests, and a debug build through GitHub Actions. Successful runs upload a temporary debug APK artifact for development review.
+Pushes to `main` and pull requests targeting `main` run Android lint, local unit tests, a debug build, a release assembly check, and instrumentation-test APK assembly through GitHub Actions. Successful runs upload temporary APK artifacts for development review.
 
-The debug APK artifact is an internal development build, not a stable public release. Instrumentation tests are not executed in CI yet because no emulator is configured in Phase 2.
+The APK artifacts are internal development builds, not stable public releases. Instrumentation tests are compiled in CI; device/emulator execution is run locally when an emulator or device is available.
 
 ## Offline Story Content
 

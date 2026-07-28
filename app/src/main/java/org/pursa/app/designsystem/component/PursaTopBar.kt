@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import org.pursa.app.designsystem.preview.PursaPreviewData
 import org.pursa.app.designsystem.theme.PursaTheme
 
@@ -32,8 +33,9 @@ fun PursaTopBar(
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
-        color = MaterialTheme.colorScheme.surface,
+        color = PursaTheme.semanticColors.canvasSecondary,
         contentColor = MaterialTheme.colorScheme.onSurface,
+        tonalElevation = 1.dp,
     ) {
         Row(
             modifier = Modifier
