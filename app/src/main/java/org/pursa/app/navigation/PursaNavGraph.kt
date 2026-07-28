@@ -11,6 +11,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import org.pursa.app.content.data.StoryContentRepository
+import org.pursa.app.feature.journal.JournalDetailScreen
+import org.pursa.app.feature.journal.JournalDetailViewModel
+import org.pursa.app.feature.journal.JournalListScreen
+import org.pursa.app.feature.journal.JournalListViewModel
 import org.pursa.app.feature.home.HomeScreen
 import org.pursa.app.feature.home.PursaWorlds
 import org.pursa.app.feature.missions.MissionListViewModel
@@ -21,8 +25,11 @@ import org.pursa.app.feature.story.StoryLoadState
 import org.pursa.app.feature.story.StoryViewModel
 import org.pursa.app.feature.world.InvalidWorldScreen
 import org.pursa.app.feature.world.WorldDetailScreen
+import org.pursa.app.journal.data.ReflectionJournalRepository
 import org.pursa.app.progress.data.MissionProgressRepository
 import org.pursa.app.navigation.PursaDestination.Home
+import org.pursa.app.navigation.PursaDestination.JournalDetail
+import org.pursa.app.navigation.PursaDestination.JournalList
 import org.pursa.app.navigation.PursaDestination.Settings
 import org.pursa.app.navigation.PursaDestination.Story
 import org.pursa.app.navigation.PursaDestination.Welcome
@@ -32,6 +39,7 @@ import org.pursa.app.navigation.PursaDestination.WorldDetail
 fun PursaNavGraph(
     storyRepository: StoryContentRepository,
     progressRepository: MissionProgressRepository,
+    journalRepository: ReflectionJournalRepository,
     navController: NavHostController = rememberNavController(),
     startDestination: String = Welcome.route,
 ) {
@@ -61,6 +69,83 @@ fun PursaNavGraph(
                 onSettingsClick = {
                     navController.navigate(Settings.route)
                 },
+                onJournalClick = {
+                    navController.navigate(JournalList.route)
+                },
+            )
+        }
+
+        composable(JournalList.route) {
+            val viewModel: JournalListViewModel = viewModel(
+                factory = JournalListViewModel.factory(
+                    journalRepository = journalRepository,
+                    storyRepository = storyRepository,
+                ),
+            )
+            val journalState by viewModel.state.collectAsStateWithLifecycle()
+            JournalListScreen(
+                state = journalState,
+                onBackClick = {
+                    if (!navController.navigateUp()) {
+                        navController.navigate(Home.route) {
+                            launchSingleTop = true
+                        }
+                    }
+                },
+                onHomeClick = {
+                    navController.navigate(Home.route) {
+                        popUpTo(Home.route) {
+                            inclusive = false
+                        }
+                        launchSingleTop = true
+                    }
+                },
+                onEntryClick = { storyId ->
+                    navController.navigate(JournalDetail.createRoute(storyId))
+                },
+            )
+        }
+
+        composable(
+            route = JournalDetail.route,
+            arguments = listOf(
+                navArgument(PursaRouteArgs.JournalStoryId) {
+                    type = NavType.StringType
+                },
+            ),
+        ) { backStackEntry ->
+            val journalStoryId = backStackEntry.arguments?.getString(PursaRouteArgs.JournalStoryId).orEmpty()
+            val viewModel: JournalDetailViewModel = viewModel(
+                key = "journal-$journalStoryId",
+                factory = JournalDetailViewModel.factory(
+                    storyId = journalStoryId,
+                    journalRepository = journalRepository,
+                    storyRepository = storyRepository,
+                ),
+            )
+            val journalState by viewModel.state.collectAsStateWithLifecycle()
+            JournalDetailScreen(
+                state = journalState,
+                onBackClick = {
+                    if (!navController.navigateUp()) {
+                        navController.navigate(JournalList.route) {
+                            launchSingleTop = true
+                        }
+                    }
+                },
+                onDeleteClick = viewModel::showDeleteDialog,
+                onConfirmDelete = {
+                    viewModel.deleteEntry {
+                        navController.navigate(JournalList.route) {
+                            popUpTo(JournalList.route) {
+                                inclusive = false
+                            }
+                            launchSingleTop = true
+                        }
+                    }
+                },
+                onCancelDelete = viewModel::dismissDeleteDialog,
+                onRetry = viewModel::load,
             )
         }
 
@@ -152,6 +237,7 @@ fun PursaNavGraph(
                     storyId = storyId,
                     storyRepository = storyRepository,
                     progressRepository = progressRepository,
+                    journalRepository = journalRepository,
                 ),
             )
             val storyState by viewModel.state.collectAsStateWithLifecycle()
@@ -179,6 +265,8 @@ fun PursaNavGraph(
                 onSelectOption = viewModel::selectOption,
                 onAdvance = viewModel::advance,
                 onPrevious = viewModel::previous,
+                onSelectJournalQuestion = viewModel::selectJournalQuestion,
+                onSaveJournalEntry = viewModel::saveJournalEntry,
             )
         }
     }

@@ -43,6 +43,8 @@ fun StoryRouteScreen(
     onSelectOption: (String) -> Unit,
     onAdvance: () -> Unit,
     onPrevious: () -> Unit,
+    onSelectJournalQuestion: (String) -> Unit,
+    onSaveJournalEntry: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     when (state) {
@@ -76,11 +78,17 @@ fun StoryRouteScreen(
             story = state.story,
             sessionState = state.sessionState,
             saveFailed = state.saveFailed,
+            journalEntryExists = state.journalEntryExists,
+            selectedJournalQuestionStepId = state.selectedJournalQuestionStepId,
+            journalSaveFailed = state.journalSaveFailed,
+            journalSaveSucceeded = state.journalSaveSucceeded,
             onBackClick = onBackClick,
             onReturnToWorld = onReturnToWorld,
             onSelectOption = onSelectOption,
             onAdvance = onAdvance,
             onPrevious = onPrevious,
+            onSelectJournalQuestion = onSelectJournalQuestion,
+            onSaveJournalEntry = onSaveJournalEntry,
             modifier = modifier,
         )
     }
@@ -91,18 +99,30 @@ fun StoryScreen(
     story: PursaStory,
     sessionState: StorySessionState,
     saveFailed: Boolean,
+    journalEntryExists: Boolean,
+    selectedJournalQuestionStepId: String?,
+    journalSaveFailed: Boolean,
+    journalSaveSucceeded: Boolean,
     onBackClick: () -> Unit,
     onReturnToWorld: () -> Unit,
     onSelectOption: (String) -> Unit,
     onAdvance: () -> Unit,
     onPrevious: () -> Unit,
+    onSelectJournalQuestion: (String) -> Unit,
+    onSaveJournalEntry: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     if (sessionState.completed) {
         StorySummaryScreen(
             story = story,
             selectedAnswers = sessionState.selectedAnswers,
+            journalEntryExists = journalEntryExists,
+            selectedJournalQuestionStepId = selectedJournalQuestionStepId,
+            journalSaveFailed = journalSaveFailed,
+            journalSaveSucceeded = journalSaveSucceeded,
             onReturnToWorld = onReturnToWorld,
+            onSelectJournalQuestion = onSelectJournalQuestion,
+            onSaveJournalEntry = onSaveJournalEntry,
             modifier = modifier,
         )
         return

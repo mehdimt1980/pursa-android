@@ -24,17 +24,34 @@ import org.pursa.app.R
 import org.pursa.app.content.model.PursaStory
 import org.pursa.app.core.ui.PursaTestTags
 import org.pursa.app.designsystem.component.PursaButton
+import org.pursa.app.designsystem.component.PursaButtonVariant
 import org.pursa.app.designsystem.component.PursaCard
 import org.pursa.app.designsystem.component.PursaMessage
+import org.pursa.app.designsystem.component.PursaMessageVariant
 import org.pursa.app.designsystem.theme.PursaTheme
+import org.pursa.app.journal.data.finalReflectionStep
+import org.pursa.app.journal.data.journalQuestionCandidates
 
 @Composable
 fun StorySummaryScreen(
     story: PursaStory,
     selectedAnswers: Map<String, String>,
+    journalEntryExists: Boolean,
+    selectedJournalQuestionStepId: String?,
+    journalSaveFailed: Boolean,
+    journalSaveSucceeded: Boolean,
     onReturnToWorld: () -> Unit,
+    onSelectJournalQuestion: (String) -> Unit,
+    onSaveJournalEntry: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val journalQuestions = story.journalQuestionCandidates()
+    val finalReflectionStep = story.finalReflectionStep()
+    val finalReflectionLabel = finalReflectionStep
+        ?.choices
+        ?.firstOrNull { it.id == selectedAnswers[finalReflectionStep.id] }
+        ?.label
+
     Surface(
         modifier = modifier
             .fillMaxSize()
@@ -74,6 +91,84 @@ fun StorySummaryScreen(
                     supportingText = story.completion.familyPrompt,
                     modifier = Modifier.fillMaxWidth(),
                 )
+            }
+            if (journalQuestions.isNotEmpty() && finalReflectionStep != null) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag(PursaTestTags.SummaryJournalSection),
+                    verticalArrangement = Arrangement.spacedBy(PursaTheme.spacing.medium),
+                ) {
+                    Text(
+                        text = stringResource(R.string.summary_journal_title),
+                        modifier = Modifier.semantics { heading() },
+                        color = MaterialTheme.colorScheme.onBackground,
+                        style = MaterialTheme.typography.titleLarge,
+                    )
+                    Text(
+                        text = stringResource(R.string.summary_journal_message),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                    finalReflectionLabel?.let {
+                        PursaCard(
+                            title = stringResource(R.string.summary_journal_final_reflection),
+                            supportingText = it,
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                    }
+                    Text(
+                        text = stringResource(R.string.summary_journal_question_heading),
+                        color = MaterialTheme.colorScheme.onBackground,
+                        style = MaterialTheme.typography.titleMedium,
+                    )
+                    journalQuestions.forEach { candidate ->
+                        val selected = candidate.stepId == selectedJournalQuestionStepId
+                        PursaCard(
+                            title = candidate.question,
+                            supportingText = if (selected) {
+                                stringResource(R.string.story_selected_option)
+                            } else {
+                                null
+                            },
+                            onClick = { onSelectJournalQuestion(candidate.stepId) },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .testTag(PursaTestTags.summaryJournalQuestion(candidate.stepId)),
+                        )
+                    }
+                    if (journalSaveSucceeded) {
+                        PursaMessage(
+                            title = stringResource(R.string.summary_journal_success_title),
+                            message = stringResource(R.string.summary_journal_success_message),
+                            modifier = Modifier.testTag(PursaTestTags.SummaryJournalSuccess),
+                            variant = PursaMessageVariant.Success,
+                        )
+                    }
+                    if (journalSaveFailed) {
+                        PursaMessage(
+                            title = stringResource(R.string.summary_journal_failure_title),
+                            message = stringResource(R.string.summary_journal_failure_message),
+                            variant = PursaMessageVariant.Warning,
+                        )
+                    }
+                    PursaButton(
+                        text = stringResource(
+                            if (journalEntryExists) {
+                                R.string.summary_journal_update
+                            } else {
+                                R.string.summary_journal_save
+                            },
+                        ),
+                        onClick = onSaveJournalEntry,
+                        enabled = selectedJournalQuestionStepId != null,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .testTag(PursaTestTags.SummaryJournalSave),
+                        variant = PursaButtonVariant.Secondary,
+                        fullWidth = true,
+                    )
+                }
             }
             PursaButton(
                 text = stringResource(R.string.story_return_to_world),

@@ -8,6 +8,7 @@ object PursaTestTags {
     const val HomeWorldTruth = "pursa:home:world:truth"
     const val HomeWorldJustice = "pursa:home:world:justice"
     const val HomeWorldFriendship = "pursa:home:world:friendship"
+    const val HomeJournalAction = "pursa:home:journal-action"
     const val WorldDetailRoot = "pursa:world:detail:root"
     const val WorldDetailBack = "pursa:world:detail:back"
     const val WorldDetailQuestions = "pursa:world:detail:questions"
@@ -19,7 +20,19 @@ object PursaTestTags {
     const val StoryProgress = "pursa:story:progress"
     const val StorySummaryRoot = "pursa:story:summary:root"
     const val StoryReturnToWorld = "pursa:story:return-to-world"
+    const val SummaryJournalSection = "pursa:summary:journal:section"
+    const val SummaryJournalSave = "pursa:summary:journal:save"
+    const val SummaryJournalSuccess = "pursa:summary:journal:success"
     const val StoryErrorMessage = "pursa:story:error"
+    const val JournalListRoot = "pursa:journal:list:root"
+    const val JournalEmptyState = "pursa:journal:empty"
+    const val JournalDetailRoot = "pursa:journal:detail:root"
+    const val JournalSavedQuestion = "pursa:journal:saved-question"
+    const val JournalReflectionSelection = "pursa:journal:reflection-selection"
+    const val JournalDeleteAction = "pursa:journal:delete-action"
+    const val JournalDeleteDialog = "pursa:journal:delete-dialog"
+    const val JournalDeleteConfirm = "pursa:journal:delete-confirm"
+    const val JournalDeleteCancel = "pursa:journal:delete-cancel"
     const val SettingsScreenRoot = "pursa:settings:root"
     const val SettingsClearProgress = "pursa:settings:clear-progress"
     const val SettingsClearDialog = "pursa:settings:clear-dialog"
@@ -39,4 +52,8 @@ object PursaTestTags {
     fun missionAction(storyId: String): String = "pursa:mission:action:$storyId"
 
     fun storyOption(stepId: String, optionId: String): String = "pursa:story:option:$stepId:$optionId"
+
+    fun summaryJournalQuestion(stepId: String): String = "pursa:summary:journal:question:$stepId"
+
+    fun journalEntry(storyId: String): String = "pursa:journal:entry:$storyId"
 }

@@ -11,6 +11,7 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import org.pursa.app.journal.data.local.ReflectionJournalEntity
 import org.pursa.app.progress.data.local.PursaDatabase
 import org.pursa.app.progress.model.MissionProgressStatus
 
@@ -100,6 +101,7 @@ class MissionProgressDaoTest {
     @Test
     fun clearAllDeletesProgressSessionsAndAnswers() = runBlocking {
         val dao = database.missionProgressDao()
+        val journalDao = database.reflectionJournalDao()
         dao.saveSession(
             storyId = StoryId,
             currentStepIndex = 1,
@@ -107,11 +109,24 @@ class MissionProgressDaoTest {
             selectedAnswers = mapOf("first_choice" to "tell_truth"),
             nowEpochMillis = 100L,
         )
+        journalDao.upsertEntry(
+            ReflectionJournalEntity(
+                storyId = StoryId,
+                contentRevision = 1,
+                reflectionStepId = "final_reflection",
+                selectedReflectionOptionId = "still_thinking",
+                revisitQuestionStepId = "first_choice",
+                completedAtEpochMillis = 100L,
+                updatedAtEpochMillis = 100L,
+                journalSchemaVersion = 1,
+            ),
+        )
 
         dao.clearAll()
 
         assertTrue(dao.observeProgress(listOf(StoryId)).first().isEmpty())
         assertNull(dao.loadSession(StoryId))
+        assertEquals(0, journalDao.countEntries())
     }
 
     @Test

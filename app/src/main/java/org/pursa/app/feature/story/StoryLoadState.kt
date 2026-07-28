@@ -10,6 +10,10 @@ sealed interface StoryLoadState {
         val sessionState: StorySessionState,
         val saveFailed: Boolean = false,
         val restoredFromSavedSession: Boolean = false,
+        val journalEntryExists: Boolean = false,
+        val selectedJournalQuestionStepId: String? = null,
+        val journalSaveFailed: Boolean = false,
+        val journalSaveSucceeded: Boolean = false,
     ) : StoryLoadState
     data object NotFound : StoryLoadState
     data object InvalidContent : StoryLoadState

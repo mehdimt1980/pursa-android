@@ -15,6 +15,7 @@ fun PursaRoot() {
         PursaNavGraph(
             storyRepository = container.storyContentRepository,
             progressRepository = container.missionProgressRepository,
+            journalRepository = container.reflectionJournalRepository,
         )
     }
 }

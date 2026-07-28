@@ -10,6 +10,8 @@ class PursaDestinationTest {
         assertEquals("welcome", PursaDestination.Welcome.route)
         assertEquals("home", PursaDestination.Home.route)
         assertEquals("settings", PursaDestination.Settings.route)
+        assertEquals("journal", PursaDestination.JournalList.route)
+        assertEquals("journal/{journalStoryId}", PursaDestination.JournalDetail.route)
         assertEquals("world/{worldId}", PursaDestination.WorldDetail.route)
         assertEquals("story/{storyId}", PursaDestination.Story.route)
     }
@@ -27,6 +29,14 @@ class PursaDestinationTest {
         assertEquals(
             "story/truth_broken_vase",
             PursaDestination.Story.createRoute("truth_broken_vase"),
+        )
+    }
+
+    @Test
+    fun journalDetailRouteUsesStoryIdPathSegment() {
+        assertEquals(
+            "journal/truth_broken_vase",
+            PursaDestination.JournalDetail.createRoute("truth_broken_vase"),
         )
     }
 }

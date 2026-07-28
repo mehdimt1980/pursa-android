@@ -36,6 +36,7 @@ fun HomeScreen(
     worlds: List<PursaWorld>,
     onWorldClick: (String) -> Unit,
     onSettingsClick: () -> Unit,
+    onJournalClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Surface(
@@ -60,6 +61,7 @@ fun HomeScreen(
                 title = stringResource(R.string.home_title),
                 subtitle = stringResource(R.string.home_subtitle),
                 onSettingsClick = onSettingsClick,
+                onJournalClick = onJournalClick,
             )
 
             PursaMessage(
@@ -81,6 +83,7 @@ private fun HomeSectionHeader(
     title: String,
     subtitle: String,
     onSettingsClick: () -> Unit,
+    onJournalClick: () -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -100,6 +103,12 @@ private fun HomeSectionHeader(
         PursaButton(
             text = stringResource(R.string.settings_title),
             onClick = onSettingsClick,
+            variant = PursaButtonVariant.Tertiary,
+        )
+        PursaButton(
+            text = stringResource(R.string.journal_title),
+            onClick = onJournalClick,
+            modifier = Modifier.testTag(PursaTestTags.HomeJournalAction),
             variant = PursaButtonVariant.Tertiary,
         )
     }
@@ -157,6 +166,7 @@ private fun HomeScreenPreview() {
             worlds = PursaWorlds.all,
             onWorldClick = {},
             onSettingsClick = {},
+            onJournalClick = {},
         )
     }
 }

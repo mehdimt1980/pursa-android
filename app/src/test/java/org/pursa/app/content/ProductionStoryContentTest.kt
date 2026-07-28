@@ -13,6 +13,8 @@ import org.pursa.app.content.model.PursaStoryOption
 import org.pursa.app.content.model.PursaStoryStep
 import org.pursa.app.content.validation.StoryContentValidator
 import org.pursa.app.content.validation.StoryValidationResult
+import org.pursa.app.journal.data.finalReflectionStep
+import org.pursa.app.journal.data.journalQuestionCandidates
 
 class ProductionStoryContentTest {
     private val parser = JsonStoryParser()
@@ -83,6 +85,17 @@ class ProductionStoryContentTest {
                 assertEquals(options.size, options.map { it.id }.toSet().size)
                 assertTrue(options.all { it.label.isNotBlank() })
             }
+        }
+    }
+
+    @Test
+    fun everyProductionMissionSupportsReflectionJournalPromptSelection() {
+        parsedStories().forEach { (entry, story) ->
+            val candidates = story.journalQuestionCandidates()
+
+            assertTrue("${entry.id} needs at least three revisit questions", candidates.size >= 3)
+            assertTrue("${entry.id} should expose at most five revisit questions", candidates.size <= 5)
+            assertTrue("${entry.id} needs a final reflection step", story.finalReflectionStep() != null)
         }
     }
 

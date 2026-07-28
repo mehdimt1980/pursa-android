@@ -425,6 +425,7 @@ private fun InvalidStoryRouteContent() {
             PursaNavGraph(
                 storyRepository = repository,
                 progressRepository = FakeMissionProgressRepository(),
+                journalRepository = FakeReflectionJournalRepository(),
                 navController = navController,
                 startDestination = PursaDestination.Home.route,
             )

@@ -50,6 +50,9 @@ abstract class MissionProgressDao {
     @Query("DELETE FROM story_answers")
     protected abstract suspend fun deleteAllAnswers()
 
+    @Query("DELETE FROM reflection_journal")
+    protected abstract suspend fun deleteAllJournalEntries()
+
     @Transaction
     open suspend fun saveSession(
         storyId: String,
@@ -130,6 +133,7 @@ abstract class MissionProgressDao {
 
     @Transaction
     open suspend fun clearAll() {
+        deleteAllJournalEntries()
         deleteAllAnswers()
         deleteAllSessions()
         deleteAllProgressRows()

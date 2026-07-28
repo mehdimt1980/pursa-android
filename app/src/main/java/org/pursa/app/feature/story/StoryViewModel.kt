@@ -12,6 +12,12 @@ import org.pursa.app.content.data.StoryContentResult
 import org.pursa.app.content.model.PursaStory
 import org.pursa.app.content.state.StorySessionReducer
 import org.pursa.app.content.state.StorySessionState
+import org.pursa.app.core.time.PursaClock
+import org.pursa.app.core.time.SystemPursaClock
+import org.pursa.app.journal.data.JournalResult
+import org.pursa.app.journal.data.ReflectionJournalRepository
+import org.pursa.app.journal.data.finalReflectionStep
+import org.pursa.app.journal.model.ReflectionJournalRecord
 import org.pursa.app.progress.data.MissionProgressRepository
 import org.pursa.app.progress.data.MissionProgressResult
 
@@ -19,6 +25,8 @@ class StoryViewModel(
     private val storyId: String,
     private val storyRepository: StoryContentRepository,
     private val progressRepository: MissionProgressRepository,
+    private val journalRepository: ReflectionJournalRepository,
+    private val clock: PursaClock = SystemPursaClock,
 ) : ViewModel() {
     private val _state = MutableStateFlow<StoryLoadState>(StoryLoadState.Loading)
     val state: StateFlow<StoryLoadState> = _state.asStateFlow()
@@ -52,6 +60,8 @@ class StoryViewModel(
                 _state.value = success.copy(
                     sessionState = next,
                     saveFailed = result is MissionProgressResult.Failure,
+                    journalSaveFailed = false,
+                    journalSaveSucceeded = false,
                 )
             }
         } else {
@@ -62,6 +72,42 @@ class StoryViewModel(
     fun previous() {
         val success = _state.value as? StoryLoadState.Success ?: return
         updateSession(success.story, StorySessionReducer.previous(success.sessionState))
+    }
+
+    fun selectJournalQuestion(stepId: String) {
+        val success = _state.value as? StoryLoadState.Success ?: return
+        _state.value = success.copy(
+            selectedJournalQuestionStepId = stepId,
+            journalSaveFailed = false,
+            journalSaveSucceeded = false,
+        )
+    }
+
+    fun saveJournalEntry() {
+        val success = _state.value as? StoryLoadState.Success ?: return
+        val reflectionStep = success.story.finalReflectionStep() ?: return
+        val questionStepId = success.selectedJournalQuestionStepId ?: return
+        val now = clock.nowEpochMillis()
+        viewModelScope.launch {
+            val existing = journalRepository.loadEntry(success.story.id)
+            val result = journalRepository.saveOrUpdateEntry(
+                ReflectionJournalRecord(
+                    storyId = success.story.id,
+                    contentRevision = success.story.contentRevision,
+                    reflectionStepId = reflectionStep.id,
+                    selectedReflectionOptionId = success.sessionState.selectedAnswers[reflectionStep.id],
+                    revisitQuestionStepId = questionStepId,
+                    completedAtEpochMillis = existing?.completedAtEpochMillis ?: now,
+                    updatedAtEpochMillis = now,
+                ),
+            )
+            val current = _state.value as? StoryLoadState.Success ?: return@launch
+            _state.value = current.copy(
+                journalEntryExists = result is JournalResult.Success,
+                journalSaveFailed = result is JournalResult.Failure,
+                journalSaveSucceeded = result is JournalResult.Success,
+            )
+        }
     }
 
     private fun load() {
@@ -78,6 +124,7 @@ class StoryViewModel(
 
     private suspend fun restoreOrStart(story: PursaStory) {
         val savedResult = progressRepository.loadSavedSession(story)
+        val journalEntry = journalRepository.loadEntry(story.id)
         val restored = (savedResult as? MissionProgressResult.Success)?.value
         val sessionState = if (restored == null) {
             StorySessionReducer.initialState(story)
@@ -95,6 +142,8 @@ class StoryViewModel(
             sessionState = sessionState,
             saveFailed = saveResult is MissionProgressResult.Failure,
             restoredFromSavedSession = restored != null,
+            journalEntryExists = journalEntry != null,
+            selectedJournalQuestionStepId = journalEntry?.revisitQuestionStepId,
         )
     }
 
@@ -104,11 +153,14 @@ class StoryViewModel(
     ) {
         viewModelScope.launch {
             val result = progressRepository.saveSessionSnapshot(story, sessionState)
+            val current = _state.value as? StoryLoadState.Success
             _state.value = StoryLoadState.Success(
                 story = story,
                 sessionState = sessionState,
                 saveFailed = result is MissionProgressResult.Failure,
                 restoredFromSavedSession = false,
+                journalEntryExists = current?.journalEntryExists ?: false,
+                selectedJournalQuestionStepId = current?.selectedJournalQuestionStepId,
             )
         }
     }
@@ -118,12 +170,16 @@ class StoryViewModel(
             storyId: String,
             storyRepository: StoryContentRepository,
             progressRepository: MissionProgressRepository,
+            journalRepository: ReflectionJournalRepository,
+            clock: PursaClock = SystemPursaClock,
         ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T = StoryViewModel(
                 storyId = storyId,
                 storyRepository = storyRepository,
                 progressRepository = progressRepository,
+                journalRepository = journalRepository,
+                clock = clock,
             ) as T
         }
     }
