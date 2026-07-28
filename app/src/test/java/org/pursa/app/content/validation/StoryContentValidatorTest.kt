@@ -89,6 +89,11 @@ class StoryContentValidatorTest {
         assertInvalid(sampleStory().copy(schemaVersion = 2), StoryValidationErrorCode.UnsupportedSchemaVersion)
     }
 
+    @Test
+    fun invalidContentRevisionFails() {
+        assertInvalid(sampleStory().copy(contentRevision = 0), StoryValidationErrorCode.InvalidContentRevision)
+    }
+
     private fun replaceFirstSingleChoiceOptions(options: List<PursaStoryOption>): PursaStory {
         val story = sampleStory()
         return story.copy(

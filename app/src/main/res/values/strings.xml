@@ -40,6 +40,12 @@
     <string name="missions_empty_title">قصه‌ها بعداً اضافه می‌شوند</string>
     <string name="missions_empty_message">قصه‌های این جهان در مراحل بعدی اضافه می‌شوند.</string>
     <string name="mission_age_duration">%1$d تا %2$d سال · حدود %3$d دقیقه</string>
+    <string name="mission_status_not_started">آماده برای شروع</string>
+    <string name="mission_status_in_progress">نیمه‌تمام</string>
+    <string name="mission_status_completed">انجام‌شده</string>
+    <string name="mission_action_start">شروع قصه</string>
+    <string name="mission_action_continue">ادامه‌ی قصه</string>
+    <string name="mission_action_replay">شروع دوباره</string>
     <string name="story_loading">در حال آماده کردن قصه…</string>
     <string name="story_not_found_title">این قصه پیدا نشد</string>
     <string name="story_not_found_message">این مسیر به یک قصه‌ی شناخته‌شده وصل نیست.</string>
@@ -53,6 +59,20 @@
     <string name="story_return_to_world">بازگشت به جهان راستی</string>
     <string name="story_progress_label">مرحله‌ی %1$d از %2$d</string>
     <string name="story_selected_option">انتخاب شده</string>
+    <string name="story_save_failure_title">پیشرفت ذخیره نشد</string>
+    <string name="story_save_failure_message">پیشرفت این قصه ذخیره نشد. می‌توانی ادامه بدهی، اما اگر از قصه خارج شوی شاید این مرحله برنگردد.</string>
     <string name="world_not_found_title">جهان پیدا نشد</string>
     <string name="world_not_found_message">این مسیر هنوز به یک جهان شناخته‌شده وصل نیست. به خانه برگرد و یکی از جهان‌های پرسا را انتخاب کن.</string>
+    <string name="settings_title">تنظیمات</string>
+    <string name="settings_data_privacy_title">داده‌ها و حریم خصوصی</string>
+    <string name="settings_data_privacy_message">پرسا پیشرفت قصه‌ها را فقط روی همین دستگاه نگه می‌دارد. این اطلاعات به سروری فرستاده نمی‌شود و برای استفاده از برنامه به حساب کاربری نیاز نیست.</string>
+    <string name="settings_clear_progress">پاک کردن همه‌ی پیشرفت‌ها</string>
+    <string name="settings_clear_confirm_title">همه‌ی پیشرفت‌ها پاک شود؟</string>
+    <string name="settings_clear_confirm_message">با این کار وضعیت قصه‌های انجام‌شده و قصه‌های نیمه‌تمام از این دستگاه پاک می‌شود. این کار قابل بازگشت نیست.</string>
+    <string name="settings_clear_cancel">انصراف</string>
+    <string name="settings_clear_confirm_action">پاک کردن</string>
+    <string name="settings_clear_success_title">پیشرفت‌ها پاک شدند</string>
+    <string name="settings_clear_success_message">پیشرفت‌های ذخیره‌شده پاک شدند.</string>
+    <string name="settings_clear_failure_title">پاک کردن انجام نشد</string>
+    <string name="settings_clear_failure_message">در پاک کردن پیشرفت‌های ذخیره‌شده مشکلی پیش آمد.</string>
 </resources>

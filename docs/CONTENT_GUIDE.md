@@ -75,6 +75,8 @@ app/src/main/assets/content/schema/story.schema.json
 
 Required top-level fields are `schemaVersion`, `id`, `worldId`, `title`, `summary`, `recommendedMinAge`, `recommendedMaxAge`, `estimatedDurationMinutes`, `themes`, `introduction`, ordered `steps`, and `completion`.
 
+Production stories also include `contentRevision`, a positive integer used to decide whether a saved in-progress session can be safely restored. Increment `contentRevision` when step IDs, option IDs, step order, or answer compatibility changes. Do not increment it for trivial punctuation corrections unless restoration compatibility is affected. Stable story IDs must not change.
+
 Supported Phase 5 step types are exactly:
 
 - `narrative`: story text with optional title and required body.

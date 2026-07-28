@@ -24,6 +24,9 @@ class StoryContentValidator {
         if (story.schemaVersion != SupportedSchemaVersion) {
             errors += error(story.id, null, StoryValidationErrorCode.UnsupportedSchemaVersion, "Unsupported schema version.")
         }
+        if (story.contentRevision <= 0) {
+            errors += error(story.id, null, StoryValidationErrorCode.InvalidContentRevision, "Content revision must be positive.")
+        }
         if (story.id.isBlank()) {
             errors += error(story.id, null, StoryValidationErrorCode.BlankStoryId, "Story ID must not be blank.")
         } else if (!story.id.isStableId()) {

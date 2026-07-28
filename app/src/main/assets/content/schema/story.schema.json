@@ -6,6 +6,7 @@
   "additionalProperties": false,
   "required": [
     "schemaVersion",
+    "contentRevision",
     "id",
     "worldId",
     "title",
@@ -21,6 +22,10 @@
   "properties": {
     "schemaVersion": {
       "const": 1
+    },
+    "contentRevision": {
+      "type": "integer",
+      "minimum": 1
     },
     "id": {
       "$ref": "#/$defs/stableId"

@@ -20,9 +20,15 @@ The MVP must require:
 
 ## Local Data
 
-Progress should be stored locally on the device. Journal and reflection entries should also be local-only.
+Mission progress is stored locally in the app installation using Room. The database stores stable story IDs, current step index, selected step/option IDs, completion status, content revision, session schema version, and local technical timestamps.
 
-Uninstalling the app should remove local data unless Android backup behavior is explicitly configured and reviewed later.
+The app does not store child name, username, email, phone number, exact birthdate, age, gender, location, contacts, photos, audio, free-text philosophical answers, analytics identifiers, scores, grades, psychological conclusions, or authored Persian story text in progress tables.
+
+There is no account, server upload, cloud sync, behavioral analytics, backend, network transmission, or remote content source for progress data.
+
+The Settings/Data & Privacy screen can clear all locally stored mission progress, active sessions, and selected option IDs. Clearing local progress cannot be undone and does not delete packaged JSON story assets.
+
+Android backup is disabled with `android:allowBackup="false"`, and both legacy backup rules and modern data-extraction rules exclude app data from backup and device-to-device transfer. Uninstalling the app removes the local database as part of normal Android app data removal.
 
 ## Data Minimization
 

@@ -18,7 +18,7 @@ The debug APK artifact is an internal development build, not a stable public rel
 
 The development build includes a local story-content engine. Authored Persian story content is stored as JSON assets under `app/src/main/assets/content/fa/`, indexed by a manifest, parsed with `kotlinx.serialization`, validated before use, and rendered through fixed-order story steps. The Truth world currently contains four offline missions: `truth_broken_vase`, `truth_group_photo`, `truth_strange_news`, and `truth_friend_secret`.
 
-Mission interaction state is temporary and in memory while the story screen is open. There is no persistent progress, journal, Room, DataStore, account, backend, network content, scoring, or correct-answer system yet. Justice and Friendship worlds do not yet contain authored missions.
+Mission progress is stored locally with Room so in-progress sessions can resume, selected option IDs can be restored, completed missions can be replayed, and all local progress can be cleared from the Data & Privacy screen. The database stores stable story, step, and option IDs only; it does not store child names, profiles, free-text answers, authored Persian story text, scores, analytics, or cloud-sync identifiers. DataStore is not used yet because Phase 7 introduced no genuine small preference. Justice and Friendship worlds do not yet contain authored missions.
 
 ## Core Principles
 

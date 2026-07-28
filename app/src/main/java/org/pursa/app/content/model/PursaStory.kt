@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class PursaStory(
     val schemaVersion: Int,
+    val contentRevision: Int,
     val id: String,
     val worldId: String,
     val title: String,

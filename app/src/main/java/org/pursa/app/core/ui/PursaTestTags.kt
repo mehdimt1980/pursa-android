@@ -20,6 +20,12 @@ object PursaTestTags {
     const val StorySummaryRoot = "pursa:story:summary:root"
     const val StoryReturnToWorld = "pursa:story:return-to-world"
     const val StoryErrorMessage = "pursa:story:error"
+    const val SettingsScreenRoot = "pursa:settings:root"
+    const val SettingsClearProgress = "pursa:settings:clear-progress"
+    const val SettingsClearDialog = "pursa:settings:clear-dialog"
+    const val SettingsClearConfirm = "pursa:settings:clear-confirm"
+    const val SettingsClearCancel = "pursa:settings:clear-cancel"
+    const val SettingsClearSuccess = "pursa:settings:clear-success"
     const val DesignSystemPrimaryButton = "pursa:design-system:primary-button"
     const val DesignSystemLoadingButton = "pursa:design-system:loading-button"
     const val DesignSystemSelectableChip = "pursa:design-system:selectable-chip"
@@ -27,6 +33,10 @@ object PursaTestTags {
     const val DesignSystemMessage = "pursa:design-system:message"
 
     fun mission(storyId: String): String = "pursa:mission:$storyId"
+
+    fun missionStatus(storyId: String): String = "pursa:mission:status:$storyId"
+
+    fun missionAction(storyId: String): String = "pursa:mission:action:$storyId"
 
     fun storyOption(stepId: String, optionId: String): String = "pursa:story:option:$stepId:$optionId"
 }

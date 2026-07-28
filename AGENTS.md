@@ -58,6 +58,14 @@ Only report these commands as successful if they were actually run and completed
 - Do not add serious-harm secret scenarios without a dedicated safety review.
 - New production stories require parsing and validation tests.
 - Story content must not include correct-answer fields, scores, points, rewards, badges, profiles, or ranking.
+- Database schema changes require explicit migrations and tests.
+- Never use destructive Room migrations in production configuration.
+- Room schemas must be exported and committed.
+- Persisted user progress must use stable ASCII IDs only.
+- Authored Persian story text must not be stored in progress tables.
+- Do not store personal identifiers or free-text answers without explicit future privacy review.
+- Backup and data-extraction rules must match privacy documentation.
+- Clear-all local progress behavior must remain tested.
 
 ## Reporting Requirements
 

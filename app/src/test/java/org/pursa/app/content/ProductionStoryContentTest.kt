@@ -69,6 +69,7 @@ class ProductionStoryContentTest {
     fun everyProductionMissionSatisfiesOptionQualityInvariants() {
         parsedStories().forEach { (_, story) ->
             assertTrue(story.steps.isNotEmpty())
+            assertTrue(story.contentRevision > 0)
             assertTrue(story.estimatedDurationMinutes > 0)
             assertTrue(story.recommendedMinAge in 6..18)
             assertTrue(story.recommendedMaxAge in story.recommendedMinAge..18)

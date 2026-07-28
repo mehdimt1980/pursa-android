@@ -1,12 +1,9 @@
 package org.pursa.app.navigation
 
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.setValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -14,15 +11,19 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import org.pursa.app.content.data.StoryContentRepository
-import org.pursa.app.content.data.StoryContentResult
 import org.pursa.app.feature.home.HomeScreen
 import org.pursa.app.feature.home.PursaWorlds
-import org.pursa.app.feature.missions.MissionListUiState
-import org.pursa.app.feature.story.StoryLoadState
+import org.pursa.app.feature.missions.MissionListViewModel
+import org.pursa.app.feature.settings.SettingsScreen
+import org.pursa.app.feature.settings.SettingsViewModel
 import org.pursa.app.feature.story.StoryRouteScreen
+import org.pursa.app.feature.story.StoryLoadState
+import org.pursa.app.feature.story.StoryViewModel
 import org.pursa.app.feature.world.InvalidWorldScreen
 import org.pursa.app.feature.world.WorldDetailScreen
+import org.pursa.app.progress.data.MissionProgressRepository
 import org.pursa.app.navigation.PursaDestination.Home
+import org.pursa.app.navigation.PursaDestination.Settings
 import org.pursa.app.navigation.PursaDestination.Story
 import org.pursa.app.navigation.PursaDestination.Welcome
 import org.pursa.app.navigation.PursaDestination.WorldDetail
@@ -30,6 +31,7 @@ import org.pursa.app.navigation.PursaDestination.WorldDetail
 @Composable
 fun PursaNavGraph(
     storyRepository: StoryContentRepository,
+    progressRepository: MissionProgressRepository,
     navController: NavHostController = rememberNavController(),
     startDestination: String = Welcome.route,
 ) {
@@ -56,6 +58,29 @@ fun PursaNavGraph(
                 onWorldClick = { worldId ->
                     navController.navigate(WorldDetail.createRoute(worldId))
                 },
+                onSettingsClick = {
+                    navController.navigate(Settings.route)
+                },
+            )
+        }
+
+        composable(Settings.route) {
+            val viewModel: SettingsViewModel = viewModel(
+                factory = SettingsViewModel.factory(progressRepository),
+            )
+            val settingsState by viewModel.state.collectAsStateWithLifecycle()
+            SettingsScreen(
+                state = settingsState,
+                onBackClick = {
+                    if (!navController.navigateUp()) {
+                        navController.navigate(Home.route) {
+                            launchSingleTop = true
+                        }
+                    }
+                },
+                onClearProgress = viewModel::clearProgress,
+                onDismissClearDialog = viewModel::dismissDialog,
+                onShowClearDialog = viewModel::showDialog,
             )
         }
 
@@ -82,19 +107,15 @@ fun PursaNavGraph(
                     },
                 )
             } else {
-                var retryKey by remember(world.id) { mutableIntStateOf(0) }
-                var missionListState by remember(world.id, retryKey) {
-                    mutableStateOf<MissionListUiState>(MissionListUiState.Loading)
-                }
-
-                LaunchedEffect(world.id, retryKey) {
-                    missionListState = when (val result = storyRepository.loadStoriesByWorld(world.id)) {
-                        is StoryContentResult.InvalidContent -> MissionListUiState.InvalidContent
-                        StoryContentResult.NotFound -> MissionListUiState.Success(emptyList())
-                        is StoryContentResult.ReadFailure -> MissionListUiState.ReadFailure
-                        is StoryContentResult.Success -> MissionListUiState.Success(result.value)
-                    }
-                }
+                val viewModel: MissionListViewModel = viewModel(
+                    key = "missions-${world.id}",
+                    factory = MissionListViewModel.factory(
+                        worldId = world.id,
+                        storyRepository = storyRepository,
+                        progressRepository = progressRepository,
+                    ),
+                )
+                val missionListState by viewModel.state.collectAsStateWithLifecycle()
 
                 WorldDetailScreen(
                     world = world,
@@ -110,7 +131,7 @@ fun PursaNavGraph(
                         navController.navigate(Story.createRoute(storyId))
                     },
                     onRetryMissions = {
-                        retryKey += 1
+                        viewModel.retry()
                     },
                 )
             }
@@ -125,19 +146,15 @@ fun PursaNavGraph(
             ),
         ) { backStackEntry ->
             val storyId = backStackEntry.arguments?.getString(PursaRouteArgs.StoryId).orEmpty()
-            var retryKey by remember(storyId) { mutableIntStateOf(0) }
-            var storyState by remember(storyId, retryKey) {
-                mutableStateOf<StoryLoadState>(StoryLoadState.Loading)
-            }
-
-            LaunchedEffect(storyId, retryKey) {
-                storyState = when (val result = storyRepository.loadStory(storyId)) {
-                    is StoryContentResult.InvalidContent -> StoryLoadState.InvalidContent
-                    StoryContentResult.NotFound -> StoryLoadState.NotFound
-                    is StoryContentResult.ReadFailure -> StoryLoadState.ReadFailure
-                    is StoryContentResult.Success -> StoryLoadState.Success(result.value)
-                }
-            }
+            val viewModel: StoryViewModel = viewModel(
+                key = "story-$storyId",
+                factory = StoryViewModel.factory(
+                    storyId = storyId,
+                    storyRepository = storyRepository,
+                    progressRepository = progressRepository,
+                ),
+            )
+            val storyState by viewModel.state.collectAsStateWithLifecycle()
 
             StoryRouteScreen(
                 state = storyState,
@@ -149,7 +166,7 @@ fun PursaNavGraph(
                     }
                 },
                 onRetry = {
-                    retryKey += 1
+                    viewModel.retry()
                 },
                 onReturnToWorld = {
                     val worldId = (storyState as? StoryLoadState.Success)?.story?.worldId ?: PursaWorlds.TruthId
@@ -159,6 +176,9 @@ fun PursaNavGraph(
                         }
                     }
                 },
+                onSelectOption = viewModel::selectOption,
+                onAdvance = viewModel::advance,
+                onPrevious = viewModel::previous,
             )
         }
     }

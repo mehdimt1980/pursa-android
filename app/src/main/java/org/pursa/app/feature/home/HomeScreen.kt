@@ -25,6 +25,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import org.pursa.app.R
 import org.pursa.app.core.ui.PursaTestTags
 import org.pursa.app.designsystem.component.PursaCard
+import org.pursa.app.designsystem.component.PursaButton
+import org.pursa.app.designsystem.component.PursaButtonVariant
 import org.pursa.app.designsystem.component.PursaMessage
 import org.pursa.app.designsystem.component.PursaMessageVariant
 import org.pursa.app.designsystem.theme.PursaTheme
@@ -33,6 +35,7 @@ import org.pursa.app.designsystem.theme.PursaTheme
 fun HomeScreen(
     worlds: List<PursaWorld>,
     onWorldClick: (String) -> Unit,
+    onSettingsClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Surface(
@@ -56,6 +59,7 @@ fun HomeScreen(
             HomeSectionHeader(
                 title = stringResource(R.string.home_title),
                 subtitle = stringResource(R.string.home_subtitle),
+                onSettingsClick = onSettingsClick,
             )
 
             PursaMessage(
@@ -76,6 +80,7 @@ fun HomeScreen(
 private fun HomeSectionHeader(
     title: String,
     subtitle: String,
+    onSettingsClick: () -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -91,6 +96,11 @@ private fun HomeSectionHeader(
             text = subtitle,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             style = MaterialTheme.typography.bodyLarge,
+        )
+        PursaButton(
+            text = stringResource(R.string.settings_title),
+            onClick = onSettingsClick,
+            variant = PursaButtonVariant.Tertiary,
         )
     }
 }
@@ -146,6 +156,7 @@ private fun HomeScreenPreview() {
         HomeScreen(
             worlds = PursaWorlds.all,
             onWorldClick = {},
+            onSettingsClick = {},
         )
     }
 }

@@ -126,6 +126,7 @@ private fun InvalidWorldRouteContent() {
             }
             PursaNavGraph(
                 storyRepository = repository,
+                progressRepository = FakeMissionProgressRepository(),
                 navController = navController,
                 startDestination = PursaDestination.Home.route,
             )

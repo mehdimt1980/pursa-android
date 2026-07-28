@@ -9,6 +9,7 @@ data class StoryValidationError(
 
 enum class StoryValidationErrorCode {
     UnsupportedSchemaVersion,
+    InvalidContentRevision,
     BlankStoryId,
     InvalidStoryIdFormat,
     InvalidWorldId,

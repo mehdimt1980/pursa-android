@@ -9,6 +9,7 @@ class PursaDestinationTest {
     fun routesAreCentralizedAndStable() {
         assertEquals("welcome", PursaDestination.Welcome.route)
         assertEquals("home", PursaDestination.Home.route)
+        assertEquals("settings", PursaDestination.Settings.route)
         assertEquals("world/{worldId}", PursaDestination.WorldDetail.route)
         assertEquals("story/{storyId}", PursaDestination.Story.route)
     }

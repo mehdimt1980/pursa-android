@@ -321,3 +321,113 @@ Context: Once multiple stories are registered, duplicate story IDs or duplicate 
 Decision: Validate manifest story ID and asset path uniqueness before exposing story summaries.
 
 Consequences: Invalid production inventory fails safely through structured invalid-content results, and tests cover duplicate manifest entries.
+
+## ADR-033: Room for Structured Local Progress
+
+Status: Accepted
+
+Context: Phase 7 needs local mission completion and resumable sessions without accounts or backend storage.
+
+Decision: Use AndroidX Room for mission progress, active sessions, and selected option IDs.
+
+Consequences: Progress remains structured, queryable, local to the app installation, and testable with in-memory databases.
+
+## ADR-034: DataStore Deferred Until a Real Preference Exists
+
+Status: Accepted
+
+Context: Phase 7 allows Preferences DataStore only for genuine small preferences.
+
+Decision: Do not add DataStore in Phase 7 because no preference is required for the implemented data controls.
+
+Consequences: Room remains the only new persistence technology. Future small app preferences may use Preferences DataStore without replacing Room progress tables.
+
+## ADR-035: Explicit App Container Without DI Framework
+
+Status: Accepted
+
+Context: The app needs one database instance per process but should not add Hilt, Koin, Dagger, or a service locator.
+
+Decision: Construct the database and repositories in `PursaAppContainer`, owned by `PursaApp`.
+
+Consequences: Dependency creation stays explicit and testable while avoiding a broad architecture rewrite.
+
+## ADR-036: Three Calm Progress States
+
+Status: Accepted
+
+Context: Mission progress should support resumption and replay without gamification.
+
+Decision: Represent user-facing status as `NotStarted`, `InProgress`, and `Completed`.
+
+Consequences: No scores, ranks, streaks, grades, mastery states, or failure states are introduced.
+
+## ADR-037: Replay Preserves Completion History
+
+Status: Accepted
+
+Context: A child may revisit a completed mission without losing the historical fact that it was completed.
+
+Decision: Starting a completed mission creates a new active session and preserves the previous completion timestamp until completion happens again.
+
+Consequences: Completed history survives replay, while mission cards can still show an active in-progress replay session.
+
+## ADR-038: Active Sessions Removed on Completion
+
+Status: Accepted
+
+Context: Completed missions should not keep stale resumable answer rows.
+
+Decision: Marking completion deletes active session and saved answer rows transactionally.
+
+Consequences: Completion state remains minimal and does not retain detailed interaction rows beyond the completed progress record.
+
+## ADR-039: Stable ID-Only Answer Persistence
+
+Status: Accepted
+
+Context: Saved answers are needed only to restore selection state.
+
+Decision: Store story IDs, step IDs, and selected option IDs, not Persian labels, authored story text, free text, or inferred meaning.
+
+Consequences: Data minimization is preserved, and restoration validates IDs against current content before use.
+
+## ADR-040: Story Content Revisions for Session Compatibility
+
+Status: Accepted
+
+Context: Authored story step structure may change after a session has been saved.
+
+Decision: Add positive integer `contentRevision` to production stories and save it with active sessions.
+
+Consequences: Mismatched revisions clear obsolete active sessions safely while preserving completed history where applicable.
+
+## ADR-041: Exported Room Schemas and No Destructive Migration
+
+Status: Accepted
+
+Context: Local progress databases need reliable future migration discipline.
+
+Decision: Enable Room schema export, commit versioned schema files, and avoid destructive migration APIs.
+
+Consequences: Future schema changes require explicit migrations and migration tests instead of silent data loss.
+
+## ADR-042: Local Backup Disabled for Progress Data
+
+Status: Accepted
+
+Context: Privacy documentation promises local-only progress without cloud sync.
+
+Decision: Keep `android:allowBackup="false"` and exclude app data in backup and data-extraction rules.
+
+Consequences: Mission progress is not silently backed up to cloud storage or transferred device-to-device by Android backup.
+
+## ADR-043: Clear-All Local Progress Control
+
+Status: Accepted
+
+Context: Families need a simple way to remove stored progress from the device.
+
+Decision: Add a Settings/Data & Privacy screen with confirmed clear-all local progress.
+
+Consequences: The app can delete progress, active sessions, and selected answer rows without deleting packaged story assets.

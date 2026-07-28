@@ -10,6 +10,8 @@ sealed class PursaDestination(val route: String) {
 
     data object Home : PursaDestination("home")
 
+    data object Settings : PursaDestination("settings")
+
     data object WorldDetail : PursaDestination("world/{${PursaRouteArgs.WorldId}}") {
         fun createRoute(worldId: String): String = "world/$worldId"
     }

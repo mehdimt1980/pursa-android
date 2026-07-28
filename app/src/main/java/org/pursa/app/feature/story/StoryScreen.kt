@@ -16,10 +16,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
@@ -44,6 +40,9 @@ fun StoryRouteScreen(
     onBackClick: () -> Unit,
     onRetry: () -> Unit,
     onReturnToWorld: () -> Unit,
+    onSelectOption: (String) -> Unit,
+    onAdvance: () -> Unit,
+    onPrevious: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     when (state) {
@@ -75,8 +74,13 @@ fun StoryRouteScreen(
         )
         is StoryLoadState.Success -> StoryScreen(
             story = state.story,
+            sessionState = state.sessionState,
+            saveFailed = state.saveFailed,
             onBackClick = onBackClick,
             onReturnToWorld = onReturnToWorld,
+            onSelectOption = onSelectOption,
+            onAdvance = onAdvance,
+            onPrevious = onPrevious,
             modifier = modifier,
         )
     }
@@ -85,14 +89,15 @@ fun StoryRouteScreen(
 @Composable
 fun StoryScreen(
     story: PursaStory,
+    sessionState: StorySessionState,
+    saveFailed: Boolean,
     onBackClick: () -> Unit,
     onReturnToWorld: () -> Unit,
+    onSelectOption: (String) -> Unit,
+    onAdvance: () -> Unit,
+    onPrevious: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var sessionState by remember(story.id) {
-        mutableStateOf(StorySessionReducer.initialState(story))
-    }
-
     if (sessionState.completed) {
         StorySummaryScreen(
             story = story,
@@ -106,7 +111,10 @@ fun StoryScreen(
     StoryStepScaffold(
         story = story,
         sessionState = sessionState,
-        onSessionStateChange = { sessionState = it },
+        saveFailed = saveFailed,
+        onSelectOption = onSelectOption,
+        onAdvance = onAdvance,
+        onPrevious = onPrevious,
         onBackClick = onBackClick,
         modifier = modifier,
     )
@@ -116,7 +124,10 @@ fun StoryScreen(
 private fun StoryStepScaffold(
     story: PursaStory,
     sessionState: StorySessionState,
-    onSessionStateChange: (StorySessionState) -> Unit,
+    saveFailed: Boolean,
+    onSelectOption: (String) -> Unit,
+    onAdvance: () -> Unit,
+    onPrevious: () -> Unit,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -162,17 +173,15 @@ private fun StoryStepScaffold(
                 StoryStepContent(
                     step = step,
                     selectedOptionId = sessionState.selectedAnswers[step.id],
-                    onSelectOption = { optionId ->
-                        onSessionStateChange(
-                            StorySessionReducer.selectAnswer(
-                                story = story,
-                                state = sessionState,
-                                stepId = step.id,
-                                optionId = optionId,
-                            ),
-                        )
-                    },
+                    onSelectOption = onSelectOption,
                 )
+                if (saveFailed) {
+                    PursaMessage(
+                        title = stringResource(R.string.story_save_failure_title),
+                        message = stringResource(R.string.story_save_failure_message),
+                        variant = PursaMessageVariant.Warning,
+                    )
+                }
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(PursaTheme.spacing.medium),
@@ -180,9 +189,7 @@ private fun StoryStepScaffold(
                     if (sessionState.currentStepIndex > 0) {
                         PursaButton(
                             text = stringResource(R.string.story_previous),
-                            onClick = {
-                                onSessionStateChange(StorySessionReducer.previous(sessionState))
-                            },
+                            onClick = onPrevious,
                             modifier = Modifier
                                 .weight(1f)
                                 .testTag(PursaTestTags.StoryPrevious),
@@ -191,9 +198,7 @@ private fun StoryStepScaffold(
                     }
                     PursaButton(
                         text = stringResource(R.string.story_continue),
-                        onClick = {
-                            onSessionStateChange(StorySessionReducer.advance(story, sessionState))
-                        },
+                        onClick = onAdvance,
                         enabled = StorySessionReducer.canContinue(story, sessionState),
                         modifier = Modifier
                             .weight(1f)

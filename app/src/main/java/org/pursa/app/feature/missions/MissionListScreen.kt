@@ -20,6 +20,7 @@ import org.pursa.app.designsystem.component.PursaCard
 import org.pursa.app.designsystem.component.PursaMessage
 import org.pursa.app.designsystem.component.PursaMessageVariant
 import org.pursa.app.designsystem.theme.PursaTheme
+import org.pursa.app.progress.model.MissionProgressStatus
 
 @Composable
 fun MissionListScreen(
@@ -64,7 +65,7 @@ fun MissionListScreen(
 
 @Composable
 private fun MissionListSuccess(
-    missions: List<PursaStorySummary>,
+    missions: List<MissionListItemUiModel>,
     onMissionClick: (String) -> Unit,
 ) {
     if (missions.isEmpty()) {
@@ -79,7 +80,8 @@ private fun MissionListSuccess(
     Column(
         verticalArrangement = Arrangement.spacedBy(PursaTheme.spacing.medium),
     ) {
-        missions.forEach { mission ->
+        missions.forEach { item ->
+            val mission = item.summary
             PursaCard(
                 title = mission.title,
                 supportingText = mission.summary,
@@ -88,19 +90,52 @@ private fun MissionListSuccess(
                     .fillMaxWidth()
                     .testTag(mission.testTag),
                 trailingContent = {
-                    Text(
-                        text = stringResource(
-                            R.string.mission_age_duration,
-                            mission.recommendedMinAge,
-                            mission.recommendedMaxAge,
-                            mission.estimatedDurationMinutes,
-                        ),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        style = MaterialTheme.typography.labelMedium,
+                    MissionProgressLabel(
+                        status = item.status,
+                        minAge = mission.recommendedMinAge,
+                        maxAge = mission.recommendedMaxAge,
+                        durationMinutes = mission.estimatedDurationMinutes,
+                        storyId = mission.id,
                     )
                 },
             )
         }
+    }
+}
+
+@Composable
+private fun MissionProgressLabel(
+    status: MissionProgressStatus,
+    minAge: Int,
+    maxAge: Int,
+    durationMinutes: Int,
+    storyId: String,
+) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(PursaTheme.spacing.extraSmall),
+    ) {
+        Text(
+            text = stringResource(
+                R.string.mission_age_duration,
+                minAge,
+                maxAge,
+                durationMinutes,
+            ),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = MaterialTheme.typography.labelMedium,
+        )
+        Text(
+            text = stringResource(status.labelResId),
+            modifier = Modifier.testTag(PursaTestTags.missionStatus(storyId)),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = MaterialTheme.typography.labelMedium,
+        )
+        Text(
+            text = stringResource(status.actionResId),
+            modifier = Modifier.testTag(PursaTestTags.missionAction(storyId)),
+            color = MaterialTheme.colorScheme.primary,
+            style = MaterialTheme.typography.labelMedium,
+        )
     }
 }
 
@@ -128,4 +163,18 @@ private val PursaStorySummary.testTag: String
     get() = when (id) {
         "truth_broken_vase" -> PursaTestTags.MissionTruthBrokenVase
         else -> PursaTestTags.mission(id)
+    }
+
+private val MissionProgressStatus.labelResId: Int
+    get() = when (this) {
+        MissionProgressStatus.NotStarted -> R.string.mission_status_not_started
+        MissionProgressStatus.InProgress -> R.string.mission_status_in_progress
+        MissionProgressStatus.Completed -> R.string.mission_status_completed
+    }
+
+private val MissionProgressStatus.actionResId: Int
+    get() = when (this) {
+        MissionProgressStatus.NotStarted -> R.string.mission_action_start
+        MissionProgressStatus.InProgress -> R.string.mission_action_continue
+        MissionProgressStatus.Completed -> R.string.mission_action_replay
     }

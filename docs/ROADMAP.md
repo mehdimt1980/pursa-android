@@ -96,7 +96,7 @@ Exit criteria:
 - Users can navigate core screens.
 - Screens work in RTL.
 
-Status: Implemented as the first navigable app shell: Welcome starts the app, Continue opens Home and removes Welcome from the back stack, Home lists the three MVP worlds, and each world can open a foundational detail screen with starter questions. Settings, profile, progress, story playback, and about/privacy screens remain deferred.
+Status: Implemented as the first navigable app shell: Welcome starts the app, Continue opens Home and removes Welcome from the back stack, Home lists the three MVP worlds, and each world can open a foundational detail screen with starter questions. Profiles remain deferred.
 
 ## Phase 5: Story Engine
 
@@ -137,22 +137,26 @@ Exit criteria:
 
 Status: Implemented with four manifest-registered offline Truth missions: `truth_broken_vase`, `truth_group_photo`, `truth_strange_news`, and `truth_friend_secret`. Each mission uses JSON-authored Persian content, fixed-order interactive reflection, reasons, perspective-taking, counterexamples, and completion reflection. Parser, validation, repository, production inventory, and UI tests exist. Justice content, Friendship content, persistent progress, journal, Room, DataStore, audio, illustrations, parent mode, and school mode remain incomplete.
 
-## Phase 7: Three MVP Worlds
+## Phase 7: Local Progress Persistence
 
-Objective: Provide initial content coverage.
+Objective: Add privacy-preserving local mission progress and session resumption.
 
 Main deliverables:
 
-- Truth and lying world.
-- Justice and fairness world.
-- Friendship and loyalty world.
-- Local progress across stories.
+- Room-backed mission completion.
+- Resumable in-progress story sessions.
+- Local selected-answer ID persistence.
+- Replay for completed missions.
+- Clear-all local progress controls.
 
 Exit criteria:
 
-- Each world has reviewed content.
 - Progress is stored locally.
+- Sessions restore safely.
+- Local data can be cleared.
 - No network is required.
+
+Status: Implemented with Room-backed local mission progress, resumable active sessions, selected option ID persistence, completion recording, replay support, content revision compatibility, explicit app-container construction, Settings/Data & Privacy clear-all controls, backup exclusion, exported Room schema, and DAO/repository test coverage. Journal, free-text reflection, Justice content, Friendship content, audio, illustrations, parent mode, school mode, accounts, and cloud sync remain incomplete.
 
 ## Phase 8: Accessibility and Quality Assurance
 
