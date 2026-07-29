@@ -54,6 +54,8 @@ class ReleaseEngineeringTest {
         assertFalse(workflow.contains("jarsigner -verify -strict"))
         assertTrue(workflow.contains("cat build/release-verification/jarsigner-aab.txt"))
         assertTrue(workflow.contains("grep -Eq 'jar verified[,.]'"))
+        assertTrue(workflow.contains("test \"${'$'}{JARSIGNER_STATUS}\" -eq 4"))
+        assertTrue(workflow.contains("self-signed|PKIX path building failed|unable to find valid certification path"))
         assertTrue(workflow.contains("keytool -printcert -jarfile"))
         assertTrue(workflow.contains("APK_CERT_SHA256"))
         assertTrue(workflow.contains("AAB_CERT_SHA256"))
