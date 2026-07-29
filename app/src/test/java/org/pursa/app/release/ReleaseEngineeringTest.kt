@@ -49,19 +49,7 @@ class ReleaseEngineeringTest {
         assertTrue(workflow.contains("cancel-in-progress: false"))
         assertTrue(workflow.contains("python3 tools/release/validate_release.py"))
         assertTrue(workflow.contains("PURSA_OFFICIAL_RELEASE: \"true\""))
-        assertTrue(workflow.contains("apksigner"))
-        assertTrue(workflow.contains("jarsigner -verify -verbose -certs"))
-        assertFalse(workflow.contains("jarsigner -verify -strict"))
-        assertTrue(workflow.contains("cat build/release-verification/jarsigner-aab.txt"))
-        assertTrue(workflow.contains("grep -Eq 'jar verified[,.]'"))
-        assertTrue(workflow.contains("test \"${'$'}{JARSIGNER_STATUS}\" -eq 4"))
-        assertTrue(workflow.contains("self-signed|PKIX path building failed|unable to find valid certification path"))
-        assertTrue(workflow.contains("keytool -printcert -jarfile"))
-        assertTrue(workflow.contains("KEYTOOL_STATUS"))
-        assertTrue(workflow.contains("test \"${'$'}{KEYTOOL_STATUS}\" -eq 4"))
-        assertTrue(workflow.contains("APK_CERT_SHA256"))
-        assertTrue(workflow.contains("AAB_CERT_SHA256"))
-        assertTrue(workflow.contains("test \"${'$'}{APK_CERT_SHA256}\" = \"${'$'}{AAB_CERT_SHA256}\""))
+        assertTrue(workflow.contains("bash tools/release/verify_signed_artifacts.sh"))
         assertTrue(workflow.contains("gh release create"))
         assertTrue(workflow.contains("--draft"))
         assertFalse(workflow.contains("pull_request:"))
@@ -82,6 +70,7 @@ class ReleaseEngineeringTest {
             "tools/release/validate_release.py",
             "tools/release/generate_release_metadata.py",
             "tools/release/stage_release.py",
+            "tools/release/verify_signed_artifacts.sh",
             "signing.properties.example",
         ).forEach { path ->
             assertTrue("$path must exist", Files.exists(projectPath(path)))
@@ -120,6 +109,22 @@ class ReleaseEngineeringTest {
         assertTrue(gitignore.contains("*.keystore"))
         assertTrue(gitignore.contains("signing.properties"))
         assertTrue(releasing.contains("Do not create the base64 file inside the repository."))
+    }
+
+    @Test
+    fun signedArtifactVerifierToleratesOnlyExpectedAabTrustWarnings() {
+        val script = readProjectFile("tools/release/verify_signed_artifacts.sh")
+
+        assertTrue(script.contains("verify --verbose --print-certs"))
+        assertTrue(script.contains("jarsigner -verify -verbose -certs"))
+        assertFalse(script.contains("jarsigner -verify -strict"))
+        assertTrue(script.contains("grep -Eq 'jar verified[,.]'"))
+        assertTrue(script.contains("test \"${'$'}{JARSIGNER_STATUS}\" -eq 4"))
+        assertTrue(script.contains("self-signed|PKIX path building failed|unable to find valid certification path"))
+        assertTrue(script.contains("keytool -printcert -jarfile"))
+        assertTrue(script.contains("APK_CERT_SHA256"))
+        assertTrue(script.contains("AAB_CERT_SHA256"))
+        assertTrue(script.contains("test \"${'$'}{APK_CERT_SHA256}\" = \"${'$'}{AAB_CERT_SHA256}\""))
     }
 
     private fun versionProperties(): Properties =

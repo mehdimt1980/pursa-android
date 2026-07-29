@@ -101,8 +101,8 @@ Do not attempt an official signed build without maintainer signing inputs.
 
 ## AAB Signature Verification
 
-The release workflow verifies the signed APK with Android `apksigner verify --verbose --print-certs`.
+The release workflow delegates signed artifact verification to `tools/release/verify_signed_artifacts.sh`. The script verifies the signed APK with Android `apksigner verify --verbose --print-certs`.
 
-The signed AAB is verified with `jarsigner -verify -verbose -certs` and the full output is printed. The workflow intentionally does not use `jarsigner -strict` because Pursa's Android release certificate is a project-owned self-signed application signing certificate, not a certificate rooted in a public web PKI certificate authority. `jarsigner` may still return exit code `4` for that expected trust-chain warning, so the workflow accepts that code only when the output confirms `jar verified` and reports the expected self-signed or PKIX-path warning.
+The signed AAB is verified with `jarsigner -verify -verbose -certs` and the full output is printed. The verification script intentionally does not use `jarsigner -strict` because Pursa's Android release certificate is a project-owned self-signed application signing certificate, not a certificate rooted in a public web PKI certificate authority. `jarsigner` may still return exit code `4` for that expected trust-chain warning, so the script accepts that code only when the output confirms `jar verified` and reports the expected self-signed or PKIX-path warning.
 
 The workflow still fails for a missing, empty, unsigned, corrupted, or invalidly signed AAB. It also extracts the APK signer SHA-256 certificate digest and compares it with the AAB signer certificate fingerprint so the staged APK and AAB must be signed by the same release certificate. The `keytool -printcert -jarfile` fingerprint extraction may also return exit code `4` for the same expected self-signed trust-chain warning; that is tolerated only when the warning is present and a SHA-256 fingerprint is extracted.
