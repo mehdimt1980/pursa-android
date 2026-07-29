@@ -38,6 +38,20 @@ Content proposals should follow [docs/CONTENT_GUIDE.md](docs/CONTENT_GUIDE.md). 
 
 Content must encourage inquiry rather than moral preaching or memorization.
 
+New production stories must also include:
+
+- an educational review file under `content/reviews/`;
+- a central review index entry;
+- P4C structure review;
+- Persian editorial review;
+- child-safety and inclusion review;
+- artwork alignment review;
+- content compatibility decision;
+- final review status;
+- completed future-story checklist.
+
+See [docs/EDUCATIONAL_REVIEW.md](docs/EDUCATIONAL_REVIEW.md) and [docs/CONTENT_REVIEW_CHECKLIST.md](docs/CONTENT_REVIEW_CHECKLIST.md).
+
 ## Branch Naming
 
 Examples:
@@ -106,7 +120,7 @@ Story and activity content must be reviewed for:
 
 ## New Production Story Requirements
 
-Before a new production story is merged, follow [docs/NEW_STORY_CHECKLIST.md](docs/NEW_STORY_CHECKLIST.md). Each story must declare a stable `artworkKey`, and that key must resolve through `PursaArtworkRegistry`.
+Before a new production story is merged, follow [docs/NEW_STORY_CHECKLIST.md](docs/NEW_STORY_CHECKLIST.md). Each story must declare a stable `artworkKey`, and that key must resolve through `PursaArtworkRegistry`. Educational review is mandatory before production readiness.
 
 Artwork contributions must follow [docs/ARTWORK_GUIDE.md](docs/ARTWORK_GUIDE.md). Do not add external images, remote URLs, image-loading dependencies, or Android resource IDs inside story JSON without explicit review.
 

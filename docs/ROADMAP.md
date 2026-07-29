@@ -258,3 +258,27 @@ Exit criteria:
 - Artwork is decorative by default and accessible screen text remains the source of meaning.
 
 Status: Implemented in source; final Gradle verification depends on a local Android SDK or CI environment.
+
+## Phase 13: Educational Review
+
+Objective: Review all twelve production missions for philosophical, editorial, child-safety, inclusion, and artwork quality before release engineering.
+
+Main deliverables:
+
+- one review report per production mission;
+- central review index;
+- educational-review guide;
+- future content-review checklist;
+- cross-story repetition audit;
+- concept map;
+- user-pilot protocol;
+- deterministic review inventory and structure tests.
+
+Exit criteria:
+
+- all twelve review reports exist;
+- all stories have recorded review status;
+- review documentation and tests cover production-readiness rules;
+- no runtime review UI, AI scoring, dependency, permission, account, analytics, or research collection is added.
+
+Status: Implemented in repository documentation and tests. External P4C specialist review, child user pilot, formal accessibility certification, legal review, release signing, GitHub Releases, Play Store publishing, audio, accounts, parent mode, and teacher mode remain incomplete.

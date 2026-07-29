@@ -48,3 +48,7 @@ The app must avoid:
 ## Future Review
 
 Any future feature that changes data collection, storage, sharing, networking, analytics, backup behavior, audio handling, AI behavior, or account identity must undergo privacy review before implementation.
+
+## Future User Pilots
+
+The production app does not collect research data. The future pilot protocol in `docs/USER_PILOT_PROTOCOL.md` is separate repository documentation, not runtime behavior. Any pilot must use separate consent, data-minimization, retention, safeguarding, and governance review before collecting notes. Do not add participant identifiers, surveys, recordings, analytics, or upload behavior to the app without a new privacy review.

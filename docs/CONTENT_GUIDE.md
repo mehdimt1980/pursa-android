@@ -112,6 +112,14 @@ Philosophical tension is required. A mission should hold at least two defensible
 
 Perspective steps should represent another viewpoint charitably. Counterexamples should change one meaningful condition, not merely repeat the first question. Reflection should allow children to keep, revise, complicate, or remain unsure about their view without praise or correction.
 
+Options should express reasons rather than random actions. Avoid absurd distractors, hidden adult-approved answers, duplicate meanings, negative wording traps, pressure to confess, and options that require personal experience. Use uncertainty only when it helps the inquiry.
+
+Perspective steps must express a real reason, sound plausible, avoid caricature, introduce a relevant value, and avoid revealing the author's preferred answer.
+
+Counterexamples must change a relevant condition, test a principle, avoid shocking extremes, remain connected to the original problem, and support reconsideration without requiring it.
+
+Completion copy should mention relevant concepts, acknowledge multiple viewpoints, avoid formulaic repetition, and never evaluate the child.
+
 Digital-media scenarios may discuss images, captions, sharing, uncertainty, and source reliability without naming commercial platforms or imitating official announcements. Privacy and consent scenarios should distinguish a true image from fair publication and accurate representation. Secret scenarios must stay low-risk unless a dedicated safety review exists; do not use severe harm, abuse, self-harm, violence, sexual content, drugs, or dangerous adult behavior as ordinary mission material.
 
 Completion reflections should mention the values considered, acknowledge that more than one position may be reasonable, and emphasize reasons and perspective-taking. They must not grade choices, reward changing one's mind, or declare a single final answer.
@@ -198,6 +206,8 @@ Before registering a story:
 - run or update artwork registry and production-content artwork tests.
 
 See [ARTWORK_GUIDE.md](ARTWORK_GUIDE.md) and [NEW_STORY_CHECKLIST.md](NEW_STORY_CHECKLIST.md) before adding a production story.
+
+Every production story also needs an educational review file and index entry. See [EDUCATIONAL_REVIEW.md](EDUCATIONAL_REVIEW.md), [CONTENT_REVIEW_CHECKLIST.md](CONTENT_REVIEW_CHECKLIST.md), and [CONTENT_MAP.md](CONTENT_MAP.md).
 
 ## Sample Persian Question Patterns
 

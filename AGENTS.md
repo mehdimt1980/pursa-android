@@ -72,6 +72,17 @@ Only report these commands as successful if they were actually run and completed
 - Do not put Android resource IDs, drawable names, remote URLs, or image-loader configuration in story content.
 - Do not use runtime reflection, `Resources.getIdentifier`, or story-specific drawable lookup for artwork.
 - Artwork should remain offline, original, semantic-color-based, and decorative by default unless a localized content description is genuinely required.
+- Every production story requires a completed educational review file and review-index entry.
+- No story may be marked production-ready without a final review status.
+- Philosophical missions require at least two defensible positions.
+- Perspective steps must be charitable and must not reveal the author's preferred answer.
+- Counterexamples must test a principle rather than reveal a correct answer.
+- Completion text must remain open; changing a view must not be praised over retaining a view.
+- Story options must not disguise a correct answer or moral score.
+- Artwork must not assign blame, shame a character, or imply the correct answer.
+- Content-revision impact must be recorded in the review.
+- Internal review does not equal formal educational certification.
+- Future user studies require separate ethical and privacy review.
 - Story content must not include correct-answer fields, scores, points, rewards, badges, profiles, or ranking.
 - Populated worlds must use the generic manifest, repository, mission list, story renderer, and progress system rather than world-specific rendering.
 - Friendship content must not request personal friendship disclosures.

@@ -545,3 +545,73 @@ Context: Story content should remain platform-neutral and reviewable.
 Decision: Store a stable `artworkKey` in story JSON and resolve it through `PursaArtworkRegistry`.
 
 Consequences: Content does not include Android resource IDs, and UI code avoids reflection, `Resources.getIdentifier`, and story-specific drawable lookup.
+
+## ADR-054: Internal Educational Review Before Release Engineering
+
+Status: Accepted
+
+Context: Technical validity does not prove educational readiness.
+
+Decision: Review all production missions internally for philosophical tension, P4C flow, Persian language, child safety, inclusion, and artwork alignment before beginning release engineering.
+
+Consequences: Phase 13 adds repository review artifacts and tests, not runtime features.
+
+## ADR-055: One Review Report Per Production Story
+
+Status: Accepted
+
+Context: Future contributors need traceable production-readiness evidence.
+
+Decision: Store one Markdown review report per production story under `content/reviews/` and maintain a review index.
+
+Consequences: Review files stay outside Android assets and are not surfaced to children.
+
+## ADR-056: Open-Ended Philosophy Over Moral Instruction
+
+Status: Accepted
+
+Context: Pursa should not become a morality quiz or behavior-correction tool.
+
+Decision: Require at least two defensible positions, charitable perspectives, meaningful counterexamples, and open completion text.
+
+Consequences: Stories may invite disagreement and uncertainty without scoring or hidden correct answers.
+
+## ADR-057: No Automated Philosophical Scoring
+
+Status: Accepted
+
+Context: Automated scoring would create false precision and could contradict the product's open-ended purpose.
+
+Decision: Tests check inventory, structure, identifiers, and required review files only. They do not score philosophical depth, safety, maturity, or correctness.
+
+Consequences: Human review remains documented separately, and no AI/NLP scoring dependency is introduced.
+
+## ADR-058: Editorial Revision Preserves Stable IDs Unless Compatibility Requires Change
+
+Status: Accepted
+
+Context: Room sessions and Reflection Journal records depend on stable story, step, option, and content-revision compatibility.
+
+Decision: Preserve stable IDs during editorial review and increment `contentRevision` only when compatibility is affected.
+
+Consequences: Phase 13 records no content-revision changes because no story JSON text or IDs were changed.
+
+## ADR-059: Artwork Reviewed With Content
+
+Status: Accepted
+
+Context: Illustration can bias a child's judgment even when text is open-ended.
+
+Decision: Include artwork alignment, neutrality, blame-cue, and text-image contradiction review in each mission review.
+
+Consequences: No separate runtime artwork-review system is introduced.
+
+## ADR-060: User Pilot Protocol Separate From Production App
+
+Status: Accepted
+
+Context: Child user research requires privacy and safeguarding discipline.
+
+Decision: Document a future pilot protocol outside the app and prohibit personal disclosure, identifiers, recordings, analytics, or upload behavior in production.
+
+Consequences: Internal review is not formal certification, and future user studies require separate ethical and privacy review.

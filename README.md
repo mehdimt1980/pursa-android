@@ -6,7 +6,7 @@ Pursa is a free and open-source, offline-first Android app for helping Iranian c
 
 ## Project Status
 
-Pursa is in early implementation. The repository now contains a Persian RTL Android development build with a refreshed warm visual identity, a semantic color system, Welcome, Home, three populated content-world entry points, four offline JSON-authored Truth missions, four offline JSON-authored Justice missions, four offline JSON-authored Friendship missions, local progress, replay, Settings/Data & Privacy, and a private local Reflection Journal. No production app, signed release build, or public download exists yet.
+Pursa is in early implementation. The repository now contains a Persian RTL Android development build with a refreshed warm visual identity, a semantic color system, Welcome, Home, three illustrated populated content-world entry points, twelve internally reviewed Persian philosophical missions, local progress, replay, Settings/Data & Privacy, a private local Reflection Journal, a permanent educational-review workflow, and a documented future user-pilot protocol. No production app, signed release build, public download, formal P4C certification, clinical validation, or external expert approval exists yet.
 
 ## Continuous Integration
 
@@ -21,6 +21,8 @@ The development build includes a local story-content engine. Authored Persian st
 Mission progress is stored locally with Room so in-progress sessions can resume, selected option IDs can be restored, completed missions can be replayed, and all local progress can be cleared from the Data & Privacy screen. The database stores stable story, step, and option IDs only; it does not store child names, profiles, free-text answers, authored Persian story text, scores, analytics, or cloud-sync identifiers. DataStore is not used yet because Phase 7 introduced no genuine small preference. The app remains account-free, backend-free, cloud-sync-free, and analytics-free.
 
 Offline illustrations are generated with local Compose geometry through a central artwork registry. Story JSON stores stable `artworkKey` values only; the UI resolves those keys without external assets, downloads, Android resource IDs in content, or image-loading libraries. See [docs/ARTWORK_GUIDE.md](docs/ARTWORK_GUIDE.md) and [docs/NEW_STORY_CHECKLIST.md](docs/NEW_STORY_CHECKLIST.md).
+
+The twelve current missions are internally reviewed against the project's documented philosophical, editorial, safety, inclusion, artwork, and accessibility criteria. Review artifacts live outside runtime assets under [content/reviews/](content/reviews/), with review guidance in [docs/EDUCATIONAL_REVIEW.md](docs/EDUCATIONAL_REVIEW.md). Internal review is not a claim of formal educational effectiveness or external certification.
 
 ## Core Principles
 
@@ -120,6 +122,7 @@ pursa-android/
 
 - Read [CONTRIBUTING.md](CONTRIBUTING.md) before proposing changes.
 - Read [docs/CONTENT_GUIDE.md](docs/CONTENT_GUIDE.md) before proposing stories, questions, or activities.
+- Read [docs/EDUCATIONAL_REVIEW.md](docs/EDUCATIONAL_REVIEW.md) before marking a story production-ready.
 - Read [docs/ARTWORK_GUIDE.md](docs/ARTWORK_GUIDE.md) before proposing story or world artwork.
 - Read [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) before proposing Android implementation work.
 - Coding agents must follow [AGENTS.md](AGENTS.md).

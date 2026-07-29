@@ -27,6 +27,8 @@ Pursa should help children:
 - Disagree respectfully.
 - Think critically, creatively, collaboratively, and carefully.
 
+Pursa uses open-ended inquiry rather than moral instruction. The app should not evaluate children, infer personality, score opinions, or praise one pattern of changing or retaining views.
+
 ## Non-Goals
 
 Pursa does not aim to:
@@ -78,6 +80,8 @@ Early success may be indicated by:
 - Privacy and accessibility principles are preserved.
 
 These indicators are planning criteria, not claims of validated outcomes.
+
+The current mission set has internal repository review against documented philosophical, editorial, safety, inclusion, artwork, and accessibility criteria. External educational review and child user pilots are still recommended before public release claims.
 
 ## Safety Principles
 

@@ -67,3 +67,15 @@ Before adding non-code artwork in the future:
 - Large fonts and RTL layout do not cause overlap.
 - Decorative artwork remains hidden from accessibility semantics.
 - Production story tests prove every `artworkKey` resolves.
+
+## Educational Alignment Review
+
+Artwork review happens together with story review. Check:
+
+- the image matches the story without adding new facts;
+- the image does not imply blame, guilt, shame, fear, or the correct answer;
+- character emotion remains neutral enough for inquiry;
+- the image does not contradict the text;
+- no embedded text, score, badge, or moral cue appears;
+- the composition remains readable at mission-card size;
+- the story review status is recorded in `content/reviews/`.

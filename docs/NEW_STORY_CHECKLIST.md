@@ -46,3 +46,12 @@ Also confirm:
 - `PursaArtworkRegistryTest` passes;
 - no Room schema changes occur unless explicitly intended;
 - no generated APK or build output is staged.
+
+## Educational Review
+
+- create a review file under `content/reviews/`;
+- add the story to `content/reviews/README.md`;
+- document at least two defensible positions;
+- document P4C flow, perspective quality, counterexample quality, final reflection quality, Persian editorial review, safety review, inclusion review, artwork review, accessibility review, and compatibility impact;
+- use one approved review status from `docs/EDUCATIONAL_REVIEW.md`;
+- do not mark the story production-ready before review is complete.
