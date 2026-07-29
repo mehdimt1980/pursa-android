@@ -67,7 +67,7 @@ class EducationalReviewTest {
         )
 
         reviewFiles().forEach { file ->
-            val text = Files.readString(file)
+            val text = readUtf8(file)
             requiredHeadings.forEach { heading ->
                 assertTrue("${file.fileName} missing $heading", text.contains(heading))
             }
@@ -175,7 +175,10 @@ class EducationalReviewTest {
         }
 
     private fun readReviewFile(name: String): String =
-        Files.readString(projectPath("content/reviews/$name"))
+        readUtf8(projectPath("content/reviews/$name"))
+
+    private fun readUtf8(path: Path): String =
+        String(Files.readAllBytes(path), Charsets.UTF_8)
 
     private fun projectPath(relativePath: String): Path {
         val userDir = Path.of(System.getProperty("user.dir"))
