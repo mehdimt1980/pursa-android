@@ -84,6 +84,16 @@ Each production story also has a stable `artworkKey`. Content models do not cont
 
 Educational review files live under `content/reviews/`, outside Android runtime assets, so they are not part of the APK content path. Tests verify review inventory and required headings, but the app does not implement runtime educational scoring, reviewer UI, or philosophical-quality automation.
 
+## Release Engineering Architecture
+
+`version.properties` is the authoritative version source. The Android Gradle configuration reads `VERSION_CODE` and `VERSION_NAME` from that file for every local, CI, and release build.
+
+Ordinary CI and official release publication are separated. Ordinary CI runs lint, unit tests, debug assembly, unsigned release assembly, and instrumentation-test APK assembly without production signing secrets. Official release mode is enabled only with `PURSA_OFFICIAL_RELEASE=true` and complete signing inputs.
+
+Release signing is conditional. When signing values are absent, local release assembly remains unsigned for verification. When official release mode is requested with incomplete signing values, Gradle fails during configuration with a clear error. The release build never falls back to debug signing.
+
+Release scripts under `tools/release/` validate version/tag/release-note consistency, generate SBOM/license/build-info metadata, stage only allowlisted assets with deterministic names, and generate SHA-256 checksums. GitHub Release publication happens only after validation, tests, signing, signature verification, metadata generation, and staging validation succeed. Production keystores and signing properties stay outside source control.
+
 ## Local Storage
 
 Room stores structured local mission progress and resumable sessions. The version-1 schema has three normalized tables:

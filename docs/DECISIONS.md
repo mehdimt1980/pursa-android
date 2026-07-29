@@ -615,3 +615,63 @@ Context: Child user research requires privacy and safeguarding discipline.
 Decision: Document a future pilot protocol outside the app and prohibit personal disclosure, identifiers, recordings, analytics, or upload behavior in production.
 
 Consequences: Internal review is not formal certification, and future user studies require separate ethical and privacy review.
+
+## ADR-061: Tracked Semantic Release Version Source
+
+Status: Accepted
+
+Context: Release builds need deterministic Android `versionCode` and `versionName` values that are easy to review.
+
+Decision: Store `VERSION_CODE` and `VERSION_NAME` in tracked `version.properties`, use semantic `MAJOR.MINOR.PATCH` names, and use `v<VERSION_NAME>` Git tags.
+
+Consequences: Version changes are explicit in diffs. `VERSION_CODE` must increase manually for official releases.
+
+## ADR-062: Ordinary CI Separate From Official Release
+
+Status: Accepted
+
+Context: Pull requests and branch pushes should not need production signing secrets or create public release assets.
+
+Decision: Keep ordinary CI secret-free and add a separate release workflow for signed dry runs and draft GitHub Releases.
+
+Consequences: Development artifacts remain non-production. Official publication only happens through deliberate release triggers.
+
+## ADR-063: Production Keystore Outside Repository
+
+Status: Accepted
+
+Context: Android signing keys are long-lived trust anchors.
+
+Decision: Do not create, commit, or store production keystores in the repository. Use protected GitHub environment secrets and temporary runner files for official signing.
+
+Consequences: Maintainers must manage secure offline backups and secret rotation procedures.
+
+## ADR-064: No Debug-Signing Fallback
+
+Status: Accepted
+
+Context: Accidentally publishing debug-signed or unsigned artifacts would damage update trust.
+
+Decision: Official release mode fails closed unless all signing inputs are present and never falls back to debug signing.
+
+Consequences: Normal local release verification remains unsigned, while official release paths require complete secrets.
+
+## ADR-065: Mandatory Release Metadata And Allowlist
+
+Status: Accepted
+
+Context: Users and maintainers need verifiable, auditable release assets.
+
+Decision: Official releases must include signed APK, signed AAB, SHA-256 checksums, SBOM, license report, build information, and release notes. Release staging rejects unexpected files.
+
+Consequences: Public assets are deterministic and reviewable before publication.
+
+## ADR-066: Draft-First GitHub Releases And Immutable Assets
+
+Status: Accepted
+
+Context: Maintainers need a final human review before public publication.
+
+Decision: The release workflow creates draft GitHub Releases after validation and signing. Published release tags and assets are immutable except documented emergency recovery.
+
+Consequences: Google Play upload, Play App Signing, store listing, artifact attestations, and public launch remain separate future decisions.

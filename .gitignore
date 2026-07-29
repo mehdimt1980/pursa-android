@@ -19,6 +19,13 @@ local.properties
 *.keystore
 *.p12
 *.pem
+*.jks.base64.txt
+*.keystore.base64.txt
+signing.properties
+release.properties
+.release-staging/
+release-staging/
+tools/release/tmp/
 *.apk
 *.aab
 *.ap_

@@ -49,6 +49,12 @@ The app must avoid:
 
 Any future feature that changes data collection, storage, sharing, networking, analytics, backup behavior, audio handling, AI behavior, or account identity must undergo privacy review before implementation.
 
+## Release Metadata Privacy
+
+Release engineering adds no runtime telemetry, account, backend, analytics, or Internet permission. SBOM, license reports, checksums, and build-information files describe software artifacts and dependency coordinates; they do not contain child data, local mission progress, Journal content, device identifiers, or app-user records.
+
+Signed binaries preserve the same offline privacy model. Downloading a release from GitHub is a repository distribution action, not in-app user-data collection by Pursa.
+
 ## Future User Pilots
 
 The production app does not collect research data. The future pilot protocol in `docs/USER_PILOT_PROTOCOL.md` is separate repository documentation, not runtime behavior. Any pilot must use separate consent, data-minimization, retention, safeguarding, and governance review before collecting notes. Do not add participant identifiers, surveys, recordings, analytics, or upload behavior to the app without a new privacy review.

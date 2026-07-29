@@ -97,6 +97,19 @@ Only report these commands as successful if they were actually run and completed
 - Do not store personal identifiers or free-text answers without explicit future privacy review.
 - Backup and data-extraction rules must match privacy documentation.
 - Clear-all local progress behavior must remain tested.
+- Production signing material must never be committed.
+- Ordinary CI must never require release secrets.
+- Official release mode must fail closed without complete signing data.
+- Debug signing must never sign official releases.
+- Release tags must match `version.properties` `VERSION_NAME` with a leading `v`.
+- `VERSION_CODE` must be positive and increase for official releases.
+- Public release artifacts must use deterministic versioned names.
+- Official releases must include signed APK, signed AAB, SHA-256 checksums, SBOM, license report, build info, and release notes.
+- Release staging must use an allowlist and reject unexpected assets.
+- Published release assets and tags are immutable except documented emergency recovery.
+- No release may claim educational certification, public-store availability, or external validation that has not happened.
+- GitHub Release publication must happen only after validation, tests, signing, verification, checksums, SBOM, license report, and staging checks succeed.
+- Workflow permissions must follow least privilege, and third-party GitHub Actions must follow the repository pinning policy.
 
 ## Reporting Requirements
 

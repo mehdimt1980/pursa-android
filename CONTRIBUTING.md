@@ -67,6 +67,14 @@ Examples:
 - Keep unrelated changes in separate commits.
 - Do not commit generated local files, signing keys, APKs, AABs, or personal data.
 
+## Release Changes
+
+Release pull requests must keep `version.properties`, `CHANGELOG.md`, and `docs/releases/<version>.md` consistent. `VERSION_NAME` uses `MAJOR.MINOR.PATCH`, tags use `v<VERSION_NAME>`, and `VERSION_CODE` must be a positive integer that increases across official releases.
+
+Do not commit keystores, signing passwords, base64 keystore files, signed APKs, AABs, staging directories, local properties, or private build outputs. Ordinary contributors do not need release secrets.
+
+Maintainer-only release steps are documented in [docs/RELEASING.md](docs/RELEASING.md). Official release assets must use deterministic `pursa-<version>-...` names, include checksums, SBOM, license report, build information, and release notes, and remain immutable after publication except documented emergency recovery.
+
 ## Pull Request Expectations
 
 Pull requests should explain:

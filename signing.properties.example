@@ -1,0 +1,6 @@
+# Example only. Do not put real signing values in this file.
+# Prefer GitHub environment secrets for official releases.
+PURSA_RELEASE_KEYSTORE_PATH=
+PURSA_RELEASE_KEYSTORE_PASSWORD=
+PURSA_RELEASE_KEY_ALIAS=
+PURSA_RELEASE_KEY_PASSWORD=

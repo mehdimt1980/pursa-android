@@ -282,3 +282,29 @@ Exit criteria:
 - no runtime review UI, AI scoring, dependency, permission, account, analytics, or research collection is added.
 
 Status: Implemented in repository documentation and tests. External P4C specialist review, child user pilot, formal accessibility certification, legal review, release signing, GitHub Releases, Play Store publishing, audio, accounts, parent mode, and teacher mode remain incomplete.
+
+## Phase 14: Release Engineering
+
+Objective: Add secure, deterministic release engineering without publishing to Google Play.
+
+Main deliverables:
+
+- tracked semantic version source;
+- changelog and release-note workflow;
+- conditional official-release signing;
+- signed APK and AAB build path;
+- signature verification;
+- SHA-256 checksums;
+- SBOM, license report, and build-info artifacts;
+- allowlisted release staging;
+- maintainer dry-run and draft GitHub Release workflow;
+- keystore, secret setup, rollback, and security documentation.
+
+Exit criteria:
+
+- ordinary CI remains secret-free;
+- official release mode fails closed without complete signing inputs;
+- no signing material or generated binaries are committed;
+- release workflow is validated as far as possible before real maintainer secrets exist.
+
+Status: Implemented in repository tooling and workflow configuration. Actual signed dry run, published GitHub Release, Google Play submission, Play App Signing enrollment, store listing, public child pilot, external P4C certification, formal legal review, and public launch remain incomplete.

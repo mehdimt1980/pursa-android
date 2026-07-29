@@ -1,8 +1,45 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+}
+
+val versionProperties = Properties().apply {
+    rootProject.file("version.properties").inputStream().use(::load)
+}
+
+fun requiredVersionProperty(name: String): String =
+    versionProperties.getProperty(name)?.trim()?.takeIf { it.isNotEmpty() }
+        ?: throw GradleException("Missing $name in version.properties")
+
+val pursaVersionCode = requiredVersionProperty("VERSION_CODE").toIntOrNull()
+    ?: throw GradleException("VERSION_CODE must be an integer")
+val pursaVersionName = requiredVersionProperty("VERSION_NAME")
+
+fun releaseValue(name: String): String? =
+    providers.gradleProperty(name).orNull?.trim()?.takeIf { it.isNotEmpty() }
+        ?: providers.environmentVariable(name).orNull?.trim()?.takeIf { it.isNotEmpty() }
+
+val officialRelease = releaseValue("PURSA_OFFICIAL_RELEASE")?.equals("true", ignoreCase = true) == true
+val releaseKeystorePath = releaseValue("PURSA_RELEASE_KEYSTORE_PATH")
+val releaseKeystorePassword = releaseValue("PURSA_RELEASE_KEYSTORE_PASSWORD")
+val releaseKeyAlias = releaseValue("PURSA_RELEASE_KEY_ALIAS")
+val releaseKeyPassword = releaseValue("PURSA_RELEASE_KEY_PASSWORD")
+val releaseSigningComplete = listOf(
+    releaseKeystorePath,
+    releaseKeystorePassword,
+    releaseKeyAlias,
+    releaseKeyPassword,
+).all { it != null }
+
+if (officialRelease && !releaseSigningComplete) {
+    throw GradleException(
+        "PURSA_OFFICIAL_RELEASE=true requires PURSA_RELEASE_KEYSTORE_PATH, " +
+            "PURSA_RELEASE_KEYSTORE_PASSWORD, PURSA_RELEASE_KEY_ALIAS, and PURSA_RELEASE_KEY_PASSWORD.",
+    )
 }
 
 android {
@@ -13,10 +50,21 @@ android {
         applicationId = "org.pursa.app"
         minSdk = 26
         targetSdk = 36
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = pursaVersionCode
+        versionName = pursaVersionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        if (releaseSigningComplete) {
+            create("release") {
+                storeFile = file(releaseKeystorePath!!)
+                storePassword = releaseKeystorePassword
+                keyAlias = releaseKeyAlias
+                keyPassword = releaseKeyPassword
+            }
+        }
     }
 
     buildTypes {
@@ -25,6 +73,9 @@ android {
         }
         release {
             isMinifyEnabled = false
+            if (releaseSigningComplete) {
+                signingConfig = signingConfigs.getByName("release")
+            }
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",

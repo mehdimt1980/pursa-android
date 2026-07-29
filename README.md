@@ -6,13 +6,21 @@ Pursa is a free and open-source, offline-first Android app for helping Iranian c
 
 ## Project Status
 
-Pursa is in early implementation. The repository now contains a Persian RTL Android development build with a refreshed warm visual identity, a semantic color system, Welcome, Home, three illustrated populated content-world entry points, twelve internally reviewed Persian philosophical missions, local progress, replay, Settings/Data & Privacy, a private local Reflection Journal, a permanent educational-review workflow, and a documented future user-pilot protocol. No production app, signed release build, public download, formal P4C certification, clinical validation, or external expert approval exists yet.
+Pursa is in early implementation. The repository now contains a Persian RTL Android development build with a refreshed warm visual identity, a semantic color system, Welcome, Home, three illustrated populated content-world entry points, twelve internally reviewed Persian philosophical missions, local progress, replay, Settings/Data & Privacy, a private local Reflection Journal, a permanent educational-review workflow, and a documented future user-pilot protocol. No production app, published GitHub Release, public download, Google Play listing, formal P4C certification, clinical validation, or external expert approval exists yet. Release engineering is present so maintainers can create signed draft GitHub Releases when protected signing secrets are configured.
 
 ## Continuous Integration
 
 Pushes to `main` and pull requests targeting `main` run Android lint, local unit tests, a debug build, a release assembly check, and instrumentation-test APK assembly through GitHub Actions. Successful runs upload temporary APK artifacts for development review.
 
 The APK artifacts are internal development builds, not stable public releases. Instrumentation tests are compiled in CI; device/emulator execution is run locally when an emulator or device is available.
+
+## Releases
+
+Formal version values live in [version.properties](version.properties). Ordinary CI artifacts are unsigned or debug development outputs and must not be treated as official releases.
+
+The dedicated Android Release workflow supports maintainer-controlled signed dry runs and draft GitHub Releases with deterministic assets, SHA-256 checksums, SBOM, license report, build information, and release notes. See [docs/RELEASING.md](docs/RELEASING.md), [docs/RELEASE_SECURITY.md](docs/RELEASE_SECURITY.md), [docs/RELEASE_CHECKLIST.md](docs/RELEASE_CHECKLIST.md), [CHANGELOG.md](CHANGELOG.md), and [SECURITY.md](SECURITY.md).
+
+To verify an official asset after a release exists, compare its SHA-256 value against the matching `pursa-<version>-checksums-sha256.txt` file from the same GitHub Release.
 
 ## Offline Story Content
 
