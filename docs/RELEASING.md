@@ -98,3 +98,11 @@ git diff --check
 ```
 
 Do not attempt an official signed build without maintainer signing inputs.
+
+## AAB Signature Verification
+
+The release workflow verifies the signed APK with Android `apksigner verify --verbose --print-certs`.
+
+The signed AAB is verified with `jarsigner -verify -verbose -certs` and the full output is printed. The workflow intentionally does not use `jarsigner -strict` because Pursa's Android release certificate is a project-owned self-signed application signing certificate, not a certificate rooted in a public web PKI certificate authority. `-strict` treats that expected trust-chain warning as a hard error even when the AAB signature is valid.
+
+The workflow still fails for a missing, empty, unsigned, corrupted, or invalidly signed AAB. It also extracts the APK signer SHA-256 certificate digest and compares it with the AAB signer certificate fingerprint so the staged APK and AAB must be signed by the same release certificate.

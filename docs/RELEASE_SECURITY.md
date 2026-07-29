@@ -6,6 +6,12 @@ Production signing material must never be committed. Official release signing us
 
 Official release mode fails closed when any signing input is missing. It must not fall back to debug signing, unsigned release output, or partial publication.
 
+## AAB Verification And Self-Signed Certificates
+
+Android application signing certificates are commonly project-owned and self-signed. That is expected for Pursa's release key and is different from browser/server TLS trust. The release workflow therefore uses `jarsigner -verify -verbose -certs` for AAB signature verification and does not use `jarsigner -strict`, because strict mode fails on the expected untrusted public-CA chain.
+
+This does not disable AAB verification. The workflow prints the full `jarsigner` output, requires successful verification, rejects missing or zero-length AAB files, and compares the AAB signing-certificate SHA-256 fingerprint against the APK signing certificate reported by `apksigner`.
+
 ## Protected Environment
 
 Use a `production-release` GitHub Environment when repository capabilities allow. Recommended protections:

@@ -130,8 +130,31 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          "${ANDROID_HOME}/build-tools/$(ls "${ANDROID_HOME}/build-tools" | sort -V | tail -n1)/apksigner" verify --verbose --print-certs app/build/outputs/apk/release/app-release.apk
-          jarsigner -verify -strict -certs app/build/outputs/bundle/release/app-release.aab
+          APK_PATH="app/build/outputs/apk/release/app-release.apk"
+          AAB_PATH="app/build/outputs/bundle/release/app-release.aab"
+          test -s "${APK_PATH}"
+          test -s "${AAB_PATH}"
+
+          mkdir -p build/release-verification
+          APKSIGNER="${ANDROID_HOME}/build-tools/$(ls "${ANDROID_HOME}/build-tools" | sort -V | tail -n1)/apksigner"
+          "${APKSIGNER}" verify --verbose --print-certs "${APK_PATH}" | tee build/release-verification/apksigner-apk.txt
+
+          APK_CERT_SHA256="$(sed -n 's/^Signer #1 certificate SHA-256 digest: //p' build/release-verification/apksigner-apk.txt | head -n1 | tr -d ':[:space:]' | tr '[:upper:]' '[:lower:]')"
+          test -n "${APK_CERT_SHA256}"
+
+          set +e
+          jarsigner -verify -verbose -certs "${AAB_PATH}" > build/release-verification/jarsigner-aab.txt 2>&1
+          JARSIGNER_STATUS="$?"
+          set -e
+          cat build/release-verification/jarsigner-aab.txt
+          test "${JARSIGNER_STATUS}" -eq 0
+          grep -Eq 'jar verified[,.]' build/release-verification/jarsigner-aab.txt
+
+          keytool -printcert -jarfile "${AAB_PATH}" > build/release-verification/keytool-aab-cert.txt
+          cat build/release-verification/keytool-aab-cert.txt
+          AAB_CERT_SHA256="$(sed -n 's/.*SHA256: //p' build/release-verification/keytool-aab-cert.txt | head -n1 | tr -d ':[:space:]' | tr '[:upper:]' '[:lower:]')"
+          test -n "${AAB_CERT_SHA256}"
+          test "${APK_CERT_SHA256}" = "${AAB_CERT_SHA256}"
 
       - name: Generate SBOM, license report, and build info
         shell: bash
