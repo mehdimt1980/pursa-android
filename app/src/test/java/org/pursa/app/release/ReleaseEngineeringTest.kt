@@ -57,6 +57,8 @@ class ReleaseEngineeringTest {
         assertTrue(workflow.contains("test \"${'$'}{JARSIGNER_STATUS}\" -eq 4"))
         assertTrue(workflow.contains("self-signed|PKIX path building failed|unable to find valid certification path"))
         assertTrue(workflow.contains("keytool -printcert -jarfile"))
+        assertTrue(workflow.contains("KEYTOOL_STATUS"))
+        assertTrue(workflow.contains("test \"${'$'}{KEYTOOL_STATUS}\" -eq 4"))
         assertTrue(workflow.contains("APK_CERT_SHA256"))
         assertTrue(workflow.contains("AAB_CERT_SHA256"))
         assertTrue(workflow.contains("test \"${'$'}{APK_CERT_SHA256}\" = \"${'$'}{AAB_CERT_SHA256}\""))

@@ -153,8 +153,15 @@ jobs:
             grep -Eq 'self-signed|PKIX path building failed|unable to find valid certification path' build/release-verification/jarsigner-aab.txt
           fi
 
-          keytool -printcert -jarfile "${AAB_PATH}" > build/release-verification/keytool-aab-cert.txt
+          set +e
+          keytool -printcert -jarfile "${AAB_PATH}" > build/release-verification/keytool-aab-cert.txt 2>&1
+          KEYTOOL_STATUS="$?"
+          set -e
           cat build/release-verification/keytool-aab-cert.txt
+          if [[ "${KEYTOOL_STATUS}" -ne 0 ]]; then
+            test "${KEYTOOL_STATUS}" -eq 4
+            grep -Eq 'self-signed|PKIX path building failed|unable to find valid certification path' build/release-verification/keytool-aab-cert.txt
+          fi
           AAB_CERT_SHA256="$(sed -n 's/.*SHA256: //p' build/release-verification/keytool-aab-cert.txt | head -n1 | tr -d ':[:space:]' | tr '[:upper:]' '[:lower:]')"
           test -n "${AAB_CERT_SHA256}"
           test "${APK_CERT_SHA256}" = "${AAB_CERT_SHA256}"

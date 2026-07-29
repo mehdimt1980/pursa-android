@@ -10,7 +10,7 @@ Official release mode fails closed when any signing input is missing. It must no
 
 Android application signing certificates are commonly project-owned and self-signed. That is expected for Pursa's release key and is different from browser/server TLS trust. The release workflow therefore uses `jarsigner -verify -verbose -certs` for AAB signature verification and does not use `jarsigner -strict`, because strict mode fails on the expected untrusted public-CA chain.
 
-This does not disable AAB verification. The workflow prints the full `jarsigner` output, requires `jar verified`, accepts `jarsigner` exit code `4` only for the expected self-signed or PKIX trust-chain warning, rejects missing or zero-length AAB files, and compares the AAB signing-certificate SHA-256 fingerprint against the APK signing certificate reported by `apksigner`.
+This does not disable AAB verification. The workflow prints the full `jarsigner` output, requires `jar verified`, accepts `jarsigner` and `keytool` exit code `4` only for the expected self-signed or PKIX trust-chain warning, rejects missing or zero-length AAB files, and compares the AAB signing-certificate SHA-256 fingerprint against the APK signing certificate reported by `apksigner`.
 
 ## Protected Environment
 
